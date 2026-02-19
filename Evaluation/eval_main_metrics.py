@@ -18,11 +18,11 @@ GEMINI_BASE_URL = os.getenv("GEMINI_BASE_URL")
 MAX_WORKERS = 3
 QILIN_ROOT = "path of dataset"
 RUNS_DIR = os.path.join(QILIN_ROOT, "ad_runs")
-PRODUCT_LIBRARY_JSON = os.path.join(QILIN_ROOT, "product_library", "products_raw.json")
+PRODUCT_LIBRARY_JSON = os.path.join(QILIN_ROOT, "product_library", "products.json")
 INDEX_DIR = os.path.join(QILIN_ROOT, "index_cache")
 USER2RECENT_PKL = os.path.join(INDEX_DIR, "user2recent.pkl")
 NOTE_INDEX_PKL = os.path.join(INDEX_DIR, "note_index_v3.pkl") 
-OUTPUT_CSV = "/NAS/xiarx/dataset/Qilin/eval_main_new2_results.csv"
+OUTPUT_CSV = "path of output results"
 
 
 def safe_filename(s: str, max_len: int = 96) -> str:
