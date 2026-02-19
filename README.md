@@ -77,7 +77,7 @@ user_idx,gender,age,note_idx,note_title,note_content,image_paths
 
 ## 🚀 Usage
 
-The main entry point is `main.py`. It supports end-to-end generation, batch submission, and asynchronous polling.
+The main entry point is `Personalized_Creative_Generation.py`. It supports end-to-end generation, batch submission, and asynchronous polling.
 
 ### 1. End-to-End Generation
 To generate personalized videos for a specific user and specific products:
