@@ -31,7 +31,7 @@ USER_FEAT_GLOB = os.path.join(QILIN_ROOT, "user_feat", "*.parquet")
 
 IMAGES_ROOT = 'path of pictures of qilin dataset'
 
-PRODUCT_LIBRARY_JSON = os.path.join(QILIN_ROOT, "product_library", "products_raw.json")
+PRODUCT_LIBRARY_JSON = os.path.join(QILIN_ROOT, "product_library", "products.json")
 
 INDEX_DIR = os.path.join(QILIN_ROOT, "index_cache")
 os.makedirs(INDEX_DIR, exist_ok=True)
@@ -39,13 +39,13 @@ os.makedirs(INDEX_DIR, exist_ok=True)
 USER2RECENT_PKL = os.path.join(INDEX_DIR, "user2recent.pkl")
 USER_FEAT_PKL = os.path.join(INDEX_DIR, "user_feat.pkl")
 
-NOTE_INDEX_PKL_V3 = os.path.join(INDEX_DIR, "note_index_v3.pkl")
+NOTE_INDEX_PKL_V3 = os.path.join(INDEX_DIR, "note_index.pkl")
 MAX_IMAGES_PER_NOTE_INDEX = 8  
 
-USER_PROFILE_DIR = os.path.join(QILIN_ROOT, "user_profiles_v3")
+USER_PROFILE_DIR = os.path.join(QILIN_ROOT, "user_profiles")
 os.makedirs(USER_PROFILE_DIR, exist_ok=True)
 
-RUNS_DIR = os.path.join(QILIN_ROOT, "ad_runs_v3")
+RUNS_DIR = os.path.join(QILIN_ROOT, "ad_runs")
 os.makedirs(RUNS_DIR, exist_ok=True)
 
 # LLM
@@ -334,7 +334,7 @@ def build_user2recent() -> Dict[int, List[int]]:
 
     with open(USER2RECENT_PKL, "wb") as f:
         pickle.dump(user2recent, f)
-    print("💾 Saved:", USER2RECENT_PKL, "users:", len(user2recent))
+    print(" Saved:", USER2RECENT_PKL, "users:", len(user2recent))
     _USER2RECENT = user2recent
     return _USER2RECENT
 
@@ -362,27 +362,27 @@ def build_note_index_v3() -> Dict[int, Dict[str, Any]]:
     if _NOTE_INDEX is not None:
         return _NOTE_INDEX
 
-    if os.path.exists(NOTE_INDEX_PKL_V3):
-        print("Load cached note_index_v3.pkl")
-        with open(NOTE_INDEX_PKL_V3, "rb") as f:
+    if os.path.exists(NOTE_INDEX_PKL):
+        print("Load cached note_index.pkl")
+        with open(NOTE_INDEX_PKL, "rb") as f:
             _NOTE_INDEX = pickle.load(f)
-        print("note_index_v3 size:", len(_NOTE_INDEX))
+        print("note_index size:", len(_NOTE_INDEX))
         return _NOTE_INDEX
 
-    print("No cache. Building note_index_v3 from notes parquet... (one-time, may take time)")
+    print("No cache. Building note_index from notes parquet... (one-time, may take time)")
     ds = load_notes_ds()
     note_idx = {}
 
-    for row in tqdm(ds, desc="build note_index_v3"):
+    for row in tqdm(ds, desc="build note_index"):
         nid = int(row["note_idx"])
         title = normalize_text(row.get("note_title", ""))
         content = truncate_text(row.get("note_content", ""), MAX_TEXT_CHARS)
         imgs = _existing_images_abs(row.get("image_path", None), limit=MAX_IMAGES_PER_NOTE_INDEX)
         note_idx[nid] = {"title": title, "content": content, "images": imgs}
 
-    with open(NOTE_INDEX_PKL_V3, "wb") as f:
+    with open(NOTE_INDEX_PKL, "wb") as f:
         pickle.dump(note_idx, f)
-    print("Saved:", NOTE_INDEX_PKL_V3, "notes:", len(note_idx))
+    print("Saved:", NOTE_INDEX_PKL, "notes:", len(note_idx))
     _NOTE_INDEX = note_idx
     return _NOTE_INDEX
 
@@ -523,7 +523,7 @@ Output JSON ONLY:
 }
 """).strip()
 
-def prompt_pick_rep_images_v3(level: str) -> str:
+def prompt_pick_rep_images(level: str) -> str:
     return normalize_text(f"""
 You are a visual preference selector.
 
@@ -575,7 +575,7 @@ Hard constraints:
 - Keep everything generic and reusable in ads.
 """).strip()
 
-def prompt_storyboard_v3() -> str:
+def prompt_storyboard() -> str:
     return normalize_text("""
 You are a vertical short-form ad director and copywriter.
 
@@ -631,7 +631,7 @@ Output ENGLISH JSON ONLY:
 }
 """).strip()
 
-def prompt_sora_header_v3() -> str:
+def prompt_sora_header() -> str:
     return normalize_text("""
 Generate a 15-second vertical (9:16) in-feed native video ad.
 
@@ -691,7 +691,7 @@ def get_text_tiering(uid: int, note_index: Dict[int, Dict[str, Any]], user2recen
     if len(notes_payload) < 5:
         raise RuntimeError(f"user {uid} has too few valid notes (<5)")
 
-    prompt = prompt_text_tiering_v3()
+    prompt = prompt_text_tiering()
     input_json = {"user_id": uid, "notes": notes_payload}
     messages = [{"role": "user", "content": prompt + "\n\nINPUT_JSON:\n" + json.dumps(input_json, ensure_ascii=False)}]
     out = llm_chat_json(messages, temperature=TEMP_TIER)
@@ -742,7 +742,7 @@ def load_or_build_user_profile(uid: int,
 # Choose tier (strong vs medium only)
 # -----------------------------
 def choose_best_tier_for_product(user_profile: Dict[str, Any], product: Dict[str, Any]) -> Dict[str, Any]:
-    prompt = prompt_choose_tier_v3()
+    prompt = prompt_choose_tier()
     tiers = (user_profile.get("text_preferences") or {}).get("tiers", {}) or {}
 
     user_tiers_payload = {
@@ -842,7 +842,7 @@ def pick_representative_images_from_tier(level: str,
         return candidates, debug
 
     # use vision LLM to pick up to 4
-    prompt = prompt_pick_rep_images_v3(level)
+    prompt = prompt_pick_rep_images(level)
     vision_items = encode_images_for_vision(candidates, max_size=(512, 512), quality=80)
 
     if len(vision_items) < 4:
@@ -908,7 +908,7 @@ def extract_visual_elements_from_grid(user_grid_path: str) -> Dict[str, Any]:
         return {"vibe": {"mood_tags": [], "colors_lighting": [], "camera_style": []},
                 "elements": {"scenes": [], "objects": [], "actions": [], "composition": []}}
 
-    prompt = prompt_visual_elements_v3()
+    prompt = prompt_visual_elements()
     vision_items = encode_images_for_vision([user_grid_path], max_size=(768, 768), quality=85)
     if not vision_items:
         return {"vibe": {"mood_tags": [], "colors_lighting": [], "camera_style": []},
@@ -934,8 +934,6 @@ def extract_visual_elements_from_grid(user_grid_path: str) -> Dict[str, Any]:
 def upload_to_aliyun_oss(local_file_path: str) -> Optional[str]:
     if not local_file_path or not os.path.exists(local_file_path):
         return None
-
-    # 检查环境变量是否存在
     if not OSS_ACCESS_KEY_ID or not OSS_ACCESS_KEY_SECRET:
         print("  [OSS Error] Missing Aliyun Access Keys in environment variables!")
         return None
@@ -966,7 +964,7 @@ def generate_storyboard(user_profile: Dict[str, Any],
                         match_result: Dict[str, Any],
                         tier_notes_payload: List[Dict[str, Any]],
                         visual: Dict[str, Any]) -> Dict[str, Any]:
-    prompt = prompt_storyboard_v3()
+    prompt = prompt_storyboard()
     demo = user_profile.get("demographics", {})
     text_style = (user_profile.get("text_preferences") or {}).get("text_style_global", {})
     tiers = (user_profile.get("text_preferences") or {}).get("tiers", {})
@@ -1000,7 +998,7 @@ def generate_storyboard(user_profile: Dict[str, Any],
     return out
 
 def build_sora_web_prompt(storyboard: Dict[str, Any]) -> str:
-    header = prompt_sora_header_v3()
+    header = prompt_sora_header()
     story_txt = json.dumps(storyboard, ensure_ascii=False, indent=2)
     return header + "\n\nSTORYBOARD_JSON:\n" + story_txt + "\n"
 
@@ -1192,7 +1190,7 @@ def run_one_prepare_and_maybe_submit(uid: int,
         if (not do_sora) or os.path.exists(video_path) or (submit_only and os.path.exists(task_meta_path)):
             prog["runs"][run_key]["status"] = "done_or_ready"
             save_progress(prog)
-            print(f"⏭️  Skip prepared: user={uid}, product={product_name}")
+            print(f"Skip prepared: user={uid}, product={product_name}")
             return
 
     print(f"\n---- user={uid}, product={product_name} ----")
@@ -1274,7 +1272,7 @@ def run_one_prepare_and_maybe_submit(uid: int,
         return
 
     if not sora_ref_path or not os.path.exists(sora_ref_path):
-        print(f"⚠️  No sora_ref. Skip submit for user={uid}, product={product_name}")
+        print(f"No sora_ref. Skip submit for user={uid}, product={product_name}")
         prog["runs"][run_key]["status"] = "skip_sora_no_ref"
         save_progress(prog)
         return
@@ -1558,7 +1556,7 @@ def main():
         print(f"Using ALL products: {len(products)}")
 
     user2recent = build_user2recent()
-    note_index = build_note_index_v3()
+    note_index = build_note_index()
     user_feat = build_user_feat_index()
 
     prog = load_progress()
