@@ -1,0 +1,14 @@
+# Personalized Creative Generation
+openai>=1.0.0
+requests
+httpx
+tqdm
+datasets
+Pillow
+oss2
+pyarrow
+numpy
+
+# evaluation
+google-genai
+pandas
