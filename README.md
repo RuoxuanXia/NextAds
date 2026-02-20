@@ -1,5 +1,24 @@
 # NextAds: Towards Next-generation Personalized Video Advertising
 
+<div align="center">
+
+<a href="[这里填您的Netlify网址](https://nextads-demo.netlify.app)">
+<img src="https://img.shields.io/badge/🌐_CLICK_HERE_TO_VIEW-INTERACTIVE_WEB_DEMO-bd00ff?style=for-the-badge&logoColor=00f2ff&labelColor=1a0529&color=00f2ff" alt="Interactive Web Demo" height="50">
+</a>
+
+<br><br>
+
+<p>
+  <b><i>Comprehensive Gallery for <span style="color: #bd00ff;">Personalized Creative Generation</span></i></b>
+  <br>
+  <b><i>and <span style="color: #00f2ff;">Personalized Creative Integration</span> Showcases</i></b>
+</p>
+
+</div>
+> **Note to Reviewers:** This website has been fully anonymized for double-blind review purposes. It contains the comprehensive qualitative results and interactive video galleries mentioned in the paper.
+
+---
+
 This repository contains the official implementation of our paper on **NextAds: Towards Next-generation Personalized Video Advertising**.
 **NextAds** formulates two representative
 tasks: personalized creative generation and personalized creative
