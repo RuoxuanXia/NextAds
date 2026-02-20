@@ -14,10 +14,11 @@
   <b><i>and <span style="color: #00f2ff;">Personalized Creative Integration</span> Showcases</i></b>
 </p>
 
-</div>
 > **Note to Reviewers:** This website has been fully anonymized for double-blind review purposes. It contains the comprehensive qualitative results and interactive video galleries mentioned in the paper.
 
 ---
+</div>
+
 
 This repository contains the official implementation of our paper on **NextAds: Towards Next-generation Personalized Video Advertising**.
 **NextAds** formulates two representative
