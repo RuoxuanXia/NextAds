@@ -2,7 +2,7 @@
 
 <div align="center">
 
-<a href="https://nextads-demo.netlify.app">
+<a href="https://nextadsdemo.netlify.app">
 <img src="https://img.shields.io/badge/🌐_CLICK_HERE_TO_VIEW-INTERACTIVE_WEB_DEMO-bd00ff?style=for-the-badge&logoColor=00f2ff&labelColor=1a0529&color=00f2ff" alt="Interactive Web Demo" height="50">
 </a>
 
