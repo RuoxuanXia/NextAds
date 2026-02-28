@@ -1,5 +1,18 @@
 # NextAds: Towards Next-generation Personalized Video Advertising
 
+# NextAds: A Generation-Based Paradigm for Personalized Video Advertising
+
+<div align="center">
+  <h3>
+    👉 <a href="https://nextadsdemo.netlify.app" target="_blank">Click Here to Visit Our Project Page</a> 👈
+  </h3>
+  
+  <a href="https://nextadsdemo.netlify.app" target="_blank">
+    <img src="https://img.shields.io/badge/🌐_Project_Page-Live_Demo-blue?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Project Page">
+  </a>
+</div>
+
+
 ## 📖 Abstract
 
 With the rapid growth of online video consumption, video advertising has become increasingly dominant in the digital advertising landscape. Yet diverse users and viewing contexts makes one-size-fits-all ad creatives insufficient for consistent effectiveness, underlining the importance of personalization. In practice, most personalized video advertising systems follow a retrieval-based paradigm, selecting the optimal one from a small set of professionally pre-produced creatives for each user. Such static and finite inventories limits both the granularity and the timeliness of personalization, and prevents the creatives from being continuously refined based on online user feedback. Recent advances in generative AI make it possible to move beyond retrieval toward optimizing video creatives in a continuous space at serving time.
@@ -87,9 +100,13 @@ qilin_dataset/
 For quick testing, we provide `user_subset.csv`, which aggregates user demographics, clicked note texts, and linked image paths.
 ```csv
 user_idx,gender,age,note_idx,note_title,note_content,image_paths
-16,female,31-35,1739813,170mL salon hair comb hair dye bottle perm potion bottle bubble dye comb,"New arrivals, 170mL salon hair comb...",/path/to/images/3347833.jpg|/path/to/images/3347834.jpg
-16,female,31-35,1545593,"Men's hair grows fast on the sides, use a fade comb to cut it at home","The most common problem for men is...",/path/to/images/2887858.jpg
+16,female,31-35,1739813,170mL Salon Haircut Comb Hair Dye Bottle Perm Lotion Bottle Bubble Dye Comb,"New arrival, 170mL salon haircut comb, hair dye bottle, perm lotion coloring bottle, bubble hair dye bottle",/path/to/images/3347833.jpg|/path/to/images/3347834.jpg
+16,female,31-35,1545593,"Men's side hair grows fast, use a fade comb to cut at home","The most common problem for men is that the side hair grows very fast...",/path/to/images/2887858.jpg
+16,female,31-35,896289,Dual-purpose haircut comb,#Haircut[Topic]# #KidsHaircut[Topic]# #GoodThingsRecommendation[Topic]#,
+16,female,31-35,1121715,Haircut comb review,"With this comb, can you cut your own hair at home? #Review #Haircut #Comb #Unboxing",
+16,female,31-35,886071,Sugar Orange and Gong's Little Orange,"#Phalaenopsis[Topic]# I prefer the color of Sugar Orange, a bright orange, but its growth is particularly poor...",/path/to/images/4535070.jpg|/path/to/images/4535071.jpg
 ```
+*(Note: Multiple image paths are separated by a pipe `|` character. Empty image paths indicate text-only interactions.)*
 
 ### 3. Usage
 The main entry point is `main.py` (or `Personalized_Creative_Generation.py`). It supports end-to-end generation, batch submission, and asynchronous polling.
