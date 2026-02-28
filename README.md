@@ -13,7 +13,6 @@ In this light, we propose **NextAds**, a generation-based paradigm for next-gene
   <em><strong>Figure 1:</strong> The evolution of video advertising has largely progressed along the axes of personalization and nativeness, yet high production costs and manual creative bottlenecks prevent the industry from reaching the upper-right corner.</em>
 </p>
 
----
 
 ## 🚀 NextAds Framework 
 
