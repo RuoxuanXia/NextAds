@@ -126,6 +126,13 @@ Generated inside `ad_runs/user_{uid}/{product_name}/`:
 
 ### 1. Overview
 The PCI Pipeline enables automatic personalized ad insertion. It generates user-preference-aligned soft ads by leveraging target video content, product information, and extracted user interaction history/personalization data.
+The PCI Pipeline enables automatic personalized ad insertion through the following key stages:
+* **Multimodal User Modeling**: Based on user interaction history (especially engaged videos), we use a VLM to preprocess and annotate preliminary attributes, including topic, textual presentation style, and visual presentation style (e.g., visual tone and camera motion). These are aggregated with video covers to construct a profile capturing the user’s textual, visual, and fine-grained element preferences.
+* **Host Video Summarization**: We employ a VLM to generate a structured summary of the target host video, capturing four key aspects: topic, content, visual presentation, and audio characteristics.
+* **Integration Decision**: Prioritizing integration smoothness, we bypass the user-product matching stage. Instead, a VLM determines the optimal integration point by identifying the frame in the host video that yields the most natural transition for introducing the product, outputting the chosen point, a brief rationale, and the exact start frame.
+* **Storyboard Generation**: Utilizing the user profile, target product, host video summary, and integration decision, the VLM generates a detailed storyboard script. Crucially, the creative is constrained to start and eventually return to the selected integration point, ensuring a seamless visual loop back to the host context.
+* **Asset Grounding**: To promote faithful generation and reduce hallucinations, we build a reference visual collage by compositing the target product images, user-preferred elements, and the selected integration start frame. This provides explicit visual grounding for the generation process.
+* **Video Creative Integration**: Finally, a video generation model synthesizes the ad creative from the storyboard and grounded assets. The generated segment is then precisely inserted into the host video at the designated integration point.
 
 ### 2. Model Configuration
 Configure the model settings in the `run.sh` script based on your preference:
