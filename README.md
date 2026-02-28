@@ -1,8 +1,16 @@
 # NextAds: Towards Next-generation Personalized Video Advertising
 
+## 📖 Abstract
 
+With the rapid growth of online video consumption, video advertising has become increasingly dominant in the digital advertising landscape. Yet diverse users and viewing contexts makes one-size-fits-all ad creatives insufficient for consistent effectiveness, underlining the importance of personalization. In practice, most personalized video advertising systems follow a retrieval-based paradigm, selecting the optimal one from a small set of professionally pre-produced creatives for each user. Such static and finite inventories limits both the granularity and the timeliness of personalization, and prevents the creatives from being continuously refined based on online user feedback. Recent advances in generative AI make it possible to move beyond retrieval toward optimizing video creatives in a continuous space at serving time.
 
-This repository contains the official implementation of **NextAds**, a comprehensive framework for personalized in-feed native ads. The repository is divided into two primary subsystems:
+In this light, we propose **NextAds**, a generation-based paradigm for next-generation personalized video advertising, and conceptualize NextAds with four core components. To enable comparable research progress, we formulate two representative tasks: **personalized creative generation** and **personalized creative integration**, and introduce corresponding lightweight benchmarks. To assess feasibility, we instantiate end-to-end pipelines for both tasks and conduct initial exploratory experiments, demonstrating that GenAI can generate and integrate personalized creatives with encouraging performance. Moreover, we discuss the key challenges and opportunities under this paradigm, aiming to provide actionable insights for both researchers and practitioners and to catalyze progress in personalized video advertising.
+
+---
+
+## 🚀 Two Representative Tasks
+
+To enable comparable research progress and assess feasibility, this repository provides end-to-end pipeline instantiations for the two core tasks formulated in **NextAds**:
 1. **Pipeline A (Personalized Creative Generation):** Generates personalized ads from scratch by blending user preferences with product characteristics.
 2. **Pipeline B (Personalized Creative Integration):** Automatically inserts personalized soft ads into existing target video content.
 
