@@ -17,7 +17,7 @@ In this light, we propose **NextAds**, a generation-based paradigm for next-gene
 ## 🚀 NextAds Framework 
 
 <p align="center">
-  <img src="pictures/intro.png" alt="NextAds Paradigm Shift" width="95%">
+  <img src="pictures/intro.png" alt="NextAds Paradigm Shift" width="80%">
 </p>
 <p align="center">
   <em><strong>Figure 2: Paradigm shift: from retrieval to generation.</strong> NextAds transforms personalized video advertising from static retrieval over a discrete creative inventory to dynamic generation-based optimization in a continuous space.</em>
