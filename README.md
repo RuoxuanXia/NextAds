@@ -1,7 +1,5 @@
 # NextAds: Towards Next-generation Personalized Video Advertising
 
-# NextAds: A Generation-Based Paradigm for Personalized Video Advertising
-
 <div align="center">
   <h3>
     👉 <a href="https://nextadsdemo.netlify.app" target="_blank">Click Here to Visit Our Project Page</a> 👈
@@ -67,8 +65,6 @@ Ensure you are using Python 3.9+ (tested on macOS and Linux).
    export SORA2_API_KEY="your_sora_token"
    export GEMINI_API_KEY="your_gemini_api_key"
    ```
-
----
 
 ## 🎬 Pipeline A: Personalized Creative Generation (PCG)
 
