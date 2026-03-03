@@ -173,14 +173,17 @@ bash run.sh
 
 ## 📊 Evaluation Suite
 
-We provide an automated evaluation pipeline to assess the quality of the generated personalized creatives across four dimensions. All dimensions are scored on a scale of **0-10**.
+We provide an automated evaluation pipeline to assess the quality of the generated personalized creatives across five dimensions. All dimensions are scored on a scale of **0-10**. 
+
+*(Note: Metrics marked with **[PCI & PCG]** apply to both tasks, while **[PCI Only]** is specific to PCI.)*
 
 | Dimension | Description | Script |
 | :--- | :--- | :--- |
-| **Diversity** | Evaluates variance in visual style and narrative across different products for the same user. | `eval_diversity.py` |
-| **Presentation** | Measures how well the video's aesthetic, pacing, and tone align with the user's historical vibe. | `eval_main_metrics.py` |
-| **Content** | Assesses if the ad highlights product features that resonate with specific user interests. | `eval_main_metrics.py` |
-| **Identity Consistency** | Verifies the factual accuracy of the product's appearance, logo, and selling points. | `eval_main_metrics.py` |
+| **Diversity** `[PCI & PCG]` | Evaluates variance in visual style and narrative across different products for the same user. | `eval_diversity.py` |
+| **Presentation** `[PCI & PCG]` | Measures how well the video's aesthetic, pacing, and tone align with the user's historical vibe. | `eval_main_metrics.py` |
+| **Content** `[PCI & PCG]` | Assesses if the ad highlights product features that resonate with specific user interests. | `eval_main_metrics.py` |
+| **Identity Consistency** `[PCI & PCG]` | Verifies the factual accuracy of the product's appearance, logo, and selling points. | `eval_main_metrics.py` |
+| **Integration** `[PCI Only]` | Evaluates how naturally the advertisement is woven into the video content, considering contextual flow, thematic consistency, and user experience disruption. | `eval_main_metrics.py` |
 
 ### 1. How to Run
 
