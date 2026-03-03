@@ -161,6 +161,8 @@ Key parameters:
 
 *Edit all necessary file paths (dataset path, output path) in `run.sh` to match your local environment before running.*
 
+**For your convenience, we have uploaded the subset used in our benchmark on [NextAds_PCI](https://1drv.ms/f/c/61ec5ad72cbbbe63/IgBZIy7ntvlETI4N2WHGHZeTASy8CdCLqhHBcco_rEDd55c?e=eRYPwY).**
+
 ### 4. Usage
 Generate personalized integrated ads with a single command:
 ```bash
