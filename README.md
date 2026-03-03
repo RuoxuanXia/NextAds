@@ -177,13 +177,23 @@ We provide an automated evaluation pipeline to assess the quality of the generat
 
 *(Note: Metrics marked with **[PCI & PCG]** apply to both tasks, while **[PCI Only]** is specific to PCI.)*
 
+
+
 | Dimension | Description | Script |
 | :--- | :--- | :--- |
-| **Diversity** `[PCI & PCG]` | Evaluates variance in visual style and narrative across different products for the same user. | `eval_diversity.py` |
-| **Presentation** `[PCI & PCG]` | Measures how well the video's aesthetic, pacing, and tone align with the user's historical vibe. | `eval_main_metrics.py` |
-| **Content** `[PCI & PCG]` | Assesses if the ad highlights product features that resonate with specific user interests. | `eval_main_metrics.py` |
-| **Identity Consistency** `[PCI & PCG]` | Verifies the factual accuracy of the product's appearance, logo, and selling points. | `eval_main_metrics.py` |
-| **Integration** `[PCI Only]` | Evaluates how naturally the advertisement is woven into the video content, considering contextual flow, thematic consistency, and user experience disruption. | `eval_main_metrics.py` |
+| **Diversity** <br> ![PCI & PCG](https://img.shields.io/badge/-PCI_%26_PCG-blue) | Evaluates variance in visual style and narrative... | `eval_diversity.py` |
+| **Presentation** <br> ![PCI & PCG](https://img.shields.io/badge/-PCI_%26_PCG-blue) | Measures how well the video's aesthetic... | `eval_main_metrics.py` |
+| **Ad Integration** <br> ![PCI Only](https://img.shields.io/badge/-PCI_Only-red) | Evaluates how naturally the advertisement is woven... | `eval_integration.py` |
+
+
+
+| Dimension | Description | Script |
+| :--- | :--- | :--- |
+| **Diversity** <br> ![PCI & PCG](https://img.shields.io/badge/-PCI_%26_PCG-blue) | Evaluates variance in visual style and narrative across different products for the same user. | `eval_diversity.py` |
+| **Presentation** <br> ![PCI & PCG](https://img.shields.io/badge/-PCI_%26_PCG-blue) | Measures how well the video's aesthetic, pacing, and tone align with the user's historical vibe. | `eval_main_metrics.py` |
+| **Content** <br> ![PCI & PCG](https://img.shields.io/badge/-PCI_%26_PCG-blue)  | Assesses if the ad highlights product features that resonate with specific user interests. | `eval_main_metrics.py` |
+| **Identity Consistency** ![PCI & PCG](https://img.shields.io/badge/-PCI_%26_PCG-blue) | Verifies the factual accuracy of the product's appearance, logo, and selling points. | `eval_main_metrics.py` |
+| **Integration** <br> ![PCI Only](https://img.shields.io/badge/-PCI_Only-red) | Evaluates how naturally the advertisement is woven into the video content, considering contextual flow, thematic consistency, and user experience disruption. | `eval_main_metrics.py` |
 
 ### 1. How to Run
 
