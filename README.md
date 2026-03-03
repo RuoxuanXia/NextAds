@@ -175,17 +175,7 @@ bash run.sh
 
 We provide an automated evaluation pipeline to assess the quality of the generated personalized creatives across five dimensions. All dimensions are scored on a scale of **0-10**. 
 
-*(Note: Metrics marked with **[PCI & PCG]** apply to both tasks, while **[PCI Only]** is specific to PCI.)*
-
-
-
-| Dimension | Description | Script |
-| :--- | :--- | :--- |
-| **Diversity** <br> ![PCI & PCG](https://img.shields.io/badge/-PCI_%26_PCG-blue) | Evaluates variance in visual style and narrative... | `eval_diversity.py` |
-| **Presentation** <br> ![PCI & PCG](https://img.shields.io/badge/-PCI_%26_PCG-blue) | Measures how well the video's aesthetic... | `eval_main_metrics.py` |
-| **Ad Integration** <br> ![PCI Only](https://img.shields.io/badge/-PCI_Only-red) | Evaluates how naturally the advertisement is woven... | `eval_integration.py` |
-
-
+*(Note: Metrics marked with ![PCI & PCG](https://img.shields.io/badge/-PCI_%26_PCG-blue) apply to both tasks, while ![PCI Only](https://img.shields.io/badge/-PCI_Only-red)  is specific to PCI.)*
 
 | Dimension | Description | Script |
 | :--- | :--- | :--- |
