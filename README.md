@@ -11,7 +11,7 @@
 </div>
 
 
-## 📖 Abstract
+## Abstract
 
 With the rapid growth of online video consumption, video advertising has become increasingly dominant in the digital advertising landscape. Yet diverse users and viewing contexts makes one-size-fits-all ad creatives insufficient for consistent effectiveness, underlining the importance of personalization. In practice, most personalized video advertising systems follow a retrieval-based paradigm, selecting the optimal one from a small set of professionally pre-produced creatives for each user. Such static and finite inventories limits both the granularity and the timeliness of personalization, and prevents the creatives from being continuously refined based on online user feedback. Recent advances in generative AI make it possible to move beyond retrieval toward optimizing video creatives in a continuous space at serving time.
 
@@ -25,7 +25,7 @@ In this light, we propose **NextAds**, a generation-based paradigm for next-gene
 </p>
 
 
-## 🚀 NextAds Framework 
+## NextAds Framework 
 
 <p align="center">
   <img src="pictures/intro.png" alt="NextAds Paradigm Shift" width="80%">
@@ -66,7 +66,7 @@ Ensure you are using Python 3.9+ (tested on macOS and Linux).
    export GEMINI_API_KEY="your_gemini_api_key"
    ```
 
-## 🎬 Pipeline A: Personalized Creative Generation (PCG)
+## Pipeline A: Personalized Creative Generation (PCG)
 
 ### 1. Overview
 This pipeline consists of the following five key stages:
@@ -135,7 +135,7 @@ Generated inside `ad_runs/user_{uid}/{product_name}/`:
 
 ---
 
-## 🧩 Pipeline B: Personalized Creative Integration (PCI)
+## Pipeline B: Personalized Creative Integration (PCI)
 
 ### 1. Overview
 The PCI Pipeline enables automatic personalized ad insertion. It generates user-preference-aligned soft ads by leveraging target video content, product information, and extracted user interaction history/personalization data.
