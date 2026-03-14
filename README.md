@@ -45,8 +45,6 @@ To enable comparable research progress and assess feasibility, this repository p
 
 ## 🛠️ Global Environment Setup
 
-Ensure you are using Python 3.9+ (tested on macOS and Linux).
-
 1. Clone this repository:
    ```bash
    git clone [https://github.com/anonymous-repo/NextAds.git](https://github.com/anonymous-repo/NextAds.git)
@@ -76,6 +74,30 @@ This pipeline consists of the following five key stages:
 * **Asset Grounding**: To support faithful generation, we implement a **Stitched Reference Strategy** that binds the creative plan to concrete visual assets. The system constructs a *User Visual Collage* from historical images and concatenates it with the official product images, enforcing both user style and product identity.
 * **Video Creative Generation**: Finally, the **Producer** executes this plan by feeding the storyboard and the grounded assets into the video generation model to synthesize the final creative.
 
+## 🚀 Route 1: Quick Start
+If you want to quickly test the generation pipeline with your own data without downloading the heavy benchmark datasets, use this pure folder-driven demo.
+
+### 1. Prepare your data:
+Simply modify the files in the```demo/history/```and```demo/product/ ```folders.
+
+* ```demo/history/notes.json```: User's historical interaction texts.
+
+* ```demo/history/.jpg```: User's preferred images (auto-collaged into a 2x2 grid).
+
+* ```demo/product/info.json```: Target product descriptions.
+
+* ```demo/product/product_image.jpg```: Official product image.
+
+### 2. Run the demo:
+   ```bash
+cd Personalized Creative Generation/demo
+python run_demo.py
+   ```
+Generated assets, including the storyboard script, the merged visual reference, and the final submitted API task, will be saved in ```demo/output/```.
+
+## Route 2: Full Benchmark Pipeline (Paper Reproduction)
+If you need to reproduce the paper's results or run large-scale concurrent evaluations on the benchmark datasets, proceed to the detailed instructions below.
+
 ### 2. Data Preparation (QILIN Dataset)
 You can run our pipeline using either the full Parquet dataset or a pre-processed lightweight CSV subset.
 
@@ -104,6 +126,16 @@ user_idx,gender,age,note_idx,note_title,note_content,image_paths
 ```
 *(Note: Multiple image paths are separated by a pipe `|` character. Empty image paths indicate text-only interactions.)*
 
+### 💡 Utility Tool: Product Image Downloader & Stitcher
+In real-world e-commerce scenarios, a product often comes with multiple image URLs (e.g., front view, side view, details). To facilitate testing, we provide a standalone utility script that automatically downloads these image URLs, resizes them to a uniform height, and stitches them horizontally into a single composite reference image for the generation pipeline.
+
+**How to use:**
+1. Place your raw product JSON containing `image_urls` at `product_library/products.json`.
+2. Run the utility script:
+   ```bash
+   python download_and_stitch_products.py
+3. The script will output the stitched images to product_library/images/ and generate a new product_library/products_output.json with the updated local paths, ready to be consumed by our Pipeline.
+   
 ### 3. Usage
 The main entry point is `main.py` (or `Personalized_Creative_Generation.py`). It supports end-to-end generation, batch submission, and asynchronous polling.
 
@@ -147,12 +179,34 @@ The PCI Pipeline enables automatic personalized ad insertion through the followi
 * **Asset Grounding**: To promote faithful generation and reduce hallucinations, we build a reference visual collage by compositing the target product images, user-preferred elements, and the selected integration start frame. This provides explicit visual grounding for the generation process.
 * **Video Creative Integration**: Finally, a video generation model synthesizes the ad creative from the storyboard and grounded assets. The generated segment is then precisely inserted into the host video at the designated integration point.
 
-### 2. Model Configuration
+## 🚀 Route 1: Quick Start
+If you want to quickly test the generation pipeline with your own data without downloading the heavy benchmark datasets, use this pure folder-driven demo.
+
+### 1. Prepare your data:
+Please prepare the following data:
+
+* ```demo/all_covers```: A dictionary containing all covers of the videos; please name them 1.jpg, 2.jpg, ...
+
+* ```demo/all_videos```: A dictionary containing all videos; please name them 1.mp4, 2.mp4, ...
+
+* ```demo/products.json```: Contains all product information, including `product_name`, `product_url` (the URL to the product image), and `product_details` (the detailed introduction to the product).
+
+* ```demo/users.json```: Contains, for each user, the interacted videos (vids; the last vid is the target video) and ad products.
+
+### 2. Run the demo:
+   ```bash
+cd Personalized Creative Integration/demo
+python preprocess.py
+   ```
+
+## Route 2: Full Benchmark Pipeline (Paper Reproduction)
+
+### 1. Model Configuration
 Configure the model settings in the `run.sh` script based on your preference:
 * **Close-source Models (e.g., GPT-4o, Sora2):** Edit the `api_key` parameter.
 * **Open-source Models (e.g., Qwen3-VL):** We recommend deploying LLMs using `vllm` or `sg-lang`. Edit the `base_url` parameter to point to your deployed model endpoint.
 
-### 3. Data Preparation (MicroLens Dataset)
+### 2. Data Preparation (MicroLens Dataset)
 The anchor dataset for MicroLens is available in the official repository. Please refer to: [westlake-repl/MicroLens](https://github.com/westlake-repl/MicroLens/).
 
 Key parameters:
@@ -161,9 +215,9 @@ Key parameters:
 
 *Edit all necessary file paths (dataset path, output path) in `run.sh` to match your local environment before running.*
 
-**For your convenience, we have uploaded the subset used in our benchmark on [NextAds_PCI](https://1drv.ms/f/c/61ec5ad72cbbbe63/IgBZIy7ntvlETI4N2WHGHZeTASy8CdCLqhHBcco_rEDd55c?e=eRYPwY).**
+**For your convenience, we have uploaded the subset used in our benchmark on [NextAds_PCI](https://1drv.ms/f/c/61ec5ad72cbbbe63/IgAfz7HW6NvDTbLlZIik_0gZAQKtszlO-2mCOoNxcaQDooY?e=o1OFqJ).**
 
-### 4. Usage
+### 3. Usage
 Generate personalized integrated ads with a single command:
 ```bash
 bash run.sh
