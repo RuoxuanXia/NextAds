@@ -74,7 +74,7 @@ This pipeline consists of the following five key stages:
 * **Asset Grounding**: To support faithful generation, we implement a **Stitched Reference Strategy** that binds the creative plan to concrete visual assets. The system constructs a *User Visual Collage* from historical images and concatenates it with the official product images, enforcing both user style and product identity.
 * **Video Creative Generation**: Finally, the **Producer** executes this plan by feeding the storyboard and the grounded assets into the video generation model to synthesize the final creative.
 
-## 🚀 Route 1: Quick Start
+## 🚀 Quick Start
 If you want to quickly test the generation pipeline with your own data without downloading the heavy benchmark datasets, use this pure folder-driven demo.
 
 ### 1. Prepare your data:
@@ -95,7 +95,7 @@ python run_demo.py
    ```
 Generated assets, including the storyboard script, the merged visual reference, and the final submitted API task, will be saved in ```demo/output/```.
 
-## Route 2: Full Benchmark Pipeline (Paper Reproduction)
+## PCG-Bench
 If you need to reproduce the paper's results or run large-scale concurrent evaluations on the benchmark datasets, proceed to the detailed instructions below.
 
 ### 1. Data Preparation (QILIN Dataset)
@@ -125,7 +125,7 @@ user_idx,gender,age,note_idx,note_title,note_content,image_paths
 16,female,31-35,886071,Sugar Orange and Gong's Little Orange,"#Phalaenopsis[Topic]# I prefer the color of Sugar Orange, a bright orange, but its growth is particularly poor...",/path/to/images/4535070.jpg|/path/to/images/4535071.jpg
 ```
 *(Note: Multiple image paths are separated by a pipe `|` character. Empty image paths indicate text-only interactions.)*
-**For your convenience, we have uploaded the pictures used in our benchmark on [NextAds_PCI](https://1drv.ms/f/c/61ec5ad72cbbbe63/IgAfz7HW6NvDTbLlZIik_0gZAQKtszlO-2mCOoNxcaQDooY?e=o1OFqJ).**
+**For your convenience, we have uploaded the pictures used in our benchmark on [PCG-Bench](https://1drv.ms/f/c/61ec5ad72cbbbe63/IgAfz7HW6NvDTbLlZIik_0gZAQKtszlO-2mCOoNxcaQDooY?e=o1OFqJ).**
 
 ### 💡 Utility Tool: Product Image Downloader & Stitcher
 In real-world e-commerce scenarios, a product often comes with multiple image URLs (e.g., front view, side view, details). To facilitate testing, we provide a standalone utility script that automatically downloads these image URLs, resizes them to a uniform height, and stitches them horizontally into a single composite reference image for the generation pipeline.
@@ -180,7 +180,7 @@ The PCI Pipeline enables automatic personalized ad insertion through the followi
 * **Asset Grounding**: To promote faithful generation and reduce hallucinations, we build a reference visual collage by compositing the target product images, user-preferred elements, and the selected integration start frame. This provides explicit visual grounding for the generation process.
 * **Video Creative Integration**: Finally, a video generation model synthesizes the ad creative from the storyboard and grounded assets. The generated segment is then precisely inserted into the host video at the designated integration point.
 
-## 🚀 Route 1: Quick Start
+## 🚀 Quick Start
 If you want to quickly test the generation pipeline with your own data without downloading the heavy benchmark datasets, use this pure folder-driven demo.
 
 ### 1. Prepare your data:
@@ -200,7 +200,7 @@ cd Personalized Creative Integration/demo
 python preprocess.py
    ```
 
-## Route 2: Full Benchmark Pipeline (Paper Reproduction)
+## PCl-Bench
 
 ### 1. Model Configuration
 Configure the model settings in the `run.sh` script based on your preference:
@@ -216,7 +216,7 @@ Key parameters:
 
 *Edit all necessary file paths (dataset path, output path) in `run.sh` to match your local environment before running.*
 
-**For your convenience, we have uploaded the subset used in our benchmark on [NextAds_PCI](https://1drv.ms/f/c/61ec5ad72cbbbe63/IgAfz7HW6NvDTbLlZIik_0gZAQKtszlO-2mCOoNxcaQDooY?e=o1OFqJ).**
+**For your convenience, we have uploaded the subset used in our benchmark on [PCl-Bench](https://1drv.ms/f/c/61ec5ad72cbbbe63/IgAfz7HW6NvDTbLlZIik_0gZAQKtszlO-2mCOoNxcaQDooY?e=o1OFqJ).**
 
 ### 3. Usage
 Generate personalized integrated ads with a single command:
