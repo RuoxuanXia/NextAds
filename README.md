@@ -66,7 +66,7 @@ To enable comparable research progress and assess feasibility, this repository p
 
 ## Pipeline A: Personalized Creative Generation (PCG)
 
-### 1. Overview
+### Overview
 This pipeline consists of the following five key stages:
 * **Multimodal User Modeling**: We adopt a dual-stream approach to extract both textual and visual preferences from the user’s interaction history. First, for textual mining, **Director** analyzes click history to identify preference tiers and content style attributes (e.g., tone tags). Simultaneously, for visual extraction, we aggregate user-clicked images and employ a Vision LLM to decode structured visual metadata, capturing abstract “Vibe” descriptors and concrete reusable elements.
 * **User-Product Matching**: Next, we employ a bidirectional scoring mechanism to align the extracted user profile with the product information. A VLM evaluates the compatibility between the user’s preference tiers and the product features, selecting the tier that maximizes *Product Match*, *Ad Nativeness*, and *Expressibility*. 
@@ -98,7 +98,7 @@ Generated assets, including the storyboard script, the merged visual reference, 
 ## Route 2: Full Benchmark Pipeline (Paper Reproduction)
 If you need to reproduce the paper's results or run large-scale concurrent evaluations on the benchmark datasets, proceed to the detailed instructions below.
 
-### 2. Data Preparation (QILIN Dataset)
+### 1. Data Preparation (QILIN Dataset)
 You can run our pipeline using either the full Parquet dataset or a pre-processed lightweight CSV subset.
 
 **Option 1: Full Dataset (Parquet)**
@@ -125,6 +125,7 @@ user_idx,gender,age,note_idx,note_title,note_content,image_paths
 16,female,31-35,886071,Sugar Orange and Gong's Little Orange,"#Phalaenopsis[Topic]# I prefer the color of Sugar Orange, a bright orange, but its growth is particularly poor...",/path/to/images/4535070.jpg|/path/to/images/4535071.jpg
 ```
 *(Note: Multiple image paths are separated by a pipe `|` character. Empty image paths indicate text-only interactions.)*
+**For your convenience, we have uploaded the pictures used in our benchmark on [NextAds_PCI](https://1drv.ms/f/c/61ec5ad72cbbbe63/IgAfz7HW6NvDTbLlZIik_0gZAQKtszlO-2mCOoNxcaQDooY?e=o1OFqJ).**
 
 ### 💡 Utility Tool: Product Image Downloader & Stitcher
 In real-world e-commerce scenarios, a product often comes with multiple image URLs (e.g., front view, side view, details). To facilitate testing, we provide a standalone utility script that automatically downloads these image URLs, resizes them to a uniform height, and stitches them horizontally into a single composite reference image for the generation pipeline.
@@ -136,7 +137,7 @@ In real-world e-commerce scenarios, a product often comes with multiple image UR
    python download_and_stitch_products.py
 3. The script will output the stitched images to product_library/images/ and generate a new product_library/products_output.json with the updated local paths, ready to be consumed by our Pipeline.
    
-### 3. Usage
+### 2. Usage
 The main entry point is `main.py` (or `Personalized_Creative_Generation.py`). It supports end-to-end generation, batch submission, and asynchronous polling.
 
 **End-to-End Generation:**
@@ -157,7 +158,7 @@ python main.py --users "11094,15067" --products "ALL" --submit_only
 python main.py --users "11094,15067" --poll_only --sora_concurrency 4
 ```
 
-### 4. Output Structure
+### 3. Output Structure
 Generated inside `ad_runs/user_{uid}/{product_name}/`:
 * `storyboard.json`: LLM-generated shot-by-shot script.
 * `sora_web_prompt.txt`: Final prompt sent to Sora-2.
