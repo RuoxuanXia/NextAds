@@ -125,7 +125,7 @@ user_idx,gender,age,note_idx,note_title,note_content,image_paths
 16,female,31-35,886071,Sugar Orange and Gong's Little Orange,"#Phalaenopsis[Topic]# I prefer the color of Sugar Orange, a bright orange, but its growth is particularly poor...",/path/to/images/4535070.jpg|/path/to/images/4535071.jpg
 ```
 *(Note: Multiple image paths are separated by a pipe `|` character. Empty image paths indicate text-only interactions.)*
-**For your convenience, we have uploaded the pictures used in our benchmark on [PCG-Bench](https://1drv.ms/f/c/61ec5ad72cbbbe63/IgAfz7HW6NvDTbLlZIik_0gZAQKtszlO-2mCOoNxcaQDooY?e=o1OFqJ).**
+**For your convenience, we have uploaded the pictures used in our benchmark on [PCG-Bench](https://1drv.ms/f/c/61ec5ad72cbbbe63/IgAwawsahcCzQ4PTub8YRNFIASUvJtzVcyF9IeUbL6hEgjw?e=AXg5Q9).**
 
 ### 💡 Utility Tool: Product Image Downloader & Stitcher
 In real-world e-commerce scenarios, a product often comes with multiple image URLs (e.g., front view, side view, details). To facilitate testing, we provide a standalone utility script that automatically downloads these image URLs, resizes them to a uniform height, and stitches them horizontally into a single composite reference image for the generation pipeline.
