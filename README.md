@@ -197,7 +197,7 @@ Please prepare the following data:
 ### 2. Run the demo:
    ```bash
 cd Personalized Creative Integration/demo
-python preprocess.py
+python run_demo.py
    ```
 
 ## PCl-Bench
