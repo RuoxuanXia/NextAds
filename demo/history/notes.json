@@ -1,0 +1,14 @@
+User's historical interaction texts.
+For example:
+[
+  {
+    "note_idx": 1,
+    "title": "春日绝美穿搭分享",
+    "content": "今天天气太好了，穿了新买的法式碎花裙..."
+  },
+  {
+    "note_idx": 2,
+    "title": "极简通勤风 OOTD",
+    "content": "黑白灰真的是永不过时的经典搭配..."
+  }
+]
