@@ -18,7 +18,7 @@ With the rapid growth of online video consumption, video advertising has become 
 In this light, we propose **NextAds**, a generation-based paradigm for next-generation personalized video advertising, and conceptualize NextAds with four core components. To enable comparable research progress, we formulate two representative tasks: **personalized creative generation** and **personalized creative integration**, and introduce corresponding lightweight benchmarks. To assess feasibility, we instantiate end-to-end pipelines for both tasks and conduct initial exploratory experiments, demonstrating that GenAI can generate and integrate personalized creatives with encouraging performance. Moreover, we discuss the key challenges and opportunities under this paradigm, aiming to provide actionable insights for both researchers and practitioners and to catalyze progress in personalized video advertising.
 
 <p align="center">
-  <img src="pictures/evolution.png" alt="Evolution of Video Advertising" width="60%">
+  <img src="figures/evolution.png" alt="Evolution of Video Advertising" width="60%">
 </p>
 <p align="center">
   <em><strong>Figure 1:</strong> The evolution of video advertising has largely progressed along the axes of personalization and nativeness, yet high production costs and manual creative bottlenecks prevent the industry from reaching the upper-right corner.</em>
@@ -28,7 +28,7 @@ In this light, we propose **NextAds**, a generation-based paradigm for next-gene
 ## NextAds Framework 
 
 <p align="center">
-  <img src="pictures/intro.png" alt="NextAds Paradigm Shift" width="80%">
+  <img src="figures/intro.png" alt="NextAds Paradigm Shift" width="80%">
 </p>
 <p align="center">
   <em><strong>Figure 2: Paradigm shift: from retrieval to generation.</strong> NextAds transforms personalized video advertising from static retrieval over a discrete creative inventory to dynamic generation-based optimization in a continuous space.</em>
