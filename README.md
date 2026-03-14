@@ -47,7 +47,7 @@ To enable comparable research progress and assess feasibility, this repository p
 
 1. Clone this repository:
    ```bash
-   git clone [https://github.com/anonymous-repo/NextAds.git](https://github.com/anonymous-repo/NextAds.git)
+   git repo clone RuoxuanXia/NextAds
    cd NextAds
    ```
 
