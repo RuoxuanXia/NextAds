@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en" class="light"> 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NextAds — Personalized Creative Integration</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Montserrat:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/project-page.css">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'title': ['"Bangers"', 'cursive'],
+                        'sans': ['Montserrat', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            cyan: '#2563eb',   // 科技皇家蓝
+                            purple: '#8b5cf6', // 学术创意紫
+                            pink: '#ec4899',  
+                            dark: '#ffffff',   // 强制暗色变量变白
+                            panel: '#f8fafc'   // 卡片底色变为浅石板灰
+                        }
+                    },
+                    animation: {
+                        'marquee': 'marquee 60s linear infinite',
+                    },
+                    keyframes: {
+                        marquee: {
+                            '0%': { transform: 'translateX(0)' },
+                            '100%': { transform: 'translateX(-50%)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* 批量修复 Reference Visual Collage 中的图片显示 */
+.grid-cols-2 .relative {
+    aspect-ratio: 16 / 9;      /* 强制容器保持 16:9 */
+    background-color: #f8fafc; /* 增加浅灰色背景填充空白 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 0.5rem;     /* 统一圆角 */
+}
+
+.grid-cols-2 .relative img {
+    object-fit: contain !important; /* 强制图片显示完整，不裁剪 */
+    width: 100% !important;
+    height: 100% !important;
+}
+                body { background-color: #ffffff !important; color: #1e293b !important; font-family: 'Montserrat', sans-serif; overflow-x: hidden; font-size: 12px; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .custom-scroll::-webkit-scrollbar { width: 8px; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        .marquee-wrapper { display: flex; width: max-content; }
+        .marquee-viewport:hover .marquee-wrapper { animation-play-state: paused; }
+        header { padding-top: 3rem !important; }
+        header.bg-black { background-color: rgba(255, 255, 255, 0.95) !important; border-bottom-color: #e2e8f0 !important; }
+        h1.title-neon {
+            font-family: 'Montserrat', sans-serif !important;
+            font-weight: 900 !important;
+            background: linear-gradient(to right, #2563eb, #8b5cf6);
+            -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent;
+            font-size: 5rem !important; 
+            line-height: 1.2 !important; margin-top: 0 !important; margin-bottom: 0.5rem !important;
+            letter-spacing: -0.02em !important; filter: none !important; text-shadow: none !important;
+            white-space: normal !important;
+        }
+        @media (min-width: 768px) { h1.title-neon { font-size: 6.5rem !important; } }
+        header h2 { font-size: 1.2rem !important; margin-top: 0.5rem !important; margin-bottom: 2rem !important; letter-spacing: 0.1em !important; text-transform: none !important; color: #1e293b !important; }
+
+        /* 全局白色系 */
+        body { background-color: #ffffff; color: #1f2937; font-family: 'Montserrat', sans-serif; overflow-x: hidden; font-size: 12px; }
+        
+        /* 标题渐变，无阴影 */
+        .title-gradient { font-family: 'Bangers', cursive; background: linear-gradient(to right, #8a00c2, #00aec7); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; letter-spacing: 0.02em; }
+        
+        /* 导航按钮 */
+        .nav-pill { transition: all 0.3s ease; font-weight: 800; letter-spacing: 0.05em;  background-color: #ffffff; border: 2px solid #e5e7eb; color: #6b7280; }
+        .nav-pill-active { background: linear-gradient(90deg, #f5f3ff, #ecfeff); border-color: #8a00c2; color: #8a00c2; box-shadow: 0 4px 15px rgba(138, 0, 194, 0.1); }
+        .nav-pill-hover:hover { border-color: #00aec7; color: #00aec7; background-color: #f0f9ff; }
+        
+        /* 视频卡片白色系样式 */
+        .video-card { 
+            background-color: #ffffff;
+            border: 2px solid #e5e7eb;
+            border-radius: 2rem; padding: 1.5rem; transition: all 0.3s ease; 
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+        .video-card:hover { 
+            border-color: #00aec7; 
+            box-shadow: 0 15px 30px -5px rgba(0, 174, 199, 0.15); 
+            transform: translateY(-5px); 
+        }
+
+        /* 偏好设置的彩色小标签 */
+        .pref-tag {
+            font-size: 10px; font-weight: 800; text-transform: capitalize; letter-spacing: 0.1em;
+            padding: 3px 8px; border-radius: 6px;
+        }
+
+        /* 视频背景浅灰 */
+        video { background-color: #f3f4f6; }
+        html { scroll-behavior: smooth; scroll-padding-top: 74px; }
+        .site-nav { position: sticky; top: 0; z-index: 45; display: flex; justify-content: center; gap: .25rem; padding: .65rem 1rem; background: rgba(255,255,255,.92); border-top: 1px solid #f1f5f9; border-bottom: 1px solid #e2e8f0; backdrop-filter: blur(14px); }
+        .site-nav a { color: #64748b; font-size: .76rem; font-weight: 800; padding: .55rem .85rem; border-radius: 9999px; text-decoration: none; transition: all .2s ease; }
+        .site-nav a:hover, .site-nav a[aria-current="page"] { color: #2563eb; background: #eff6ff; }
+        .subpage-header { padding-top: 3rem !important; padding-bottom: 1.6rem !important; }
+        .subpage-header h1.title-neon { font-size: 3.8rem !important; }
+        .subpage-header h2 { margin-bottom: .75rem !important; }
+        .paper-authors { color: #2563eb; font-size: 1rem; font-weight: 700; line-height: 1.9; margin-top: 1.25rem; }
+        .paper-authors a { color: inherit; text-decoration: none; }
+        .paper-authors a:hover { text-decoration: underline; }
+        .paper-authors sup { color: #8b5cf6; font-size: .68em; margin-left: .08em; }
+        .paper-affiliations { color: #64748b; font-size: .82rem; line-height: 1.8; }
+        .paper-affiliations span { display: block; }
+        .section-heading { text-align: center; margin-bottom: 1.8rem; }
+        .section-kicker { display: block; color: #8b5cf6; font-size: 0.68rem; font-weight: 900; letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 0.45rem; }
+        .section-heading h2 { color: #1e3a8a; font-size: 1.65rem; font-weight: 900; letter-spacing: -0.02em; }
+        .section-heading p { max-width: 740px; margin: 0.75rem auto 0; color: #64748b; font-size: 0.86rem; line-height: 1.8; }
+        .pipeline-surface { max-width: 980px; margin: 0 auto; padding: 1.25rem; background: #fff; border: 1px solid #e2e8f0; border-radius: 1.5rem; box-shadow: 0 12px 32px rgba(15,23,42,0.055); }
+        .video-card { border-width: 1px; border-radius: 1.25rem; }
+        #pciGrid:not(.is-expanded) > .video-card:nth-child(n+9) { display: none; }
+        .showcase-toggle { display: inline-flex; align-items: center; justify-content: center; min-width: 220px; padding: 0.85rem 1.35rem; border: 1px solid #cbd5e1; border-radius: 9999px; background: #fff; color: #334155; font-size: 0.82rem; font-weight: 900; box-shadow: 0 6px 18px rgba(15,23,42,0.07); transition: all .2s ease; }
+        .showcase-toggle:hover { color: #2563eb; border-color: #2563eb; transform: translateY(-2px); }
+        @media (min-width: 768px) { h1.title-neon { font-size: 5rem !important; } }
+        @media (max-width: 767px) {
+            h1.title-neon { font-size: 3.2rem !important; }
+            header h2 { font-size: 1rem !important; letter-spacing: .03em !important; }
+            .nav-pill { padding: .75rem 1rem !important; font-size: .72rem !important; }
+            .pipeline-surface { padding: .75rem; border-radius: 1rem; }
+            .paper-authors { font-size: .88rem; }
+            .paper-affiliations { font-size: .72rem; }
+            .site-nav { justify-content: flex-start; overflow-x: auto; }
+            .site-nav a { flex: none; }
+        }
+    </style>
+</head>
+<body id="top" class="antialiased min-h-screen pb-20 bg-white">
+    <header class="paper-header subpage-header text-center z-40 relative">
+    <div class="container mx-auto px-4 w-full max-w-[98%]">
+        <div class="project-brand">NextAds</div>
+        <h1 class="paper-name">Envision Next-Generation Personalized Video Advertising</h1>
+
+        <div class="paper-authors">
+            <a href="mailto:yiyanxu24@gmail.com">Yiyan Xu</a><sup>1</sup>,
+            <a href="mailto:ruoxuanxiaaa@gmail.com">Ruoxuan Xia</a><sup>1</sup>,
+            <a href="mailto:qqqqqzheng@gmail.com">Wuqiang Zheng</a><sup>1</sup>,
+            <a href="mailto:zhfengbin@gmail.com">Fengbin Zhu</a><sup>2</sup>,
+            <a href="mailto:wenjiewang96@gmail.com">Wenjie Wang</a><sup>1</sup>,
+            <a href="mailto:fulifeng93@gmail.com">Fuli Feng</a><sup>1</sup>
+        </div>
+        <div class="paper-affiliations">
+            <span><sup>1</sup> University of Science and Technology of China, Hefei, China</span>
+            <span><sup>2</sup> National University of Singapore, Singapore</span>
+        </div>
+        <div class="subpage-name">Personalized Creative Integration</div>
+    </div>
+    </header>
+    <nav class="site-nav" aria-label="Project pages">
+        <a href="index.html">Home</a>
+        <a href="benchmarks.html">Benchmarks</a>
+        <a href="experiments.html">Experimental Details</a>
+        <a href="pcg.html">Personalized Creative Generation</a>
+        <a href="integration.html" aria-current="page">Personalized Creative Integration</a>
+        <a href="closed-loop.html">Closed-loop Creative Refinement</a>
+        <a href="progressive-storytelling.html">Creative Evolution Across Impressions</a>
+    </nav>
+    <main class="w-full max-w-[95%] mx-auto px-4 mt-12 flex flex-col gap-12">
+        
+        <section>
+            <div class="section-heading">
+                <h2 class="pipeline-title">PCI Pipeline</h2>
+            </div>
+            <div class="pipeline-surface">
+    <img src="assets/figures/pipe_pci.png" 
+         alt="System Pipeline Flowchart" 
+         class="max-w-full h-auto mx-auto rounded-xl"
+         style="max-height: 500px;">
+</div>
+        </section>
+
+        <div class="section-heading mt-4">
+            <h2>Integration Cases</h2>
+        </div>
+
+        <div id="pciGrid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-8">
+            
+            <div class="video-card flex flex-col gap-4">
+                <div class="w-full flex flex-col gap-2">
+                    <video controls preload="none" class="w-full rounded-xl aspect-video object-cover border border-gray-200">
+                        <source src="https://nextadsdemo.netlify.app/cases/user_6_product_1.mp4" type="video/mp4">
+                    </video>
+                    <div class="flex items-center justify-between px-1">
+                        <span class="text-[11px] font-black text-gray-400  tracking-wider">User 6</span>
+                        <span class="text-[11px] font-black text-brand-cyan  tracking-wider">iPhone 17</span>
+                    </div>
+                </div>
+                <div class="w-full flex flex-col space-y-3 pt-3 border-t border-gray-100 flex-grow">
+                    <h3 class="text-[11px] capitalize font-black text-gray-400 tracking-widest pl-1 border-l-2 border-gray-300">User Profile</h3>
+                    
+                    <div class="space-y-1">
+                        <span class="pref-tag bg-cyan-50 text-brand-cyan border border-cyan-100 inline-block mb-0.5">Content preference</span>
+                        <p class="text-xs text-gray-600 font-medium leading-relaxed">
+                            Gaming commentary for Honor of Kings featuring strategic gameplay tutorials and character skill analyses.
+                        </p>
+                    </div>
+                    <div class="space-y-1">
+                        <span class="pref-tag bg-purple-50 text-brand-purple border border-purple-100 inline-block mb-0.5">Style preference</span>
+                        <p class="text-xs text-gray-600 font-medium leading-relaxed">
+                            Vibrant, high-saturation screen captures with dynamic handheld perspective and lively on-screen graphics.
+                        </p>
+                    </div>
+                    <div class="space-y-1">
+                        <span class="pref-tag bg-slate-50 text-slate-500 border border-slate-200 inline-block mb-0.5">Detailed elements</span>
+                        <p class="text-xs text-gray-600 font-medium leading-relaxed">
+                            Preference for jungle and assassin characters, fast-paced montage edits, in-game stats breakdown, and strategic team matchups.
+                        </p>
+                    </div>
+                </div>
+                <div class="w-full flex flex-col space-y-2 pt-3 border-t border-gray-100 mt-2">
+                    <h3 class="text-[11px] capitalize font-black text-gray-400 tracking-widest pl-1 border-l-2 border-gray-300">Reference Visual Collage</h3>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="relative">
+                            <img src="https://nextadsdemo.netlify.app/pci_pictures/start_frame_6_1.jpg" alt="Start Frame" class="rounded border border-gray-100 w-full aspect-video object-cover">
+                            <span class="absolute bottom-1 left-1 bg-black/70 text-[8px] text-white px-1 py-0.5 rounded  font-bold tracking-wider">Start Frame</span>
+                        </div>
+                        <div class="relative">
+                            <img src="https://nextadsdemo.netlify.app/pci_pictures/product_6_1.jpg" alt="Product Image" class="rounded border border-gray-100 w-full aspect-video object-cover">
+                            <span class="absolute bottom-1 left-1 bg-black/70 text-[8px] text-white px-1 py-0.5 rounded  font-bold tracking-wider">Product Image</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="video-card flex flex-col gap-4">
+                <div class="w-full flex flex-col gap-2">
+                    <video controls preload="none" class="w-full rounded-xl aspect-video object-cover border border-gray-200">
+                        <source src="https://nextadsdemo.netlify.app/cases/user_10_product_14.mp4" type="video/mp4">
+                    </video>
+                    <div class="flex items-center justify-between px-1">
+                        <span class="text-[11px] font-black text-gray-400  tracking-wider">User 10</span>
+                        <span class="text-[11px] font-black text-brand-cyan  tracking-wider">Uber</span>
+                    </div>
+                </div>
+                <div class="w-full flex flex-col space-y-3 pt-3 border-t border-gray-100 flex-grow">
+                    <h3 class="text-[11px] capitalize font-black text-gray-400 tracking-widest pl-1 border-l-2 border-gray-300">User Profile</h3>
+                    <div class="space-y-1">
+                        <span class="pref-tag bg-cyan-50 text-brand-cyan border border-cyan-100 inline-block mb-0.5">Content preference</span>
+                        <p class="text-xs text-gray-600 font-medium leading-relaxed">Vibrant vlogs featuring spicy hotpot dishes and barbecue skewers from Chongqing street food events.</p>
+                    </div>
+                    <div class="space-y-1">
+                        <span class="pref-tag bg-purple-50 text-brand-purple border border-purple-100 inline-block mb-0.5">Style preference</span>
+                        <p class="text-xs text-gray-600 font-medium leading-relaxed">High-saturation, lively dynamic handheld shots with a focus on bold red and orange hues and close-up food reveals.</p>
+                    </div>
+                    <div class="space-y-1">
+                        <span class="pref-tag bg-slate-50 text-slate-500 border border-slate-200 inline-block mb-0.5">Detailed elements</span>
+                        <p class="text-xs text-gray-600 font-medium leading-relaxed">Preference for spicy crayfish platters, grilled skewers over open flames, and noodle dishes with intricate textures.</p>
+                    </div>
+                </div>
+                <div class="w-full flex flex-col space-y-2 pt-3 border-t border-gray-100 mt-2">
+                    <h3 class="text-[11px] capitalize font-black text-gray-400 tracking-widest pl-1 border-l-2 border-gray-300">Reference Visual Collage</h3>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="relative">
+                            <img src="https://nextadsdemo.netlify.app/pci_pictures/start_frame_10_14.jpg" alt="Start Frame" class="rounded border border-gray-100 w-full aspect-video object-cover">
+                            <span class="absolute bottom-1 left-1 bg-black/70 text-[8px] text-white px-1 py-0.5 rounded  font-bold tracking-wider">Start Frame</span>
+                        </div>
+                        <div class="relative">
+                            <img src="https://nextadsdemo.netlify.app/pci_pictures/product_10_14.jpg" alt="Product Image" class="rounded border border-gray-100 w-full aspect-video object-cover">
+                            <span class="absolute bottom-1 left-1 bg-black/70 text-[8px] text-white px-1 py-0.5 rounded  font-bold tracking-wider">Product Image</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="video-card flex flex-col gap-4">
+                <div class="w-full flex flex-col gap-2">
+                    <video controls preload="none" class="w-full rounded-xl aspect-video object-cover border border-gray-200">
+                        <source src="https://nextadsdemo.netlify.app/cases/user_13_product_2.mp4" type="video/mp4">
+                    </video>
+                    <div class="flex items-center justify-between px-1">
+                        <span class="text-[11px] font-black text-gray-400  tracking-wider">User 13</span>
+                        <span class="text-[11px] font-black text-brand-cyan  tracking-wider">Coca Cola Classic</span>
+                    </div>
+                </div>
+                <div class="w-full flex flex-col space-y-3 pt-3 border-t border-gray-100 flex-grow">
+                    <h3 class="text-[11px] capitalize font-black text-gray-400 tracking-widest pl-1 border-l-2 border-gray-300">User Profile</h3>
+                    <div class="space-y-1"><span class="pref-tag bg-cyan-50 text-brand-cyan border border-cyan-100 inline-block mb-0.5">Content preference</span><p class="text-xs text-gray-600 font-medium leading-relaxed">Street food vlogs featuring Sichuan spicy hotpot and grilled skewers.</p></div>
+                    <div class="space-y-1"><span class="pref-tag bg-purple-50 text-brand-purple border border-purple-100 inline-block mb-0.5">Style preference</span><p class="text-xs text-gray-600 font-medium leading-relaxed">Vibrant, high-saturation shots with dynamic, handheld camera work highlighting the vibrant colors and textures of food.</p></div>
+                    <div class="space-y-1"><span class="pref-tag bg-slate-50 text-slate-500 border border-slate-200 inline-block mb-0.5">Detailed elements</span><p class="text-xs text-gray-600 font-medium leading-relaxed">Close-up shots of chopsticks handling food, bustling street food environments, and intense grilling scenes with visible flames.</p></div>
+                </div>
+                <div class="w-full flex flex-col space-y-2 pt-3 border-t border-gray-100 mt-2">
+                    <h3 class="text-[11px] capitalize font-black text-gray-400 tracking-widest pl-1 border-l-2 border-gray-300">Reference Visual Collage</h3>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="relative">
+                            <img src="https://nextadsdemo.netlify.app/pci_pictures/start_frame_13_2.jpg" alt="Start Frame" class="rounded border border-gray-100 w-full aspect-video object-cover">
+                            <span class="absolute bottom-1 left-1 bg-black/70 text-[8px] text-white px-1 py-0.5 rounded  font-bold tracking-wider">Start Frame</span>
+                        </div>
+                        <div class="relative">
+                            <img src="https://nextadsdemo.netlify.app/pci_pictures/product_13_2.jpg" alt="Product Image" class="rounded border border-gray-100 w-full aspect-video object-cover">
+                            <span class="absolute bottom-1 left-1 bg-black/70 text-[8px] text-white px-1 py-0.5 rounded  font-bold tracking-wider">Product Image</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="video-card flex flex-col gap-4">
+                <div class="w-full flex flex-col gap-2">
+                    <video controls preload="none" class="w-full rounded-xl aspect-video object-cover border border-gray-200">
+                        <source src="https://nextadsdemo.netlify.app/cases/user_14_product_8.mp4" type="video/mp4">
+                    </video>
+                    <div class="flex items-center justify-between px-1">
+                        <span class="text-[11px] font-black text-gray-400  tracking-wider">User 14</span>
+                        <span class="text-[11px] font-black text-brand-cyan  tracking-wider">Walmart Retail</span>
+                    </div>
+                </div>
+                <div class="w-full flex flex-col space-y-3 pt-3 border-t border-gray-100 flex-grow">
+                    <h3 class="text-[11px] capitalize font-black text-gray-400 tracking-widest pl-1 border-l-2 border-gray-300">User Profile</h3>
+                    <div class="space-y-1"><span class="pref-tag bg-cyan-50 text-brand-cyan border border-cyan-100 inline-block mb-0.5">Content preference</span><p class="text-xs text-gray-600 font-medium leading-relaxed">Spicy street food vlogs showcasing Chongqing hotpots and Sichuan noodle dishes.</p></div>
+                    <div class="space-y-1"><span class="pref-tag bg-purple-50 text-brand-purple border border-purple-100 inline-block mb-0.5">Style preference</span><p class="text-xs text-gray-600 font-medium leading-relaxed">Vibrant, high-saturation handheld shots with dynamic camera movement capturing bold red tones and steaming dishes.</p></div>
+                    <div class="space-y-1"><span class="pref-tag bg-slate-50 text-slate-500 border border-slate-200 inline-block mb-0.5">Detailed elements</span><p class="text-xs text-gray-600 font-medium leading-relaxed">Focus on chili-infused broths, crawfish presentations, noodle textures, and sidewalk dining experiences.</p></div>
+                </div>
+                <div class="w-full flex flex-col space-y-2 pt-3 border-t border-gray-100 mt-2">
+                    <h3 class="text-[11px] capitalize font-black text-gray-400 tracking-widest pl-1 border-l-2 border-gray-300">Reference Visual Collage</h3>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="relative">
+                            <img src="https://nextadsdemo.netlify.app/pci_pictures/start_frame_14_8.jpg" alt="Start Frame" class="rounded border border-gray-100 w-full aspect-video object-cover">
+                            <span class="absolute bottom-1 left-1 bg-black/70 text-[8px] text-white px-1 py-0.5 rounded  font-bold tracking-wider">Start Frame</span>
+                        </div>
+                        <div class="relative">
+                            <img src="https://nextadsdemo.netlify.app/pci_pictures/product_14_8.jpg" alt="Product Image" class="rounded border border-gray-100 w-full aspect-video object-cover">
+                            <span class="absolute bottom-1 left-1 bg-black/70 text-[8px] text-white px-1 py-0.5 rounded  font-bold tracking-wider">Product Image</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="video-card flex flex-col gap-4">
+                <div class="w-full flex flex-col gap-2">
+                    <video controls preload="none" class="w-full rounded-xl aspect-video object-cover border border-gray-200">
+                        <source src="https://nextadsdemo.netlify.app/cases/user_15_product_9.mp4" type="video/mp4">
+                    </video>
+                    <div class="flex items-center justify-between px-1">
+                        <span class="text-[11px] font-black text-gray-400  tracking-wider">User 15</span>
+                        <span class="text-[11px] font-black text-brand-cyan  tracking-wider">Airbnb</span>
+                    </div>
+                </div>
+                <div class="w-full flex flex-col space-y-3 pt-3 border-t border-gray-100 flex-grow">
+                    <h3 class="text-[11px] capitalize font-black text-gray-400 tracking-widest pl-1 border-l-2 border-gray-300">User Profile</h3>
+                    <div class="space-y-1"><span class="pref-tag bg-cyan-50 text-brand-cyan border border-cyan-100 inline-block mb-0.5">Content preference</span><p class="text-xs text-gray-600 font-medium leading-relaxed">Cinematic vlogs showcasing spicy Chinese street food, including Chongqing noodles and spicy crayfish presentations.</p></div>
+                    <div class="space-y-1"><span class="pref-tag bg-purple-50 text-brand-purple border border-purple-100 inline-block mb-0.5">Style preference</span><p class="text-xs text-gray-600 font-medium leading-relaxed">Bright, high-saturation shots with dynamic handheld camera work featuring close-ups of vibrant ingredients and fast-paced food preparation sequences.</p></div>
+                    <div class="space-y-1"><span class="pref-tag bg-slate-50 text-slate-500 border border-slate-200 inline-block mb-0.5">Detailed elements</span><p class="text-xs text-gray-600 font-medium leading-relaxed">Preferred elements include Chongqing noodles with chili oil, spicy crayfish, and close-up steaming presentations of dumplings and broth.</p></div>
+                </div>
+                <div class="w-full flex flex-col space-y-2 pt-3 border-t border-gray-100 mt-2">
+                    <h3 class="text-[11px] capitalize font-black text-gray-400 tracking-widest pl-1 border-l-2 border-gray-300">Reference Visual Collage</h3>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="relative">
+                            <img src="https://nextadsdemo.netlify.app/pci_pictures/start_frame_15_9.jpg" alt="Start Frame" class="rounded border border-gray-100 w-full aspect-video object-cover">
+                            <span class="absolute bottom-1 left-1 bg-black/70 text-[8px] text-white px-1 py-0.5 rounded  font-bold tracking-wider">Start Frame</span>
+                        </div>
+                        <div class="relative">
+                            <img src="https://nextadsdemo.netlify.app/pci_pictures/product_15_9.jpg" alt="Product Image" class="rounded border border-gray-100 w-full aspect-video object-cover">
+                            <span class="absolute bottom-1 left-1 bg-black/70 text-[8px] text-white px-1 py-0.5 rounded  font-bold tracking-wider">Product Image</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="video-card flex flex-col gap-4">
+                <div class="w-full flex flex-col gap-2">
+                    <video controls preload="none" class="w-full rounded-xl aspect-video object-cover border border-gray-200">
+                        <source src="https://nextadsdemo.netlify.app/cases/user_21_product_11.mp4" type="video/mp4">
+                    </video>
+                    <div class="flex items-center justify-between px-1">
+                        <span class="text-[11px] font-black text-gray-400  tracking-wider">User 21</span>
+                        <span class="text-[11px] font-black text-brand-cyan  tracking-wider">Snickers Chocolate Bar</span>
+                    </div>
+                </div>
+                <div class="w-full flex flex-col space-y-3 pt-3 border-t border-gray-100 flex-grow">
+                    <h3 class="text-[11px] capitalize font-black text-gray-400 tracking-widest pl-1 border-l-2 border-gray-300">User Profile</h3>
+                    <div class="space-y-1"><span class="pref-tag bg-cyan-50 text-brand-cyan border border-cyan-100 inline-block mb-0.5">Content preference</span><p class="text-xs text-gray-600 font-medium leading-relaxed">Anime commentary for Naruto plot-twists and episodic reviews of Dragon Ball character arcs.</p></div>
+                    <div class="space-y-1"><span class="pref-tag bg-purple-50 text-brand-purple border border-purple-100 inline-block mb-0.5">Style preference</span><p class="text-xs text-gray-600 font-medium leading-relaxed">High-saturation anime scenes with dynamic camera angles, crisp line art, and emotional overlays.</p></div>
+                    <div class="space-y-1"><span class="pref-tag bg-slate-50 text-slate-500 border border-slate-200 inline-block mb-0.5">Detailed elements</span><p class="text-xs text-gray-600 font-medium leading-relaxed">Focus on ninja battles, character journeys, training montages, power-up sequences, and clan histories.</p></div>
+                </div>
+                <div class="w-full flex flex-col space-y-2 pt-3 border-t border-gray-100 mt-2">
+                    <h3 class="text-[11px] capitalize font-black text-gray-400 tracking-widest pl-1 border-l-2 border-gray-300">Reference Visual Collage</h3>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="relative">
+                            <img src="https://nextadsdemo.netlify.app/pci_pictures/start_frame_21_11.jpg" alt="Start Frame" class="rounded border border-gray-100 w-full aspect-video object-cover">
+                            <span class="absolute bottom-1 left-1 bg-black/70 text-[8px] text-white px-1 py-0.5 rounded  font-bold tracking-wider">Start Frame</span>
+                        </div>
+                        <div class="relative">
+                            <img src="https://nextadsdemo.netlify.app/pci_pictures/product_21_11.jpg" alt="Product Image" class="rounded border border-gray-100 w-full aspect-video object-cover">
+                            <span class="absolute bottom-1 left-1 bg-black/70 text-[8px] text-white px-1 py-0.5 rounded  font-bold tracking-wider">Product Image</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="video-card flex flex-col gap-4">
+                <div class="w-full flex flex-col gap-2">
+                    <video controls preload="none" class="w-full rounded-xl aspect-video object-cover border border-gray-200">
+                        <source src="https://nextadsdemo.netlify.app/cases/user_22_product_11.mp4" type="video/mp4">
+                    </video>
+                    <div class="flex items-center justify-between px-1">
+                        <span class="text-[11px] font-black text-gray-400  tracking-wider">User 22</span>
+                        <span class="text-[11px] font-black text-brand-cyan  tracking-wider">Snickers Chocolate Bar</span>
+                    </div>
+                </div>
+                <div class="w-full flex flex-col space-y-3 pt-3 border-t border-gray-100 flex-grow">
+                    <h3 class="text-[11px] capitalize font-black text-gray-400 tracking-widest pl-1 border-l-2 border-gray-300">User Profile</h3>
+                    <div class="space-y-1"><span class="pref-tag bg-cyan-50 text-brand-cyan border border-cyan-100 inline-block mb-0.5">Content preference</span><p class="text-xs text-gray-600 font-medium leading-relaxed">Anime-style film and drama commentary focusing on narrative complexity and character development within genres such as romantic comedy, science fiction, and action adventure.</p></div>
+                    <div class="space-y-1"><span class="pref-tag bg-purple-50 text-brand-purple border border-purple-100 inline-block mb-0.5">Style preference</span><p class="text-xs text-gray-600 font-medium leading-relaxed">High-saturation character interactions with dynamic camera angles, and frequent close-ups. Use of tonal compression for emotional scenes and vibrant colors to enhance dramatic moments.</p></div>
+                    <div class="space-y-1"><span class="pref-tag bg-slate-50 text-slate-500 border border-slate-200 inline-block mb-0.5">Detailed elements</span><p class="text-xs text-gray-600 font-medium leading-relaxed">Key anime titles with intricate plots and plot twists, richly designed characters, ocean landscapes in animated settings, and frequent use of subtitles for dialogue emphasis.</p></div>
+                </div>
+                <div class="w-full flex flex-col space-y-2 pt-3 border-t border-gray-100 mt-2">
+                    <h3 class="text-[11px] capitalize font-black text-gray-400 tracking-widest pl-1 border-l-2 border-gray-300">Reference Visual Collage</h3>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="relative">
+                            <img src="https://nextadsdemo.netlify.app/pci_pictures/start_frame_22_11.jpg" alt="Start Frame" class="rounded border border-gray-100 w-full aspect-video object-cover">
+                            <span class="absolute bottom-1 left-1 bg-black/70 text-[8px] text-white px-1 py-0.5 rounded  font-bold tracking-wider">Start Frame</span>
+                        </div>
+                        <div class="relative">
+                            <img src="https://nextadsdemo.netlify.app/pci_pictures/product_22_11.jpg" alt="Product Image" class="rounded border border-gray-100 w-full aspect-video object-cover">
+                            <span class="absolute bottom-1 left-1 bg-black/70 text-[8px] text-white px-1 py-0.5 rounded  font-bold tracking-wider">Product Image</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="video-card flex flex-col gap-4">
+                <div class="w-full flex flex-col gap-2">
+                    <video controls preload="none" class="w-full rounded-xl aspect-video object-cover border border-gray-200">
+                        <source src="https://nextadsdemo.netlify.app/cases/user_24_product_3.mp4" type="video/mp4">
+                    </video>
+                    <div class="flex items-center justify-between px-1">
+                        <span class="text-[11px] font-black text-gray-400  tracking-wider">User 24</span>
+                        <span class="text-[11px] font-black text-brand-cyan  tracking-wider">McDonald's Big Mac</span>
+                    </div>
+                </div>
+                <div class="w-full flex flex-col space-y-3 pt-3 border-t border-gray-100 flex-grow">
+                    <h3 class="text-[11px] capitalize font-black text-gray-400 tracking-widest pl-1 border-l-2 border-gray-300">User Profile</h3>
+                    <div class="space-y-1"><span class="pref-tag bg-cyan-50 text-brand-cyan border border-cyan-100 inline-block mb-0.5">Content preference</span><p class="text-xs text-gray-600 font-medium leading-relaxed">Gaming commentary for Honor of Kings and cinematic reviews of popular dramas and animated series like The Simpsons.</p></div>
+                    <div class="space-y-1"><span class="pref-tag bg-purple-50 text-brand-purple border border-purple-100 inline-block mb-0.5">Style preference</span><p class="text-xs text-gray-600 font-medium leading-relaxed">High-saturation visuals with bold on-screen captions, dynamic handheld camera shots during gameplay, and detailed overlays for game action or thematic reviews in cinematic settings.</p></div>
+                    <div class="space-y-1"><span class="pref-tag bg-slate-50 text-slate-500 border border-slate-200 inline-block mb-0.5">Detailed elements</span><p class="text-xs text-gray-600 font-medium leading-relaxed">In-game character guides and gameplay strategies for Honor of Kings.</p></div>
+                </div>
+                <div class="w-full flex flex-col space-y-2 pt-3 border-t border-gray-100 mt-2">
+                    <h3 class="text-[11px] capitalize font-black text-gray-400 tracking-widest pl-1 border-l-2 border-gray-300">Reference Visual Collage</h3>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="relative">
+                            <img src="https://nextadsdemo.netlify.app/pci_pictures/start_frame_24_3.jpg" alt="Start Frame" class="rounded border border-gray-100 w-full aspect-video object-cover">
+                            <span class="absolute bottom-1 left-1 bg-black/70 text-[8px] text-white px-1 py-0.5 rounded  font-bold tracking-wider">Start Frame</span>
+                        </div>
+                        <div class="relative">
+                            <img src="https://nextadsdemo.netlify.app/pci_pictures/product_24_3.jpg" alt="Product Image" class="rounded border border-gray-100 w-full aspect-video object-cover">
+                            <span class="absolute bottom-1 left-1 bg-black/70 text-[8px] text-white px-1 py-0.5 rounded  font-bold tracking-wider">Product Image</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="video-card flex flex-col gap-4">
+                <div class="w-full flex flex-col gap-2">
+                    <video controls preload="none" class="w-full rounded-xl aspect-video object-cover border border-gray-200">
+                        <source src="https://nextadsdemo.netlify.app/cases/user_25_product_2.mp4" type="video/mp4">
+                    </video>
+                    <div class="flex items-center justify-between px-1">
+                        <span class="text-[11px] font-black text-gray-400  tracking-wider">User 25</span>
+                        <span class="text-[11px] font-black text-brand-cyan  tracking-wider">Coca Cola Classic</span>
+                    </div>
+                </div>
+                <div class="w-full flex flex-col space-y-3 pt-3 border-t border-gray-100 flex-grow">
+                    <h3 class="text-[11px] capitalize font-black text-gray-400 tracking-widest pl-1 border-l-2 border-gray-300">User Profile</h3>
+                    <div class="space-y-1"><span class="pref-tag bg-cyan-50 text-brand-cyan border border-cyan-100 inline-block mb-0.5">Content preference</span><p class="text-xs text-gray-600 font-medium leading-relaxed">Anime plot analysis for Lycoris Recoil and character interactions from Re:Zero.</p></div>
+                    <div class="space-y-1"><span class="pref-tag bg-purple-50 text-brand-purple border border-purple-100 inline-block mb-0.5">Style preference</span><p class="text-xs text-gray-600 font-medium leading-relaxed">Stylized, dynamic handheld shots with high-contrast lighting and dramatic close-ups.</p></div>
+                    <div class="space-y-1"><span class="pref-tag bg-slate-50 text-slate-500 border border-slate-200 inline-block mb-0.5">Detailed elements</span><p class="text-xs text-gray-600 font-medium leading-relaxed">Focus on character emotions, narrative tension, and visual storytelling in anime series.</p></div>
+                </div>
+                <div class="w-full flex flex-col space-y-2 pt-3 border-t border-gray-100 mt-2">
+                    <h3 class="text-[11px] capitalize font-black text-gray-400 tracking-widest pl-1 border-l-2 border-gray-300">Reference Visual Collage</h3>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="relative">
+                            <img src="https://nextadsdemo.netlify.app/pci_pictures/start_frame_25_2.jpg" alt="Start Frame" class="rounded border border-gray-100 w-full aspect-video object-cover">
+                            <span class="absolute bottom-1 left-1 bg-black/70 text-[8px] text-white px-1 py-0.5 rounded  font-bold tracking-wider">Start Frame</span>
+                        </div>
+                        <div class="relative">
+                            <img src="https://nextadsdemo.netlify.app/pci_pictures/product_25_2.jpg" alt="Product Image" class="rounded border border-gray-100 w-full aspect-video object-cover">
+                            <span class="absolute bottom-1 left-1 bg-black/70 text-[8px] text-white px-1 py-0.5 rounded  font-bold tracking-wider">Product Image</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="video-card flex flex-col gap-4">
+                <div class="w-full flex flex-col gap-2">
+                    <video controls preload="none" class="w-full rounded-xl aspect-video object-cover border border-gray-200">
+                        <source src="https://nextadsdemo.netlify.app/cases/user_25_product_10.mp4" type="video/mp4">
+                    </video>
+                    <div class="flex items-center justify-between px-1">
+                        <span class="text-[11px] font-black text-gray-400  tracking-wider">User 25</span>
+                        <span class="text-[11px] font-black text-brand-cyan  tracking-wider">Chanel Chance Perfume</span>
+                    </div>
+                </div>
+                <div class="w-full flex flex-col space-y-3 pt-3 border-t border-gray-100 flex-grow">
+                    <h3 class="text-[11px] capitalize font-black text-gray-400 tracking-widest pl-1 border-l-2 border-gray-300">User Profile</h3>
+                    <div class="space-y-1"><span class="pref-tag bg-cyan-50 text-brand-cyan border border-cyan-100 inline-block mb-0.5">Content preference</span><p class="text-xs text-gray-600 font-medium leading-relaxed">Anime plot analysis for Lycoris Recoil and character interactions from Re:Zero.</p></div>
+                    <div class="space-y-1"><span class="pref-tag bg-purple-50 text-brand-purple border border-purple-100 inline-block mb-0.5">Style preference</span><p class="text-xs text-gray-600 font-medium leading-relaxed">Stylized, dynamic handheld shots with high-contrast lighting and dramatic close-ups.</p></div>
+                    <div class="space-y-1"><span class="pref-tag bg-slate-50 text-slate-500 border border-slate-200 inline-block mb-0.5">Detailed elements</span><p class="text-xs text-gray-600 font-medium leading-relaxed">Focus on character emotions, narrative tension, and visual storytelling in anime series.</p></div>
+                </div>
+                <div class="w-full flex flex-col space-y-2 pt-3 border-t border-gray-100 mt-2">
+                    <h3 class="text-[11px] capitalize font-black text-gray-400 tracking-widest pl-1 border-l-2 border-gray-300">Reference Visual Collage</h3>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="relative">
+                            <img src="https://nextadsdemo.netlify.app/pci_pictures/start_frame_25_10_new.jpg" alt="Start Frame" class="rounded border border-gray-100 w-full aspect-video object-cover">
+                            <span class="absolute bottom-1 left-1 bg-black/70 text-[8px] text-white px-1 py-0.5 rounded  font-bold tracking-wider">Start Frame</span>
+                        </div>
+                        <div class="relative">
+                            <img src="https://nextadsdemo.netlify.app/pci_pictures/product_25_10.jpg" alt="Product Image" class="rounded border border-gray-100 w-full aspect-video object-cover">
+                            <span class="absolute bottom-1 left-1 bg-black/70 text-[8px] text-white px-1 py-0.5 rounded  font-bold tracking-wider">Product Image</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="video-card flex flex-col gap-4">
+                <div class="w-full flex flex-col gap-2">
+                    <video controls preload="none" class="w-full rounded-xl aspect-video object-cover border border-gray-200">
+                        <source src="https://nextadsdemo.netlify.app/cases/user_28_product_0.mp4" type="video/mp4">
+                    </video>
+                    <div class="flex items-center justify-between px-1">
+                        <span class="text-[11px] font-black text-gray-400  tracking-wider">User 28</span>
+                        <span class="text-[11px] font-black text-brand-cyan  tracking-wider">Nike Air Force 1’07.</span>
+                    </div>
+                </div>
+                <div class="w-full flex flex-col space-y-3 pt-3 border-t border-gray-100 flex-grow">
+                    <h3 class="text-[11px] capitalize font-black text-gray-400 tracking-widest pl-1 border-l-2 border-gray-300">User Profile</h3>
+                    <div class="space-y-1"><span class="pref-tag bg-cyan-50 text-brand-cyan border border-cyan-100 inline-block mb-0.5">Content preference</span><p class="text-xs text-gray-600 font-medium leading-relaxed">Anime commentary for One Piece episodes and character analysis.</p></div>
+                    <div class="space-y-1"><span class="pref-tag bg-purple-50 text-brand-purple border border-purple-100 inline-block mb-0.5">Style preference</span><p class="text-xs text-gray-600 font-medium leading-relaxed">High saturation comic-style illustrations with vibrant and bold on-screen captions.</p></div>
+                    <div class="space-y-1"><span class="pref-tag bg-slate-50 text-slate-500 border border-slate-200 inline-block mb-0.5">Detailed elements</span><p class="text-xs text-gray-600 font-medium leading-relaxed">Focus on character abilities, narrative plot twists, and dramatic event previews in One Piece.</p></div>
+                </div>
+                <div class="w-full flex flex-col space-y-2 pt-3 border-t border-gray-100 mt-2">
+                    <h3 class="text-[11px] capitalize font-black text-gray-400 tracking-widest pl-1 border-l-2 border-gray-300">Reference Visual Collage</h3>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="relative">
+                            <img src="https://nextadsdemo.netlify.app/pci_pictures/start_frame_28_0.jpg" alt="Start Frame" class="rounded border border-gray-100 w-full aspect-video object-cover">
+                            <span class="absolute bottom-1 left-1 bg-black/70 text-[8px] text-white px-1 py-0.5 rounded  font-bold tracking-wider">Start Frame</span>
+                        </div>
+                        <div class="relative">
+                            <img src="https://nextadsdemo.netlify.app/pci_pictures/product_28_0.jpg" alt="Product Image" class="rounded border border-gray-100 w-full aspect-video object-cover">
+                            <span class="absolute bottom-1 left-1 bg-black/70 text-[8px] text-white px-1 py-0.5 rounded  font-bold tracking-wider">Product Image</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="video-card flex flex-col gap-4">
+                <div class="w-full flex flex-col gap-2">
+                    <video controls preload="none" class="w-full rounded-xl aspect-video object-cover border border-gray-200">
+                        <source src="https://nextadsdemo.netlify.app/cases/user_29_product_2.mp4" type="video/mp4">
+                    </video>
+                    <div class="flex items-center justify-between px-1">
+                        <span class="text-[11px] font-black text-gray-400  tracking-wider">User 29</span>
+                        <span class="text-[11px] font-black text-brand-cyan  tracking-wider">Coca Cola Classic</span>
+                    </div>
+                </div>
+                <div class="w-full flex flex-col space-y-3 pt-3 border-t border-gray-100 flex-grow">
+                    <h3 class="text-[11px] capitalize font-black text-gray-400 tracking-widest pl-1 border-l-2 border-gray-300">User Profile</h3>
+                    <div class="space-y-1"><span class="pref-tag bg-cyan-50 text-brand-cyan border border-cyan-100 inline-block mb-0.5">Content preference</span><p class="text-xs text-gray-600 font-medium leading-relaxed">Drama and historical film commentary with a focus on plot analysis and character development.</p></div>
+                    <div class="space-y-1"><span class="pref-tag bg-purple-50 text-brand-purple border border-purple-100 inline-block mb-0.5">Style preference</span><p class="text-xs text-gray-600 font-medium leading-relaxed">Warm, softly lit static shots with a focus on costume details and indoor settings. Provides a healing narrative tone with surprising plot twists.</p></div>
+                    <div class="space-y-1"><span class="pref-tag bg-slate-50 text-slate-500 border border-slate-200 inline-block mb-0.5">Detailed elements</span><p class="text-xs text-gray-600 font-medium leading-relaxed">Epic historical drama settings, detailed costume designs, child character interactions, outdoor surveillance scenes.</p></div>
+                </div>
+                <div class="w-full flex flex-col space-y-2 pt-3 border-t border-gray-100 mt-2">
+                    <h3 class="text-[11px] capitalize font-black text-gray-400 tracking-widest pl-1 border-l-2 border-gray-300">Reference Visual Collage</h3>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="relative">
+                            <img src="https://nextadsdemo.netlify.app/pci_pictures/start_frame_29_2.jpg" alt="Start Frame" class="rounded border border-gray-100 w-full aspect-video object-cover">
+                            <span class="absolute bottom-1 left-1 bg-black/70 text-[8px] text-white px-1 py-0.5 rounded  font-bold tracking-wider">Start Frame</span>
+                        </div>
+                        <div class="relative">
+                            <img src="https://nextadsdemo.netlify.app/pci_pictures/product_29_2.jpg" alt="Product Image" class="rounded border border-gray-100 w-full aspect-video object-cover">
+                            <span class="absolute bottom-1 left-1 bg-black/70 text-[8px] text-white px-1 py-0.5 rounded  font-bold tracking-wider">Product Image</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="video-card flex flex-col gap-4">
+                <div class="w-full flex flex-col gap-2">
+                    <video controls preload="none" class="w-full rounded-xl aspect-video object-cover border border-gray-200">
+                        <source src="https://nextadsdemo.netlify.app/cases/user_32_product_8.mp4" type="video/mp4">
+                    </video>
+                    <div class="flex items-center justify-between px-1">
+                        <span class="text-[11px] font-black text-gray-400  tracking-wider">User 32</span>
+                        <span class="text-[11px] font-black text-brand-cyan  tracking-wider">Walmart Retail</span>
+                    </div>
+                </div>
+                <div class="w-full flex flex-col space-y-3 pt-3 border-t border-gray-100 flex-grow">
+                    <h3 class="text-[11px] capitalize font-black text-gray-400 tracking-widest pl-1 border-l-2 border-gray-300">User Profile</h3>
+                    <div class="space-y-1"><span class="pref-tag bg-cyan-50 text-brand-cyan border border-cyan-100 inline-block mb-0.5">Content preference</span><p class="text-xs text-gray-600 font-medium leading-relaxed">Daily life vlogs focused on family and rural living, featuring home gardening and traditional meal preparations.</p></div>
+                    <div class="space-y-1"><span class="pref-tag bg-purple-50 text-brand-purple border border-purple-100 inline-block mb-0.5">Style preference</span><p class="text-xs text-gray-600 font-medium leading-relaxed">Warm, welcoming tones with handheld, dynamic shots capturing everyday moments in an intimate, immersive style.</p></div>
+                    <div class="space-y-1"><span class="pref-tag bg-slate-50 text-slate-500 border border-slate-200 inline-block mb-0.5">Detailed elements</span><p class="text-xs text-gray-600 font-medium leading-relaxed">Depictions of rural family activities, traditional Chinese culinary preparation, outdoor dining with family, and candid interactions within a homely setting.</p></div>
+                </div>
+                <div class="w-full flex flex-col space-y-2 pt-3 border-t border-gray-100 mt-2">
+                    <h3 class="text-[11px] capitalize font-black text-gray-400 tracking-widest pl-1 border-l-2 border-gray-300">Reference Visual Collage</h3>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="relative">
+                            <img src="https://nextadsdemo.netlify.app/pci_pictures/start_frame_32_8.jpg" alt="Start Frame" class="rounded border border-gray-100 w-full aspect-video object-cover">
+                            <span class="absolute bottom-1 left-1 bg-black/70 text-[8px] text-white px-1 py-0.5 rounded  font-bold tracking-wider">Start Frame</span>
+                        </div>
+                        <div class="relative">
+                            <img src="https://nextadsdemo.netlify.app/pci_pictures/product_32_8.jpg" alt="Product Image" class="rounded border border-gray-100 w-full aspect-video object-cover">
+                            <span class="absolute bottom-1 left-1 bg-black/70 text-[8px] text-white px-1 py-0.5 rounded  font-bold tracking-wider">Product Image</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="video-card flex flex-col gap-4">
+                <div class="w-full flex flex-col gap-2">
+                    <video controls preload="none" class="w-full rounded-xl aspect-video object-cover border border-gray-200">
+                        <source src="https://nextadsdemo.netlify.app/cases/user_34_product_7.mp4" type="video/mp4">
+                    </video>
+                    <div class="flex items-center justify-between px-1">
+                        <span class="text-[11px] font-black text-gray-400  tracking-wider">User 34</span>
+                        <span class="text-[11px] font-black text-brand-cyan  tracking-wider">Subway Sandwich</span>
+                    </div>
+                </div>
+                <div class="w-full flex flex-col space-y-3 pt-3 border-t border-gray-100 flex-grow">
+                    <h3 class="text-[11px] capitalize font-black text-gray-400 tracking-widest pl-1 border-l-2 border-gray-300">User Profile</h3>
+                    <div class="space-y-1"><span class="pref-tag bg-cyan-50 text-brand-cyan border border-cyan-100 inline-block mb-0.5">Content preference</span><p class="text-xs text-gray-600 font-medium leading-relaxed">Rustic family vlogs featuring outdoor cooking and daily life in rural settings.</p></div>
+                    <div class="space-y-1"><span class="pref-tag bg-purple-50 text-brand-purple border border-purple-100 inline-block mb-0.5">Style preference</span><p class="text-xs text-gray-600 font-medium leading-relaxed">Warm-toned handheld footage with an emphasis on natural lighting and intimate, close-up shots.</p></div>
+                    <div class="space-y-1"><span class="pref-tag bg-slate-50 text-slate-500 border border-slate-200 inline-block mb-0.5">Detailed elements</span><p class="text-xs text-gray-600 font-medium leading-relaxed">Traditional Chinese hotpot meals, family gatherings in natural settings, personal gardening activities.</p></div>
+                </div>
+                <div class="w-full flex flex-col space-y-2 pt-3 border-t border-gray-100 mt-2">
+                    <h3 class="text-[11px] capitalize font-black text-gray-400 tracking-widest pl-1 border-l-2 border-gray-300">Reference Visual Collage</h3>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="relative">
+                            <img src="https://nextadsdemo.netlify.app/pci_pictures/start_frame_34_7.jpg" alt="Start Frame" class="rounded border border-gray-100 w-full aspect-video object-cover">
+                            <span class="absolute bottom-1 left-1 bg-black/70 text-[8px] text-white px-1 py-0.5 rounded  font-bold tracking-wider">Start Frame</span>
+                        </div>
+                        <div class="relative">
+                            <img src="https://nextadsdemo.netlify.app/pci_pictures/product_34_7.jpg" alt="Product Image" class="rounded border border-gray-100 w-full aspect-video object-cover">
+                            <span class="absolute bottom-1 left-1 bg-black/70 text-[8px] text-white px-1 py-0.5 rounded  font-bold tracking-wider">Product Image</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="video-card flex flex-col gap-4">
+                <div class="w-full flex flex-col gap-2">
+                    <video controls preload="none" class="w-full rounded-xl aspect-video object-cover border border-gray-200">
+                        <source src="https://nextadsdemo.netlify.app/cases/user_35_product_2.mp4" type="video/mp4">
+                    </video>
+                    <div class="flex items-center justify-between px-1">
+                        <span class="text-[11px] font-black text-gray-400  tracking-wider">User 35</span>
+                        <span class="text-[11px] font-black text-brand-cyan  tracking-wider">Coca Cola Classic</span>
+                    </div>
+                </div>
+                <div class="w-full flex flex-col space-y-3 pt-3 border-t border-gray-100 flex-grow">
+                    <h3 class="text-[11px] capitalize font-black text-gray-400 tracking-widest pl-1 border-l-2 border-gray-300">User Profile</h3>
+                    <div class="space-y-1"><span class="pref-tag bg-cyan-50 text-brand-cyan border border-cyan-100 inline-block mb-0.5">Content preference</span><p class="text-xs text-gray-600 font-medium leading-relaxed">Journal-style vlogs featuring rural family dining experiences and traditional Chinese hotpot gatherings.</p></div>
+                    <div class="space-y-1"><span class="pref-tag bg-purple-50 text-brand-purple border border-purple-100 inline-block mb-0.5">Style preference</span><p class="text-xs text-gray-600 font-medium leading-relaxed">Warm, handheld camera shots with a focus on natural lighting and intimate close-ups of food preparation and family interactions.</p></div>
+                    <div class="space-y-1"><span class="pref-tag bg-slate-50 text-slate-500 border border-slate-200 inline-block mb-0.5">Detailed elements</span><p class="text-xs text-gray-600 font-medium leading-relaxed">Traditional Chinese cuisine, outdoor cooking settings, close-knit family mealtime, rural landscapes.</p></div>
+                </div>
+                <div class="w-full flex flex-col space-y-2 pt-3 border-t border-gray-100 mt-2">
+                    <h3 class="text-[11px] capitalize font-black text-gray-400 tracking-widest pl-1 border-l-2 border-gray-300">Reference Visual Collage</h3>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="relative">
+                            <img src="https://nextadsdemo.netlify.app/pci_pictures/start_frame_35_2.jpg" alt="Start Frame" class="rounded border border-gray-100 w-full aspect-video object-cover">
+                            <span class="absolute bottom-1 left-1 bg-black/70 text-[8px] text-white px-1 py-0.5 rounded  font-bold tracking-wider">Start Frame</span>
+                        </div>
+                        <div class="relative">
+                            <img src="https://nextadsdemo.netlify.app/pci_pictures/product_35_2.jpg" alt="Product Image" class="rounded border border-gray-100 w-full aspect-video object-cover">
+                            <span class="absolute bottom-1 left-1 bg-black/70 text-[8px] text-white px-1 py-0.5 rounded  font-bold tracking-wider">Product Image</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="video-card flex flex-col gap-4">
+                <div class="w-full flex flex-col gap-2">
+                    <video controls preload="none" class="w-full rounded-xl aspect-video object-cover border border-gray-200">
+                        <source src="https://nextadsdemo.netlify.app/cases/user_39_product_9.mp4" type="video/mp4">
+                    </video>
+                    <div class="flex items-center justify-between px-1">
+                        <span class="text-[11px] font-black text-gray-400  tracking-wider">User 39</span>
+                        <span class="text-[11px] font-black text-brand-cyan  tracking-wider">Airbnb</span>
+                    </div>
+                </div>
+                <div class="w-full flex flex-col space-y-3 pt-3 border-t border-gray-100 flex-grow">
+                    <h3 class="text-[11px] capitalize font-black text-gray-400 tracking-widest pl-1 border-l-2 border-gray-300">User Profile</h3>
+                    <div class="space-y-1"><span class="pref-tag bg-cyan-50 text-brand-cyan border border-cyan-100 inline-block mb-0.5">Content preference</span><p class="text-xs text-gray-600 font-medium leading-relaxed">Rural Chinese communal dining experiences and family gatherings captured in an intimate vlog setting.</p></div>
+                    <div class="space-y-1"><span class="pref-tag bg-purple-50 text-brand-purple border border-purple-100 inline-block mb-0.5">Style preference</span><p class="text-xs text-gray-600 font-medium leading-relaxed">Warm tones with dynamic, handheld camera work focusing on close-ups and interaction shots amidst outdoor and indoor village settings.</p></div>
+                    <div class="space-y-1"><span class="pref-tag bg-slate-50 text-slate-500 border border-slate-200 inline-block mb-0.5">Detailed elements</span><p class="text-xs text-gray-600 font-medium leading-relaxed">Sichuan-style dishes, table-sharing traditions, rural village architecture, and lush, green landscapes.</p></div>
+                </div>
+                <div class="w-full flex flex-col space-y-2 pt-3 border-t border-gray-100 mt-2">
+                    <h3 class="text-[11px] capitalize font-black text-gray-400 tracking-widest pl-1 border-l-2 border-gray-300">Reference Visual Collage</h3>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="relative">
+                            <img src="https://nextadsdemo.netlify.app/pci_pictures/start_frame_39_9.jpg" alt="Start Frame" class="rounded border border-gray-100 w-full aspect-video object-cover">
+                            <span class="absolute bottom-1 left-1 bg-black/70 text-[8px] text-white px-1 py-0.5 rounded  font-bold tracking-wider">Start Frame</span>
+                        </div>
+                        <div class="relative">
+                            <img src="https://nextadsdemo.netlify.app/pci_pictures/product_39_9.jpg" alt="Product Image" class="rounded border border-gray-100 w-full aspect-video object-cover">
+                            <span class="absolute bottom-1 left-1 bg-black/70 text-[8px] text-white px-1 py-0.5 rounded  font-bold tracking-wider">Product Image</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="video-card flex flex-col gap-4">
+                <div class="w-full flex flex-col gap-2">
+                    <video controls preload="none" class="w-full rounded-xl aspect-video object-cover border border-gray-200">
+                        <source src="https://nextadsdemo.netlify.app/cases/user_41_product_9.mp4" type="video/mp4">
+                    </video>
+                    <div class="flex items-center justify-between px-1">
+                        <span class="text-[11px] font-black text-gray-400  tracking-wider">User 41</span>
+                        <span class="text-[11px] font-black text-brand-cyan  tracking-wider">Airbnb</span>
+                    </div>
+                </div>
+                <div class="w-full flex flex-col space-y-3 pt-3 border-t border-gray-100 flex-grow">
+                    <h3 class="text-[11px] capitalize font-black text-gray-400 tracking-widest pl-1 border-l-2 border-gray-300">User Profile</h3>
+                    <div class="space-y-1"><span class="pref-tag bg-cyan-50 text-brand-cyan border border-cyan-100 inline-block mb-0.5">Content preference</span><p class="text-xs text-gray-600 font-medium leading-relaxed">Anime character plot development and stylized military simulations.</p></div>
+                    <div class="space-y-1"><span class="pref-tag bg-purple-50 text-brand-purple border border-purple-100 inline-block mb-0.5">Style preference</span><p class="text-xs text-gray-600 font-medium leading-relaxed">Highly stylized exaggerated character expressions with heavy use of text overlays and muted color palettes.</p></div>
+                    <div class="space-y-1"><span class="pref-tag bg-slate-50 text-slate-500 border border-slate-200 inline-block mb-0.5">Detailed elements</span><p class="text-xs text-gray-600 font-medium leading-relaxed">Anime character interactions, tactical military scenarios, visual storytelling with plot twists.</p></div>
+                </div>
+                <div class="w-full flex flex-col space-y-2 pt-3 border-t border-gray-100 mt-2">
+                    <h3 class="text-[11px] capitalize font-black text-gray-400 tracking-widest pl-1 border-l-2 border-gray-300">Reference Visual Collage</h3>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="relative">
+                            <img src="https://nextadsdemo.netlify.app/pci_pictures/start_frame_41_9.jpg" alt="Start Frame" class="rounded border border-gray-100 w-full aspect-video object-cover">
+                            <span class="absolute bottom-1 left-1 bg-black/70 text-[8px] text-white px-1 py-0.5 rounded  font-bold tracking-wider">Start Frame</span>
+                        </div>
+                        <div class="relative">
+                            <img src="https://nextadsdemo.netlify.app/pci_pictures/product_41_9.jpg" alt="Product Image" class="rounded border border-gray-100 w-full aspect-video object-cover">
+                            <span class="absolute bottom-1 left-1 bg-black/70 text-[8px] text-white px-1 py-0.5 rounded  font-bold tracking-wider">Product Image</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="video-card flex flex-col gap-4">
+                <div class="w-full flex flex-col gap-2">
+                    <video controls preload="none" class="w-full rounded-xl aspect-video object-cover border border-gray-200">
+                        <source src="https://nextadsdemo.netlify.app/cases/user_44_product_5.mp4" type="video/mp4">
+                    </video>
+                    <div class="flex items-center justify-between px-1">
+                        <span class="text-[11px] font-black text-gray-400  tracking-wider">User 44</span>
+                        <span class="text-[11px] font-black text-brand-cyan  tracking-wider">L'Oréal Paris Revitalift</span>
+                    </div>
+                </div>
+                <div class="w-full flex flex-col space-y-3 pt-3 border-t border-gray-100 flex-grow">
+                    <h3 class="text-[11px] capitalize font-black text-gray-400 tracking-widest pl-1 border-l-2 border-gray-300">User Profile</h3>
+                    <div class="space-y-1"><span class="pref-tag bg-cyan-50 text-brand-cyan border border-cyan-100 inline-block mb-0.5">Content preference</span><p class="text-xs text-gray-600 font-medium leading-relaxed">Beauty and fashion tutorial vlogs focused on Asian-inspired makeup and apparel styling, incorporating casual and bridal-themed outfits, alongside video game character cosplay analysis from Genshin Impact, and gameplay commentary of Honor of Kings.</p></div>
+                    <div class="space-y-1"><span class="pref-tag bg-purple-50 text-brand-purple border border-purple-100 inline-block mb-0.5">Style preference</span><p class="text-xs text-gray-600 font-medium leading-relaxed">Warm, soft lighting with a journal-style static/tripod camera setup; use of close-up framing and mid-shots showcasing facial details and outfit textures; overlay text captions in Mandarin for instructional emphasis; slight tonal compression to maintain a warm, healing atmosphere across handheld and indoor settings.</p></div>
+                    <div class="space-y-1"><span class="pref-tag bg-slate-50 text-slate-500 border border-slate-200 inline-block mb-0.5">Detailed elements</span><p class="text-xs text-gray-600 font-medium leading-relaxed">Bridal veil and soft floral patterns in fashion content</p></div>
+                </div>
+                <div class="w-full flex flex-col space-y-2 pt-3 border-t border-gray-100 mt-2">
+                    <h3 class="text-[11px] capitalize font-black text-gray-400 tracking-widest pl-1 border-l-2 border-gray-300">Reference Visual Collage</h3>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="relative">
+                            <img src="https://nextadsdemo.netlify.app/pci_pictures/start_frame_44_5.jpg" alt="Start Frame" class="rounded border border-gray-100 w-full aspect-video object-cover">
+                            <span class="absolute bottom-1 left-1 bg-black/70 text-[8px] text-white px-1 py-0.5 rounded  font-bold tracking-wider">Start Frame</span>
+                        </div>
+                        <div class="relative">
+                            <img src="https://nextadsdemo.netlify.app/pci_pictures/product_44_5.jpg" alt="Product Image" class="rounded border border-gray-100 w-full aspect-video object-cover">
+                            <span class="absolute bottom-1 left-1 bg-black/70 text-[8px] text-white px-1 py-0.5 rounded  font-bold tracking-wider">Product Image</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="video-card flex flex-col gap-4">
+                <div class="w-full flex flex-col gap-2">
+                    <video controls preload="none" class="w-full rounded-xl aspect-video object-cover border border-gray-200">
+                        <source src="https://nextadsdemo.netlify.app/cases/user_45_product_10.mp4" type="video/mp4">
+                    </video>
+                    <div class="flex items-center justify-between px-1">
+                        <span class="text-[11px] font-black text-gray-400  tracking-wider">User 45</span>
+                        <span class="text-[11px] font-black text-brand-cyan  tracking-wider">Chanel Chance Perfume</span>
+                    </div>
+                </div>
+                <div class="w-full flex flex-col space-y-3 pt-3 border-t border-gray-100 flex-grow">
+                    <h3 class="text-[11px] capitalize font-black text-gray-400 tracking-widest pl-1 border-l-2 border-gray-300">User Profile</h3>
+                    <div class="space-y-1"><span class="pref-tag bg-cyan-50 text-brand-cyan border border-cyan-100 inline-block mb-0.5">Content preference</span><p class="text-xs text-gray-600 font-medium leading-relaxed">Anime series such as 'Chuunibyou demo Koi ga Shitai!' and 'One Piece,' along with gaming content focused on 'Honor of Kings' gameplay strategies.</p></div>
+                    <div class="space-y-1"><span class="pref-tag bg-purple-50 text-brand-purple border border-purple-100 inline-block mb-0.5">Style preference</span><p class="text-xs text-gray-600 font-medium leading-relaxed">Stylized, high-contrast anime sequences with dynamic camera movements and atmospheric lighting, often incorporating dramatic close-ups.</p></div>
+                    <div class="space-y-1"><span class="pref-tag bg-slate-50 text-slate-500 border border-slate-200 inline-block mb-0.5">Detailed elements</span><p class="text-xs text-gray-600 font-medium leading-relaxed">Character-driven narratives, intense battle scenes, slice-of-life moments, and strategic gaming tutorials with on-screen text annotations.</p></div>
+                </div>
+                <div class="w-full flex flex-col space-y-2 pt-3 border-t border-gray-100 mt-2">
+                    <h3 class="text-[11px] capitalize font-black text-gray-400 tracking-widest pl-1 border-l-2 border-gray-300">Reference Visual Collage</h3>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="relative">
+                            <img src="https://nextadsdemo.netlify.app/pci_pictures/start_frame_45_10.jpg" alt="Start Frame" class="rounded border border-gray-100 w-full aspect-video object-cover">
+                            <span class="absolute bottom-1 left-1 bg-black/70 text-[8px] text-white px-1 py-0.5 rounded  font-bold tracking-wider">Start Frame</span>
+                        </div>
+                        <div class="relative">
+                            <img src="https://nextadsdemo.netlify.app/pci_pictures/product_45_10.jpg" alt="Product Image" class="rounded border border-gray-100 w-full aspect-video object-cover">
+                            <span class="absolute bottom-1 left-1 bg-black/70 text-[8px] text-white px-1 py-0.5 rounded  font-bold tracking-wider">Product Image</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="video-card flex flex-col gap-4">
+                <div class="w-full flex flex-col gap-2">
+                    <video controls preload="none" class="w-full rounded-xl aspect-video object-cover border border-gray-200">
+                        <source src="https://nextadsdemo.netlify.app/cases/user_48_product_12.mp4" type="video/mp4">
+                    </video>
+                    <div class="flex items-center justify-between px-1">
+                        <span class="text-[11px] font-black text-gray-400  tracking-wider">User 48</span>
+                        <span class="text-[11px] font-black text-brand-cyan  tracking-wider">Herman Miller Embody Chair</span>
+                    </div>
+                </div>
+                <div class="w-full flex flex-col space-y-3 pt-3 border-t border-gray-100 flex-grow">
+                    <h3 class="text-[11px] capitalize font-black text-gray-400 tracking-widest pl-1 border-l-2 border-gray-300">User Profile</h3>
+                    <div class="space-y-1"><span class="pref-tag bg-cyan-50 text-brand-cyan border border-cyan-100 inline-block mb-0.5">Content preference</span><p class="text-xs text-gray-600 font-medium leading-relaxed">Animated storytelling involving ancient survival guides with comedic undertones and vibrant travel vlogs showcasing urban exploration.</p></div>
+                    <div class="space-y-1"><span class="pref-tag bg-purple-50 text-brand-purple border border-purple-100 inline-block mb-0.5">Style preference</span><p class="text-xs text-gray-600 font-medium leading-relaxed">Bright, high-saturation visuals featuring dynamic handheld camera work coupled with bold on-screen captions and fast-paced transitional edits.</p></div>
+                    <div class="space-y-1"><span class="pref-tag bg-slate-50 text-slate-500 border border-slate-200 inline-block mb-0.5">Detailed elements</span><p class="text-xs text-gray-600 font-medium leading-relaxed">Preferences for stylized animation, urban street scenes, comedic narrative guides, and high-energy dialogue content.</p></div>
+                </div>
+                <div class="w-full flex flex-col space-y-2 pt-3 border-t border-gray-100 mt-2">
+                    <h3 class="text-[11px] capitalize font-black text-gray-400 tracking-widest pl-1 border-l-2 border-gray-300">Reference Visual Collage</h3>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="relative">
+                            <img src="https://nextadsdemo.netlify.app/pci_pictures/start_frame_48_12.jpg" alt="Start Frame" class="rounded border border-gray-100 w-full aspect-video object-cover">
+                            <span class="absolute bottom-1 left-1 bg-black/70 text-[8px] text-white px-1 py-0.5 rounded  font-bold tracking-wider">Start Frame</span>
+                        </div>
+                        <div class="relative">
+                            <img src="https://nextadsdemo.netlify.app/pci_pictures/product_48_12.jpg" alt="Product Image" class="rounded border border-gray-100 w-full aspect-video object-cover">
+                            <span class="absolute bottom-1 left-1 bg-black/70 text-[8px] text-white px-1 py-0.5 rounded  font-bold tracking-wider">Product Image</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="text-center mt-2">
+            <button class="showcase-toggle" id="pciToggle" type="button" aria-expanded="false" aria-controls="pciGrid">Show all 20 cases</button>
+        </div>
+    </main>
+<script>
+    const pciToggle = document.getElementById('pciToggle');
+    const pciGrid = document.getElementById('pciGrid');
+    document.querySelectorAll('.video-card').forEach(function(card) {
+        const video = card.querySelector('video');
+        const startFrame = card.querySelector('img[alt="Start Frame"]');
+        if (video && startFrame) video.poster = startFrame.src;
+    });
+    pciToggle.addEventListener('click', function() {
+        const expanded = pciGrid.classList.toggle('is-expanded');
+        pciToggle.setAttribute('aria-expanded', String(expanded));
+        pciToggle.textContent = expanded ? 'Show fewer cases' : 'Show all 20 cases';
+        if (!expanded) document.querySelector('.section-heading.mt-4').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+</script>
+    <section class="shared-citation" aria-labelledby="citation-title">
+        <h2 id="citation-title">Citation</h2>
+        <div class="shared-citation-card">
+            <div class="shared-citation-meta"><span>arXiv:2603.02137 · DOI: 10.48550/arXiv.2603.02137</span><a href="https://arxiv.org/abs/2603.02137" target="_blank" rel="noopener noreferrer">Paper ↗</a></div>
+            <pre>@article{xu2026nextads,
+  title={Envision Next-Generation Personalized Video Advertising},
+  author={Xu, Yiyan and Xia, Ruoxuan and Zheng, Wuqiang and Zhu, Fengbin and Wang, Wenjie and Feng, Fuli},
+  journal={arXiv preprint arXiv:2603.02137},
+  year={2026},
+  doi={10.48550/arXiv.2603.02137}
+}</pre>
+        </div>
+    </section>
+
+    <footer class="project-footer">
+        <section class="project-disclaimer" aria-labelledby="disclaimer-title">
+            <div class="disclaimer-heading">
+                <span>Disclaimer</span>
+                <h2 id="disclaimer-title">Academic &amp; Legal Disclosure Statement</h2>
+            </div>
+            <div class="disclaimer-body">
+                <p><strong>Copyright &amp; Trademarks:</strong> The specific brands, logos, and product models shown are utilized solely as research examples to evaluate the model's creative alignment. All trademarks and copyrights belong to their respective owners. We explicitly do not claim any commercial affiliation, sponsorship, or endorsement.</p>
+                <p><strong>Portrait Rights &amp; Privacy:</strong> The integration showcases contain videos of real individuals. These are used exclusively to demonstrate the technical capabilities of our pipeline. We deeply respect personal privacy and portrait rights.</p>
+                <div class="takedown-policy">
+                    <strong>Take-Down Policy:</strong>
+                    <p>If you are a rights holder (copyright, trademark, or portrait rights) and have concerns about specific cases displayed on this demonstration website, please contact us at <a href="mailto:ruoxuanxiaaa@gmail.com">ruoxuanxiaaa@gmail.com</a>. We will promptly remove the respective content.</p>
+                </div>
+            </div>
+        </section>
+        <div class="project-footer-note">NextAds · Academic research demonstration</div>
+    </footer>
+</body>
+</html>
