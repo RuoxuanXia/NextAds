@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NextAds — Experimental Details</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Montserrat:wght@500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/project-page.css">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'title': ['"Bangers"', 'cursive'],
+                        'sans': ['Montserrat', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            cyan: '#2563eb',   // 科技皇家蓝
+                            purple: '#8b5cf6', // 学术创意紫
+                            pink: '#ec4899',  
+                            dark: '#ffffff',   // 强制暗色变量变白
+                            panel: '#f8fafc'   // 卡片底色变为浅石板灰
+                        }
+                    },
+                    animation: {
+                        'marquee': 'marquee 60s linear infinite',
+                    },
+                    keyframes: {
+                        marquee: {
+                            '0%': { transform: 'translateX(0)' },
+                            '100%': { transform: 'translateX(-50%)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* ========================================================= */
+        /* 1. 全局基础：强制白底、深灰蓝字 */
+        /* ========================================================= */
+        body { background-color: #ffffff !important; color: #1e293b !important; font-family: 'Montserrat', sans-serif; overflow-x: hidden; font-size: 12px; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .custom-scroll::-webkit-scrollbar { width: 8px; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        .marquee-wrapper { display: flex; width: max-content; }
+        .marquee-viewport:hover .marquee-wrapper { animation-play-state: paused; }
+
+        /* ========================================================= */
+        /* 2. 头部标题：大小写区分、防截断 */
+        /* ========================================================= */
+        header { padding-top: 4rem !important; }
+        header.bg-black { background-color: rgba(255, 255, 255, 0.95) !important; border-bottom-color: #e2e8f0 !important; }
+        h1.title-neon {
+            font-family: 'Montserrat', sans-serif !important;
+            font-weight: 900 !important;
+            background: linear-gradient(to right, #2563eb, #8b5cf6);
+            -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent;
+            font-size: 5rem !important; 
+            line-height: 1.2 !important; margin-top: 0 !important; margin-bottom: 0.5rem !important;
+            letter-spacing: -0.02em !important; filter: none !important; text-shadow: none !important;
+            white-space: normal !important;
+        }
+        @media (min-width: 768px) { h1.title-neon { font-size: 6.5rem !important; } }
+        header h2 { font-size: 1.2rem !important; margin-top: 0.5rem !important; margin-bottom: 2rem !important; letter-spacing: 0.1em !important; text-transform: none !important; color: #1e293b !important; }
+
+        /* ========================================================= */
+        /* 3. 导航按钮 */
+        /* ========================================================= */
+        .nav-pill { background-color: #ffffff !important; border: 2px solid #cbd5e1 !important; color: #64748b !important; font-weight: 800; letter-spacing: 0.02em !important; text-transform: none !important; font-size: 0.95rem !important; box-shadow: none !important; }
+        .nav-pill:hover { border-color: #2563eb !important; color: #2563eb !important; background-color: #f0f9ff !important; }
+        .nav-pill-active { background-color: #eff6ff !important; border-color: #2563eb !important; color: #2563eb !important; box-shadow: 0 4px 15px rgba(37,99,235,0.15) !important; }
+
+        /* ========================================================= */
+        /* 4. 链接按钮 */
+        /* ========================================================= */
+        a.bg-brand-cyan { display: inline-block !important; padding: 1.5rem 3rem !important; border-radius: 9999px !important; border: 2px solid #2563eb !important; background-color: #ffffff !important; color: #2563eb !important; font-weight: 900 !important; font-size: 1.2rem !important; box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.2) !important; transition: all 0.3s ease !important; width: auto !important; min-width: 350px !important; text-align: center !important;}
+        a.bg-brand-cyan:hover { background-color: #eff6ff !important; transform: translateY(-3px) !important; box-shadow: 0 15px 30px -5px rgba(37, 99, 235, 0.3) !important; }
+
+        /* ========================================================= */
+        /* 5. 模块背景与标签 */
+        /* ========================================================= */
+        .bg-brand-panel, .bg-\[\#050505\] { background-color: #ffffff !important; border-color: #e2e8f0 !important; }
+        .bg-brand-panel h2 { font-size: 1.5rem !important; margin-bottom: 1.5rem !important; text-transform: none !important; }
+        .bg-blue-900\/20 { background-color: #eff6ff !important; border-color: #bfdbfe !important; color: #1d4ed8 !important; font-weight: 900 !important;}
+        .text-blue-200 { color: #1d4ed8 !important; font-weight: 900 !important; }
+        .bg-purple-900\/20 { background-color: #faf5ff !important; border-color: #e9d5ff !important; color: #7e22ce !important; font-weight: 900 !important;}
+        .text-purple-300 { color: #7e22ce !important; font-weight: 900 !important; }
+        img { background-color: transparent !important; }
+
+        /* ========================================================= */
+        /* 6. User 资料卡 */
+        /* ========================================================= */
+        .bg-brand-panel { box-shadow: 0 10px 40px -10px rgba(0,0,0,0.05) !important; }
+        .bg-brand-purple\/5, .blur-\[120px\] { display: none !important; }
+        .bg-\[\#1a1a1a\] { background-color: #f8fafc !important; border-color: #e2e8f0 !important; }
+        h3.text-7xl { color: #0f172a !important; font-size: 1.8rem !important; margin-bottom: 0.5rem !important; } 
+        h4.text-xl { color: #64748b !important; font-size: 0.85rem !important; margin-bottom: 1rem !important; }
+        .bg-\[\#1a1a1a\] span.text-4xl { color: #0f172a !important; font-size: 1.15rem !important; } 
+        .bg-\[\#1a1a1a\] p.text-xl { color: #475569 !important; border-top-color: #e2e8f0 !important; font-size: 0.85rem !important; padding-top: 0.5rem !important; }
+        span.bg-\[\#222\].text-2xl { background-color: #f1f5f9 !important; border-color: #cbd5e1 !important; color: #475569 !important; font-size: 0.8rem !important; padding: 0.25rem 0.75rem !important; }
+        .w-36.h-36 { background: #ffffff !important; border-color: #2563eb !important; color: #2563eb !important; text-shadow: none !important; box-shadow: 0 4px 15px rgba(37,99,235,0.2) !important; width: 4.5rem !important; height: 4.5rem !important; font-size: 2rem !important; }
+
+        /* ========================================================= */
+        /* 7. 视频海报卡片 */
+        /* ========================================================= */
+        .js-product-card { background-color: #ffffff !important; border-color: #e2e8f0 !important; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05) !important; }
+        .js-product-card:hover { border-color: #2563eb !important; box-shadow: 0 15px 30px -5px rgba(37, 99, 235, 0.15) !important; }
+        .js-product-card h5 { color: #0f172a !important; text-shadow: none !important; }
+        .bg-brand-cyan.text-black { background-color: #eff6ff !important; color: #2563eb !important; border: 1px solid #bfdbfe !important; }
+        .from-black { --tw-gradient-from: #ffffff !important; --tw-gradient-to: rgba(255,255,255,0) !important; }
+        .via-black\/10 { --tw-gradient-stops: var(--tw-gradient-from), rgba(255,255,255,0.9), var(--tw-gradient-to) !important; }
+        .fill-white { fill: #2563eb !important; }
+        .border-white\/50 { border-color: #2563eb !important; background-color: rgba(255,255,255,0.9) !important; }
+
+/* ========================================================= */
+        /* 8. 强制洗白详情页弹窗 (#detailModal) */
+        /* ========================================================= */
+        #detailModal { background-color: rgba(255, 255, 255, 0.85) !important; backdrop-filter: blur(15px) !important; }
+        #detailModal #modalPanel, #detailModal .bg-\[\#121212\], #detailModal .bg-\[\#161616\], #detailModal .bg-black, #detailModal .bg-\[\#050505\] {
+            background-color: #ffffff !important; border-color: #e2e8f0 !important; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1) !important;
+        }
+        #detailModal h2, #detailModal h3, #detailModal p, #detailModal span:not(#modalTier):not(#modalScore), #detailModal div:not([class*="bg-"]), #detailModal ul, #detailModal li {
+            color: #1e293b !important; text-shadow: none !important;
+        }
+        #detailModal .bg-\[\#1a1a1a\], #detailModal .bg-\[\#0a0a0a\] {
+            background-color: #f8fafc !important; border: 1px solid #e2e8f0 !important; color: #475569 !important;
+        }
+        #modalTier { background-color: #faf5ff !important; color: #8b5cf6 !important; border-color: #e9d5ff !important;}
+        #modalScore { background-color: #eff6ff !important; color: #2563eb !important; border-color: #bfdbfe !important;}
+        #detailModal .bg-\[\#333\] { background-color: #e2e8f0 !important; color: #475569 !important; }
+        #detailModal video { background-color: #f8fafc !important; }
+        #detailModal .bg-black\/80 { background-color: rgba(255,255,255,0.9) !important; color: #2563eb !important; }
+        #closeModalBtn { color: #64748b !important; background-color: transparent !important; }
+        #closeModalBtn:hover { color: #ef4444 !important; background-color: #fef2f2 !important; }
+
+        /* ========================================================= */
+        /* 9. 靶向修复 JS 动态生成的内容 (文字发白 & 卡片发黑) */
+        /* ========================================================= */
+        #modalReason { background-color: #f8fafc !important; border: 1px solid #e2e8f0 !important; color: #334155 !important; }
+        #modalHistory > div, #modalHistory > li {
+            background-color: #ffffff !important; border: 1px solid #e2e8f0 !important; box-shadow: 0 4px 15px -3px rgba(0,0,0,0.05) !important;
+        }
+        #modalHistory .text-white, #modalHistory .text-4xl { color: #0f172a !important; }
+        #modalHistory p, #modalHistory .text-gray-400 { color: #64748b !important; border-top-color: #e2e8f0 !important; }
+        #modalVisuals > span, #modalVisuals > div {
+            background-color: #eff6ff !important; color: #2563eb !important; border: 1px solid #bfdbfe !important; font-weight: 800 !important; letter-spacing: 0.05em !important;
+        }
+
+        /* ========================================================= */
+        /* 9. 终极排版优化：更紧凑的用户卡片 */
+        /* ========================================================= */
+        .-fix { text-transform: capitalize !important; letter-spacing: normal !important; }
+        
+        .p-6 { padding: 1.5rem !important; } /* 缩小外边距让布局更紧凑 */
+        .gap-6 { gap: 1rem !important; } 
+        h3.text-7xl { font-size: 2rem !important; margin-bottom: 0.25rem !important; }
+        
+        /* 视频卡片尺寸保持缩小状态 */
+        .js-product-card { width: 200px !important; border-radius: 1.25rem !important; border-width: 2px !important; }
+        .js-product-card h5 { font-size: 0.9rem !important; margin-bottom: 0.5rem !important; white-space: normal !important; line-height: 1.2 !important; }
+        .js-product-card span.text-lg { font-size: 0.65rem !important; padding: 0.25rem 0.5rem !important; border-radius: 0.5rem !important; }
+        .js-product-card .bottom-10 { bottom: 1rem !important; left: 1rem !important; right: 1rem !important; }
+        .js-product-card .w-16.h-16 { width: 2.5rem !important; height: 2.5rem !important; border-width: 2px !important; }
+        .js-product-card svg.w-12.h-12 { width: 1.25rem !important; height: 1.25rem !important; margin-left: 2px !important; }
+
+        html { scroll-behavior: smooth; scroll-padding-top: 74px; }
+        .paper-authors { color: #2563eb; font-size: 1rem; font-weight: 700; line-height: 1.9; }
+        .paper-affiliations { color: #64748b; font-size: 0.82rem; line-height: 1.8; }
+        .paper-authors a { color: inherit; text-decoration: none; }
+        .paper-authors a:hover { text-decoration: underline; }
+        .paper-authors sup { color: #8b5cf6; font-size: .68em; margin-left: .08em; }
+        .paper-affiliations span { display: block; }
+        .paper-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; margin: 1.7rem 0 2.5rem; }
+        .paper-link {
+            display: inline-flex !important; align-items: center; justify-content: center; gap: 0.55rem;
+            min-width: 0 !important; width: auto !important; padding: 0.75rem 1.25rem !important;
+            border: 1px solid #cbd5e1 !important; border-radius: 9999px !important;
+            background: #ffffff !important; color: #334155 !important; box-shadow: 0 4px 12px rgba(15,23,42,0.06) !important;
+            font-size: 0.82rem !important; font-weight: 800 !important; text-decoration: none;
+        }
+        .paper-link:hover { border-color: #2563eb !important; color: #2563eb !important; transform: translateY(-2px); }
+        .paper-link svg { width: 1.05rem; height: 1.05rem; flex: none; }
+        .paper-figure { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 1rem; overflow: hidden; }
+        .paper-figure img { display: block; width: 100%; height: auto; }
+        .paper-caption { color: #64748b; font-size: 0.78rem; line-height: 1.7; text-align: center; margin-top: 0.85rem; }
+        .paper-copy { color: #475569; font-size: 0.88rem; line-height: 1.9; }
+        .section-nav {
+            position: sticky; top: 0; z-index: 45; display: flex; justify-content: center; gap: 0.25rem;
+            padding: 0.65rem 1rem; background: rgba(255,255,255,0.92); border-top: 1px solid #f1f5f9;
+            border-bottom: 1px solid #e2e8f0; backdrop-filter: blur(14px);
+        }
+        .section-nav a {
+            color: #64748b; font-size: 0.76rem; font-weight: 800; padding: 0.55rem 0.85rem;
+            border-radius: 9999px; text-decoration: none; transition: all 0.2s ease;
+        }
+        .section-nav a:hover { color: #2563eb; background: #eff6ff; }
+        .section-nav a[aria-current="page"] { color: #2563eb; background: #eff6ff; }
+        .subpage-header { padding-top: 3rem !important; padding-bottom: 1.6rem !important; }
+        .subpage-header h1.title-neon { font-size: 3.8rem !important; }
+        .subpage-header h2 { margin-bottom: .75rem !important; }
+        .page-index { display: flex; flex-wrap: wrap; justify-content: center; gap: .55rem; margin: 2rem auto 3.2rem; padding: 0 1rem; }
+        .page-index a { color: #64748b; font-size: .72rem; font-weight: 800; text-decoration: none; }
+        .page-index a:hover { color: #2563eb; }
+        .page-index span { color: #cbd5e1; }
+        #pipelines .paper-surface, #results .paper-surface, #case-studies .paper-surface { max-width: 980px; margin-left: auto; margin-right: auto; }
+        .paper-section { width: min(1120px, calc(100% - 40px)); margin: 0 auto 88px; padding: 0; }
+        .paper-section-wide { width: min(1200px, calc(100% - 40px)); }
+        .section-heading { text-align: center; margin-bottom: 1.8rem; }
+        .section-kicker {
+            display: block; color: #8b5cf6; font-size: 0.68rem; font-weight: 900;
+            letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 0.45rem;
+        }
+        .section-heading h2 { color: #1e3a8a !important; font-size: 1.65rem !important; letter-spacing: -0.02em !important; margin: 0 !important; }
+        .section-heading p { max-width: 760px; margin: 0.75rem auto 0; color: #64748b; font-size: 0.86rem; line-height: 1.8; }
+        .paper-surface {
+            background: #ffffff !important; border: 1px solid #e2e8f0 !important; border-radius: 1.5rem !important;
+            box-shadow: 0 12px 32px rgba(15,23,42,0.055) !important; padding: 2rem !important;
+        }
+        .figure-only { padding: 1.25rem !important; }
+        #overview .paper-surface { padding: 2.2rem 2.5rem !important; }
+        #overview p { font-size: 0.92rem !important; line-height: 1.95 !important; color: #475569 !important; }
+        #pcgShowcase:not(.is-expanded) > div:nth-child(n+4) { display: none; }
+        .showcase-toggle {
+            display: inline-flex; align-items: center; justify-content: center; min-width: 220px;
+            padding: 0.85rem 1.35rem; border: 1px solid #cbd5e1; border-radius: 9999px;
+            background: #ffffff; color: #334155; font-size: 0.82rem; font-weight: 900;
+            box-shadow: 0 6px 18px rgba(15,23,42,0.07); transition: all 0.2s ease;
+        }
+        .showcase-toggle:hover { color: #2563eb; border-color: #2563eb; transform: translateY(-2px); }
+        #benchmarks article, #analysis article, #results .paper-copy.rounded-2xl { box-shadow: none !important; }
+        #pipelines .paper-surface + .paper-surface { margin-top: 1.5rem; }
+        #detailModal { z-index: 60 !important; }
+        .detail-list { margin: .8rem 0 0; padding-left: 1.1rem; color: #475569; font-size: .72rem; line-height: 1.75; }
+        .detail-list li + li { margin-top: .35rem; }
+        .system-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: .8rem; }
+        .system-card { padding: 1.1rem; border: 1px solid #e2e8f0; border-radius: 1rem; background: #f8fafc; }
+        .system-card b { color: #64748b; font-size: .62rem; letter-spacing: .08em; text-transform: uppercase; }
+        .system-card h3 { margin: .45rem 0 .65rem; color: #0f172a; font-size: .92rem; font-weight: 900; }
+        .system-card p { margin: 0; color: #475569; font-size: .69rem; line-height: 1.7; }
+        .evaluation-grid { display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); gap: .65rem; }
+        .evaluation-item { min-height: 118px; padding: .85rem; border: 1px solid #e2e8f0; border-radius: .9rem; background: #f8fafc; }
+        .evaluation-item strong { display: block; color: #334155; font-size: .7rem; font-weight: 900; }
+        .evaluation-item span { display: block; margin-top: .4rem; color: #64748b; font-size: .63rem; line-height: 1.55; }
+        .case-study-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1rem; align-items: start; }
+        .case-study-grid .paper-surface { max-width: none !important; margin: 0 !important; }
+        .case-study-grid .paper-figure { min-height: 250px; display: flex; align-items: center; }
+        .case-study-grid img { max-height: 430px; object-fit: contain; }
+        .open-figure { display: block; margin-top: .65rem; color: #2563eb; font-size: .66rem; font-weight: 900; text-align: center; text-decoration: none; }
+        .result-observations { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1rem; margin-top: 1.5rem; }
+        .result-observations article { padding: 1.15rem; border: 1px solid #e2e8f0; border-radius: 1rem; background: #f8fafc; }
+        .result-observations h3 { margin: 0 0 .65rem; color: #0f172a; font-size: .86rem; font-weight: 900; }
+        .paper-bullets { margin: 0; padding-left: 1.1rem; color: #475569; font-size: .73rem; line-height: 1.8; }
+        .paper-bullets li + li { margin-top: .7rem; }
+        .case-study-copy { margin: .85rem 0 0; color: #475569; font-size: .7rem; line-height: 1.75; }
+        .discussion-groups { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1.25rem; }
+        .discussion-groups h3 { margin: 0 0 .75rem; color: #0f172a; font-size: .9rem; font-weight: 900; }
+        .discussion-groups details { padding: .85rem .95rem; border: 1px solid #e2e8f0; border-radius: .9rem; background: #f8fafc; }
+        .discussion-groups details + details { margin-top: .65rem; }
+        .discussion-groups summary { color: #334155; font-size: .76rem; font-weight: 900; cursor: pointer; }
+        .discussion-groups p { margin: .7rem 0 0; color: #475569; font-size: .72rem; line-height: 1.8; }
+        .rubric-grid { display: grid; gap: .65rem; }
+        .rubric-grid details { padding: .9rem 1rem; border: 1px solid #e2e8f0; border-radius: .9rem; background: #f8fafc; }
+        .rubric-grid summary { color: #334155; font-size: .72rem; font-weight: 900; cursor: pointer; }
+        .rubric-grid p { margin: .65rem 0 0; color: #64748b; font-size: .68rem; line-height: 1.7; }
+        @media (min-width: 768px) {
+            h1.title-neon { font-size: 5.6rem !important; }
+        }
+        @media (max-width: 767px) {
+            h1.title-neon { font-size: 3.3rem !important; }
+            header h2 { font-size: 1rem !important; letter-spacing: 0.03em !important; padding: 0 0.5rem; }
+            .paper-authors { font-size: 0.88rem; }
+            .paper-affiliations { font-size: 0.72rem; }
+            .section-nav { justify-content: flex-start; overflow-x: auto; }
+            .section-nav a { flex: none; }
+            .paper-section, .paper-section-wide { width: min(100% - 24px, 1120px); margin-bottom: 64px; }
+            .paper-surface, #overview .paper-surface { padding: 1.25rem !important; border-radius: 1.15rem !important; }
+            .section-heading h2 { font-size: 1.35rem !important; }
+            .system-grid, .evaluation-grid, .case-study-grid, .result-observations, .discussion-groups { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body id="top" class="antialiased min-h-screen pb-24">
+
+    <header class="paper-header subpage-header text-center z-40 relative">
+        <div class="container mx-auto px-4 w-full max-w-[98%]">
+            <div class="project-brand">NextAds</div>
+            <h1 class="paper-name">Envision Next-Generation Personalized Video Advertising</h1>
+
+            <div class="paper-authors mt-5">
+                <a href="mailto:yiyanxu24@gmail.com">Yiyan Xu</a><sup>1</sup>,
+                <a href="mailto:ruoxuanxiaaa@gmail.com">Ruoxuan Xia</a><sup>1</sup>,
+                <a href="mailto:qqqqqzheng@gmail.com">Wuqiang Zheng</a><sup>1</sup>,
+                <a href="mailto:zhfengbin@gmail.com">Fengbin Zhu</a><sup>2</sup>,
+                <a href="mailto:wenjiewang96@gmail.com">Wenjie Wang</a><sup>1</sup>,
+                <a href="mailto:fulifeng93@gmail.com">Fuli Feng</a><sup>1</sup>
+            </div>
+            <div class="paper-affiliations mt-1">
+                <span><sup>1</sup> University of Science and Technology of China, Hefei, China</span>
+                <span><sup>2</sup> National University of Singapore, Singapore</span>
+            </div>
+            <div class="subpage-name">Experimental Details</div>
+
+        </div>
+    </header>
+
+    <nav class="section-nav" aria-label="Project pages">
+        <a href="index.html">Home</a>
+        <a href="benchmarks.html">Benchmarks</a>
+        <a href="experiments.html" aria-current="page">Experimental Details</a>
+        <a href="pcg.html">Personalized Creative Generation</a>
+        <a href="integration.html">Personalized Creative Integration</a>
+        <a href="closed-loop.html">Closed-loop Creative Refinement</a>
+        <a href="progressive-storytelling.html">Creative Evolution Across Impressions</a>
+    </nav>
+
+    <nav class="page-index" aria-label="Experimental-detail sections">
+        <span class="page-index-label">On this page</span>
+        <a href="#implementation">Implementation</a>
+        <a href="#pipelines">Pipelines</a>
+        <a href="#results">Overall Performance</a>
+        <a href="#case-studies">Case Studies</a>
+        <a href="#discussion">Discussion</a>
+    </nav>
+
+    <section class="paper-section" id="implementation">
+        <div class="section-heading"><h2>Implementation</h2></div>
+        <div class="paper-surface">
+            <p class="paper-copy">We implement Director and Producer using both open-source and closed-source GenAI: 1) NextAds (open-source): Qwen3-VL as Director and Wan2.2 as Producer; and 2) NextAds (closed-source): GPT-4o as Director and Sora2 as Producer. For comparison, we also include GenericAd (closed-source), where Director conditions only on the target product and serving context. It uses no user-specific data in either task; for PCI, it also excludes the host video.</p>
+        </div>
+    </section>
+
+    <section class="paper-section paper-section-wide" id="pipelines">
+        <div class="section-heading"><h2>Pipelines</h2></div>
+        <div>
+            <figure class="paper-surface figure-only">
+                <div class="paper-figure"><img src="assets/figures/pipe_pcg.png" alt="Overview of the PCG pipeline"></div>
+                <figcaption class="paper-caption">Figure 6: Overview of the PCG pipeline.</figcaption>
+            </figure>
+            <figure class="paper-surface figure-only">
+                <div class="paper-figure"><img src="assets/figures/pipe_pci.png" alt="Overview of the PCI pipeline"></div>
+                <figcaption class="paper-caption">Figure 7: Overview of the PCI pipeline.</figcaption>
+            </figure>
+        </div>
+    </section>
+
+    <section class="paper-section" id="results">
+        <div class="section-heading"><h2>Overall Performance</h2></div>
+        <div class="paper-surface">
+            <figure>
+                <div class="paper-figure overflow-x-auto">
+                    <img src="assets/figures/results-table.png" alt="Overall performance of existing GenAI in both PCG and PCI tasks" style="min-width:760px">
+                </div>
+                <figcaption class="paper-caption">Table 1: Overall performance of existing GenAI in both PCG and PCI tasks. The best results are highlighted in bold.</figcaption>
+            </figure>
+            <div class="result-observations">
+                <article>
+                    <h3>Personalized Creative Generation</h3>
+                    <ul class="paper-bullets">
+                        <li>Compared to GenericAds, NextAds significantly improves personalization while preserving comparable product alignment and video quality, highlighting the potential of current GenAI to leverage user-specific signals for the PCG task. However, the slight drop in diversity suggests a trade-off between personalization and diversity; developing methods that improve both simultaneously remains a promising direction for future research.</li>
+                        <li>Open-source NextAds achieves video quality comparable to its closed-source counterpart. However, its inferior personalization and product alignment suggest that current open-source models still struggle with complex conditioning, particularly when guided by detailed storyboard scripts and reference visual collages. Nevertheless, we believe this issue will be substantially alleviated with continued progress in open-source models.</li>
+                    </ul>
+                </article>
+                <article>
+                    <h3>Personalized Creative Integration</h3>
+                    <ul class="paper-bullets">
+                        <li>Compared to GenericAds, NextAds achieves substantial gains in personalization while maintaining comparable video quality. Most importantly, the integration decision stage enables more seamless creative integration into the host video. However, product alignment decreases under this more constrained setting, as the model must jointly satisfy host-video continuity and strict grounding while incorporating user-specific preferences. Moreover, the requirement of seamless integration narrows the space of feasible generations and thus reduces diversity, revealing a trade-off between integration quality and diversity. Together, these observations highlight an important open challenge: how to preserve strong user preference modeling while maintaining product consistency, while also achieving high-quality integration without sacrificing diversity, capabilities that are likely crucial for advancing personalized creative integration systems.</li>
+                        <li>Closed-source models typically exhibit stronger visual understanding and generation capabilities, leading to more accurate user modeling and higher-quality video creatives. For example, the closed-source NextAds nearly doubles the performance of the open-source one in personalization. Interestingly, the open-source model attains a relatively higher diversity score; however, this apparent advantage likely reflects weaker controllability and instruction following, i.e., it does not strictly adhere to the conditioning signals such as storyboard constraints and integration requirements, thereby producing more varied but less aligned outputs. In contrast, the closed-source model follows longer and more complex scripts more faithfully, and the resulting stricter conditioning can narrow the feasible generation space and exacerbate diversity collapse.</li>
+                    </ul>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="paper-section paper-section-wide" id="case-studies">
+        <div class="section-heading"><h2>Case Studies</h2></div>
+        <div class="case-study-grid">
+            <figure class="paper-surface figure-only">
+                <div class="paper-figure"><img src="assets/figures/case1.png" alt="Examples generated by NextAds on PCG-Bench"></div>
+                <figcaption class="paper-caption">Figure 4: Examples generated by NextAds on PCG-Bench.</figcaption>
+                <p class="case-study-copy">We present examples generated by closed-source NextAds in Figure 4. Based on user interaction history, the model accurately infers two dominant preferences (i.e., Winter Outfits and Solo Living Diaries) with a stronger inclination toward the former. For Walmart, the model identifies high semantic compatibility between the user’s interest in Winter Outfits and Walmart’s apparel-related offerings, and thus generates a hook centered on “Winter fashion essentials under $50” to capture attention. In contrast, for KFC, the model pivots to Solo Living Diaries, which better aligns with KFC’s themes of comfort and convenience, and constructs a storyline around “Your cozy daily indulgence”. Overall, this adaptive user-product matching prioritizes user–product compatibility over naive top-interest matching, improving relevance while reducing the risk of semantic mismatch.</p>
+                <a class="open-figure" href="assets/figures/case1.png" target="_blank" rel="noopener noreferrer">Open full-resolution figure ↗</a>
+            </figure>
+            <figure class="paper-surface figure-only">
+                <div class="paper-figure"><img src="assets/figures/case2.png" alt="Examples generated by NextAds on PCI-Bench"></div>
+                <figcaption class="paper-caption">Figure 5: Examples generated by NextAds on PCI-Bench.</figcaption>
+                <p class="case-study-copy">We present examples generated by the closed-source NextAds in Figure 5. Based on user interaction history, the model accurately infers user preference for Sichuan cuisine and lively, crowd-rich scenes, and incorporates these cues into the generated creatives. For Coca-Cola, the creative transitions smoothly from the host preparing to taste spicy food to picking up a bottle of Coca-Cola, positioning it as a complementary beverage to Sichuan hotpot. This preserves narrative continuity while grounding the product in the surrounding scene context. For Walmart, the host video segment showcasing hotpot ingredients naturally shifts to a Walmart supermarket scenario, where these ingredients are framed as being sourced from Walmart, enabling contextually coherent integration. Overall, these cases demonstrate that NextAds can effectively capture user preferences to generate personalized creatives for the target product, and seamlessly integrate the resulting ad segments into the host video.</p>
+                <a class="open-figure" href="assets/figures/case2.png" target="_blank" rel="noopener noreferrer">Open full-resolution figure ↗</a>
+            </figure>
+        </div>
+    </section>
+
+    <section class="paper-section" id="discussion">
+        <div class="section-heading"><h2>Discussion</h2></div>
+        <div class="paper-surface discussion-groups">
+            <section>
+                <h3>Failure Analysis</h3>
+                <details>
+                    <summary>Spurious conditioning</summary>
+                    <p>A key challenge arises when personalization is driven by high-level semantic or conceptual user preferences (e.g., lifestyle, narrative vibe, or perceived quality), which do not necessarily require specific visual cues to be expressed. However, current generative models can exhibit spurious conditioning: they realize these high-level preference signals by introducing unnecessary visual cues that act as noise and may even conflict with the grounded target product images. A representative case is brand-centric preferences. For example, when targeting an Adidas product to a user who frequently engages with Nike content, the model may inadvertently inject Nike-associated design patterns (e.g., Swoosh-like curves) into the rendered Adidas shoe, leading to brand-confusion artifacts. This phenomenon places higher demands on Director for user modeling that avoids unnecessary visual instantiation, as well as stricter asset grounding to preserve product alignment.</p>
+                </details>
+                <details>
+                    <summary>Forced personalization under low compatibility</summary>
+                    <p>Personalization is beneficial only when user preferences can be semantically and visually reconciled with the target product. In low-compatibility settings, forcing a match, even the “least-bad” one, often yields incoherent creatives and visual dissonance, ultimately hurting user experience. For instance, pairing soft pastel style with Gillette Razor can result in an industrial razor awkwardly placed in a soft, dreamy environment. This motivates a practical fallback strategy: when user–product compatibility falls below a threshold, the system should revert to a generic (non-personalized) creative rather than forcing personalization.</p>
+                </details>
+            </section>
+            <section>
+                <h3>Key Insights In Pipeline Design</h3>
+                <details>
+                    <summary>Decoupling planning from execution</summary>
+                    <p>NextAds explicitly separates Director (creative planning) from Producer (video synthesis), committing to a structured plan before pixel-level generation to better preserve narrative coherence and overall quality. Crucially, exposing an interpretable intermediate plan further enables automated and human verification/intervention (e.g., compliance checks and integration-point validation), improves controllability via direct plan revision, and facilitates error attribution by isolating failures in planning versus execution. This modular design also allows Director and Producer to be upgraded independently without re-engineering the entire system.</p>
+                </details>
+                <details>
+                    <summary>Multi-source visual grounding for faithful generation</summary>
+                    <p>Text-only prompting often fails to reliably preserve visual details, leading to product drift, misaligned personalization, and contextual mismatch with the host video. We therefore ground generation with three complementary visual references: 1) target product images to lock key product attributes, 2) user-preferred visual elements to anchor personalization, and 3) the integration start frame for the PCI task to match the host context and support seamless transitions. Together, these references act as hard constraints that improve product faithfulness, preference alignment, and integration coherence.</p>
+                </details>
+            </section>
+        </div>
+    </section>
+    <section class="shared-citation" aria-labelledby="citation-title">
+        <h2 id="citation-title">Citation</h2>
+        <div class="shared-citation-card">
+            <div class="shared-citation-meta"><span>arXiv:2603.02137 · DOI: 10.48550/arXiv.2603.02137</span><a href="https://arxiv.org/abs/2603.02137" target="_blank" rel="noopener noreferrer">Paper ↗</a></div>
+            <pre>@article{xu2026nextads,
+  title={Envision Next-Generation Personalized Video Advertising},
+  author={Xu, Yiyan and Xia, Ruoxuan and Zheng, Wuqiang and Zhu, Fengbin and Wang, Wenjie and Feng, Fuli},
+  journal={arXiv preprint arXiv:2603.02137},
+  year={2026},
+  doi={10.48550/arXiv.2603.02137}
+}</pre>
+        </div>
+    </section>
+
+    <footer class="project-footer">
+        <section class="project-disclaimer" aria-labelledby="disclaimer-title">
+            <div class="disclaimer-heading">
+                <span>Disclaimer</span>
+                <h2 id="disclaimer-title">Academic &amp; Legal Disclosure Statement</h2>
+            </div>
+            <div class="disclaimer-body">
+                <p><strong>Copyright &amp; Trademarks:</strong> The specific brands, logos, and product models shown are utilized solely as research examples to evaluate the model's creative alignment. All trademarks and copyrights belong to their respective owners. We explicitly do not claim any commercial affiliation, sponsorship, or endorsement.</p>
+                <p><strong>Portrait Rights &amp; Privacy:</strong> The integration showcases contain videos of real individuals. These are used exclusively to demonstrate the technical capabilities of our pipeline. We deeply respect personal privacy and portrait rights.</p>
+                <div class="takedown-policy">
+                    <strong>Take-Down Policy:</strong>
+                    <p>If you are a rights holder (copyright, trademark, or portrait rights) and have concerns about specific cases displayed on this demonstration website, please contact us at <a href="mailto:ruoxuanxiaaa@gmail.com">ruoxuanxiaaa@gmail.com</a>. We will promptly remove the respective content.</p>
+                </div>
+            </div>
+        </section>
+        <div class="project-footer-note">NextAds · Academic research demonstration</div>
+    </footer>
+</body>
+</html>

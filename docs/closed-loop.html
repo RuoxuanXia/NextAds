@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NextAds — Closed-loop Creative Refinement</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;900&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/project-page.css">
+    <style>
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 120px; }
+        body { margin: 0; background: #fff; color: #1e293b; font: 500 12px/1.6 Montserrat, sans-serif; }
+        header { padding: 3.5rem 1.25rem 2rem; text-align: center; border-bottom: 1px solid #f1f5f9; }
+        .project-title { margin: 0; background: linear-gradient(90deg,#2563eb,#8b5cf6); color: transparent; -webkit-background-clip: text; background-clip: text; font-size: clamp(3.2rem,8vw,4.8rem); font-weight: 900; letter-spacing: -.04em; line-height: 1.1; }
+        .page-title { margin: .7rem 0 1.25rem; color: #1e293b; font-size: 1.15rem; font-weight: 900; letter-spacing: .08em; }
+        .paper-authors { color: #2563eb; font-size: .92rem; font-weight: 700; line-height: 1.9; }
+        .paper-authors a { color: inherit; text-decoration: none; }
+        .paper-authors sup { color: #8b5cf6; font-size: .68em; }
+        .paper-affiliations { color: #64748b; font-size: .76rem; line-height: 1.75; }
+        .paper-affiliations span { display: block; }
+        .site-nav { position: sticky; top: 0; z-index: 40; display: flex; justify-content: center; gap: .25rem; padding: .65rem 1rem; overflow-x: auto; background: rgba(255,255,255,.94); border-bottom: 1px solid #e2e8f0; backdrop-filter: blur(14px); }
+        .site-nav a { flex: none; padding: .55rem .85rem; border-radius: 999px; color: #64748b; font-size: .76rem; font-weight: 800; text-decoration: none; }
+        .site-nav a:hover, .site-nav a[aria-current="page"] { background: #eff6ff; color: #2563eb; }
+        main { width: min(1120px, calc(100% - 40px)); margin: 4.5rem auto 6rem; }
+        .intro { max-width: 760px; margin: 0 auto 3rem; text-align: center; }
+        .intro h2 { margin: 0 0 .65rem; color: #1e3a8a; font-size: 1.65rem; font-weight: 900; }
+        .intro p { margin: 0; color: #64748b; font-size: .82rem; line-height: 1.8; }
+        .loop-overview { margin: 0 auto 3.5rem; }
+        .loop-overview .section-heading { margin-bottom: 1.25rem; text-align: center; }
+        .loop-overview-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); align-items: stretch; gap: 1rem; }
+        .overview-card { height: 100%; padding: 1.25rem; border: 1px solid #dbeafe; border-radius: 1.25rem; background: #f8fafc; }
+        .overview-card > span { display: inline-flex; padding: .42rem .72rem; border-radius: 999px; background: #dbeafe; color: #1d4ed8; font-size: .78rem; font-weight: 900; letter-spacing: .05em; text-transform: uppercase; }
+        .overview-card h3 { margin: .7rem 0 .35rem; color: #0f172a; font-size: 1rem; font-weight: 900; }
+        .overview-card p { margin: 0; color: #64748b; font-size: .76rem; line-height: 1.75; }
+        .case-group + .case-group { margin-top: 3rem; }
+        .group-head { margin-bottom: 1rem; }
+        .group-head h2 { margin: 0; color: #0f172a; font-size: 1.15rem; font-weight: 900; }
+        .group-head p { margin: .3rem 0 0; color: #64748b; font-size: .72rem; }
+        .repair-list { display: grid; gap: 1rem; }
+        .repair-card { display: grid; grid-template-columns: minmax(0,1fr) 280px; gap: 1rem; padding: 1rem; border: 1px solid #e2e8f0; border-radius: 1.35rem; background: #fff; box-shadow: 0 10px 28px rgba(15,23,42,.05); }
+        .repair-summary { padding: .35rem .3rem .35rem .35rem; }
+        .case-tag { display: inline-flex; padding: .32rem .55rem; border-radius: 999px; background: #eff6ff; color: #2563eb; font-size: .61rem; font-weight: 900; letter-spacing: .07em; text-transform: uppercase; }
+        .repair-summary h3 { margin: .65rem 0 .25rem; color: #0f172a; font-size: 1.05rem; font-weight: 900; }
+        .repair-summary > p { margin: 0 0 .85rem; color: #64748b; font-size: .69rem; line-height: 1.65; }
+        .repair-trace { display: grid; gap: .55rem; }
+        .trace-step { display: grid; grid-template-columns: 72px 1fr; gap: .55rem; padding-top: .55rem; border-top: 1px solid #e2e8f0; }
+        .trace-step strong { color: #64748b; font-size: .6rem; font-weight: 900; letter-spacing: .07em; text-transform: uppercase; }
+        .trace-step span { color: #334155; font-size: .66rem; line-height: 1.55; }
+        .video-pair { display: grid; order: -1; grid-template-columns: repeat(2,minmax(0,1fr)); gap: .7rem; }
+        .video-item { margin: 0; overflow: hidden; border: 1px solid #e2e8f0; border-radius: 1rem; background: #f8fafc; }
+        .video-label { display: flex; justify-content: space-between; gap: .5rem; padding: .62rem .75rem; border-bottom: 1px solid #e2e8f0; background: #fff; }
+        .video-label strong { color: #334155; font-size: .68rem; font-weight: 900; }
+        .video-label span { color: #94a3b8; font-size: .59rem; font-weight: 700; text-align: right; }
+        .video-item video { display: block; width: 100%; height: 390px; background: #f8fafc; object-fit: contain; }
+        footer { padding: 2.5rem 1rem; border-top: 1px solid #e2e8f0; background: #f8fafc; color: #64748b; font-size: .7rem; text-align: center; }
+        @media (max-width: 900px) { .repair-card { grid-template-columns: 1fr; } .loop-overview-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 767px) { .site-nav { justify-content: flex-start; } main { width: min(100% - 24px,1120px); margin-top: 3rem; } .repair-card { padding: .8rem; } .video-pair { grid-template-columns: 1fr; } .video-item video { height: min(145vw,520px); } }
+    </style>
+</head>
+<body>
+    <header class="paper-header">
+        <div class="project-brand">NextAds</div>
+        <h1 class="paper-name">Envision Next-Generation Personalized Video Advertising</h1>
+        <div class="paper-authors">
+            <a href="mailto:yiyanxu24@gmail.com">Yiyan Xu</a><sup>1</sup>,
+            <a href="mailto:ruoxuanxiaaa@gmail.com">Ruoxuan Xia</a><sup>1</sup>,
+            <a href="mailto:qqqqqzheng@gmail.com">Wuqiang Zheng</a><sup>1</sup>,
+            <a href="mailto:zhfengbin@gmail.com">Fengbin Zhu</a><sup>2</sup>,
+            <a href="mailto:wenjiewang96@gmail.com">Wenjie Wang</a><sup>1</sup>,
+            <a href="mailto:fulifeng93@gmail.com">Fuli Feng</a><sup>1</sup>
+        </div>
+        <div class="paper-affiliations">
+            <span><sup>1</sup> University of Science and Technology of China, Hefei, China</span>
+            <span><sup>2</sup> National University of Singapore, Singapore</span>
+        </div>
+        <div class="subpage-name">Closed-loop Creative Refinement</div>
+    </header>
+
+    <nav class="site-nav" aria-label="Project pages">
+        <a href="index.html">Home</a>
+        <a href="benchmarks.html">Benchmarks</a>
+        <a href="experiments.html">Experimental Details</a>
+        <a href="pcg.html">Personalized Creative Generation</a>
+        <a href="integration.html">Personalized Creative Integration</a>
+        <a href="closed-loop.html" aria-current="page">Closed-loop Creative Refinement</a>
+        <a href="progressive-storytelling.html">Creative Evolution Across Impressions</a>
+    </nav>
+    <main>
+        <section class="loop-overview" aria-labelledby="pathways-title">
+            <div class="section-heading"><h2 id="pathways-title">Two Feedback Pathways</h2></div>
+            <div class="loop-overview-grid">
+                <article class="overview-card">
+                    <span>Before deployment</span>
+                    <h3>Pre-deployment Verification</h3>
+                    <p>Before a creative is served, Verifier identifies alignment, execution, or compliance failures and routes diagnostic evidence to the smallest responsible stage for targeted repair.</p>
+                </article>
+                <article class="overview-card">
+                    <span>After deployment</span>
+                    <h3>Iterative Refinement Across Impressions</h3>
+                    <p>After deployment, Reflector converts online interaction signals into update directives that refine the creative shown in subsequent impressions.</p>
+                </article>
+            </div>
+        </section>
+        <section class="case-group" aria-labelledby="predeploy-title">
+            <div class="group-head"><h2 id="predeploy-title">Pre-deployment Verification</h2><p>Verifier findings are routed to the smallest responsible stage before a creative is served.</p></div>
+            <div class="repair-list">
+                <article class="repair-card" id="matching">
+                    <div class="repair-summary"><span class="case-tag">Matcher repair</span><h3>Coca-Cola · Replace a Competing Interest Topic</h3><p>Matcher selected the user’s medium CHAGEE beverage interest instead of the stronger crochet and handmade interest, creating a competing-brand bridge for Coca-Cola.</p><div class="repair-trace"><div class="trace-step"><strong>Problem</strong><span>The video uses tea-brand-like props and beverage cues that conflict with Coca-Cola and miss the user’s strongest preference.</span></div><div class="trace-step"><strong>Send to</strong><span>Matcher reruns user–product matching; Director rewrites the affected scenes; Producer regenerates the conflicting segment.</span></div><div class="trace-step"><strong>Change</strong><span>Use crochet and handmade as the personalization anchor, remove third-party beverage cues, and place Coca-Cola beside yarn, crochet flowers, and handmade props.</span></div></div></div>
+                    <div class="video-pair"><figure class="video-item"><figcaption class="video-label"><strong>Before</strong><span>CHAGEE-related beverage topic</span></figcaption><video controls preload="metadata" playsinline poster="assets/posters/closed-loop/coca-cola-matching-before.jpg" src="assets/closed-loop/coca-cola-matching-before.mp4"></video></figure><figure class="video-item"><figcaption class="video-label"><strong>After</strong><span>Crochet / handmade preference</span></figcaption><video controls preload="metadata" playsinline poster="assets/posters/closed-loop/coca-cola-matching-after.jpg" src="assets/closed-loop/coca-cola-matching-after.mp4"></video></figure></div>
+                </article>
+
+                <article class="repair-card" id="bridge">
+                    <div class="repair-summary"><span class="case-tag">Product–preference bridge reconstruction</span><h3>Airbnb · Reframe a Tea Interest Around the Stay</h3><p>The user’s tea interest is used too literally, so the creative looks like a tea-shop promotion instead of an Airbnb advertisement.</p><div class="repair-trace"><div class="trace-step"><strong>Problem</strong><span>Tea cups, packaging, postcards, and cafe cues dominate, while discovering, choosing, and booking an Airbnb stay are not clearly shown.</span></div><div class="trace-step"><strong>Send to</strong><span>Matcher rebuilds the product–preference bridge; Director rewrites the story around Airbnb stay discovery; Producer removes third-party beverage cues.</span></div><div class="trace-step"><strong>Change</strong><span>Use tea only as local-culture ambience around browsing a stay, receiving host guidance, arriving at the room, and planning the trip.</span></div></div></div>
+                    <div class="video-pair"><figure class="video-item"><figcaption class="video-label"><strong>Before</strong><span>Tea-shop-like personalization</span></figcaption><video controls preload="metadata" playsinline poster="assets/posters/closed-loop/airbnb-bridge-before.jpg" src="assets/closed-loop/airbnb-bridge-before.mp4"></video></figure><figure class="video-item"><figcaption class="video-label"><strong>After</strong><span>Airbnb stay discovery</span></figcaption><video controls preload="metadata" playsinline poster="assets/posters/closed-loop/airbnb-bridge-after.jpg" src="assets/closed-loop/airbnb-bridge-after.mp4"></video></figure></div>
+                </article>
+
+                <article class="repair-card" id="local-edit">
+                    <div class="repair-summary"><span class="case-tag">Localized video editing</span><h3>Coca-Cola · Repair Two Faulty Segments</h3><p>Verifier identifies two timestamped execution failures. Producer edits only those segments, stitches them back into the video, and keeps the original audio.</p><div class="repair-trace"><div class="trace-step"><strong>Problem</strong><span>At 2.0–4.8s, idol/TXT-like cards and event text imply an unauthorized association; at 5.0–7.4s, the person appears to drink while the bottle cap is still attached.</span></div><div class="trace-step"><strong>Send to</strong><span>Producer receives two localized editing instructions for the affected timestamps.</span></div><div class="trace-step"><strong>Change</strong><span>Replace the recognizable K-pop assets with generic concert props and repair the drinking action so the cap is visibly removed before the sip.</span></div></div></div>
+                    <div class="video-pair"><figure class="video-item"><figcaption class="video-label"><strong>Before</strong><span>Association and product-use errors</span></figcaption><video controls preload="metadata" playsinline poster="assets/posters/closed-loop/local-edit-before.jpg" src="assets/closed-loop/local-edit-before.mp4"></video></figure><figure class="video-item"><figcaption class="video-label"><strong>After</strong><span>Two localized repairs</span></figcaption><video controls preload="metadata" playsinline poster="assets/posters/closed-loop/local-edit-after.jpg" src="assets/closed-loop/local-edit-after.mp4"></video></figure></div>
+                </article>
+
+                <article class="repair-card" id="profile">
+                    <div class="repair-summary"><span class="case-tag">User-profile regeneration</span><h3>Airbnb · Rebuild the Profile from Full History</h3><p>The original profile is dominated by medical-aesthetic interests that do not provide a safe, natural connection to Airbnb.</p><div class="repair-trace"><div class="trace-step"><strong>Problem</strong><span>Acne-scar repair, microneedling, laser, and treatment-recovery topics should not be forced into a lodging advertisement.</span></div><div class="trace-step"><strong>Send to</strong><span>Profile Builder searches all 45 recent clicked notes and rebuilds the profile; Matcher then evaluates the new product-conditioned preference tiers.</span></div><div class="trace-step"><strong>Change</strong><span>Select the supported “evidence-driven and anti-misleading decision making” preference and connect it to real listing photos, reviews, host notes, location details, and transparent booking information.</span></div></div></div>
+                    <div class="video-pair"><figure class="video-item"><figcaption class="video-label"><strong>Before</strong><span>No safe Airbnb preference bridge</span></figcaption><video controls preload="metadata" playsinline poster="assets/posters/closed-loop/profile-regeneration-before.jpg" src="assets/closed-loop/profile-regeneration-before.mp4"></video></figure><figure class="video-item"><figcaption class="video-label"><strong>After</strong><span>Evidence-driven booking preference</span></figcaption><video controls preload="metadata" playsinline poster="assets/posters/closed-loop/profile-regeneration-after.jpg" src="assets/closed-loop/profile-regeneration-after.mp4"></video></figure></div>
+                </article>
+            </div>
+        </section>
+
+        <section class="case-group" aria-labelledby="iterative-title">
+            <div class="group-head"><h2 id="iterative-title">Iterative Refinement Across Impressions</h2><p>Reflector converts online interaction signals into update directives for subsequent impressions.</p></div>
+            <div class="repair-list">
+                <article class="repair-card" id="feedback">
+                    <div class="repair-summary">
+                        <span class="case-tag">Negative feedback</span>
+                        <h3>iPhone 17 · Opening-hook Refinement</h3>
+                        <p>A simulated user skips at 2.8s. Reflector treats the slow opening as a possible cause and limits the revision to the first three seconds.</p>
+                        <div class="repair-trace">
+                            <div class="trace-step"><strong>Feedback</strong><span>Skip at 2.8s; no like, click, share, or comment.</span></div>
+                            <div class="trace-step"><strong>Interpret</strong><span>The opening may be weak or too slow because the user leaves before the product-use demonstration; confidence: 0.72.</span></div>
+                            <div class="trace-step"><strong>Send to</strong><span>Director rewrites the 0–3s hook; Producer edits only that segment.</span></div>
+                            <div class="trace-step"><strong>Change</strong><span>Show an immediate iPhone 17 use moment within the first two seconds. Keep the later 3–15s sequence and final end card unchanged as a minimal-edit constraint.</span></div>
+                        </div>
+                    </div>
+                    <div class="video-pair">
+                        <figure class="video-item"><figcaption class="video-label"><strong>Before</strong><span>Slow opening setup</span></figcaption><video controls preload="metadata" playsinline poster="assets/posters/closed-loop/opening-hook-before.jpg" src="assets/closed-loop/opening-hook-before.mp4"></video></figure>
+                        <figure class="video-item"><figcaption class="video-label"><strong>After</strong><span>Immediate product-use hook</span></figcaption><video controls preload="metadata" playsinline poster="assets/posters/closed-loop/opening-hook-after.jpg" src="assets/closed-loop/opening-hook-after.mp4"></video></figure>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <section class="shared-citation" aria-labelledby="citation-title">
+        <h2 id="citation-title">Citation</h2>
+        <div class="shared-citation-card">
+            <div class="shared-citation-meta"><span>arXiv:2603.02137 · DOI: 10.48550/arXiv.2603.02137</span><a href="https://arxiv.org/abs/2603.02137" target="_blank" rel="noopener noreferrer">Paper ↗</a></div>
+            <pre>@article{xu2026nextads,
+  title={Envision Next-Generation Personalized Video Advertising},
+  author={Xu, Yiyan and Xia, Ruoxuan and Zheng, Wuqiang and Zhu, Fengbin and Wang, Wenjie and Feng, Fuli},
+  journal={arXiv preprint arXiv:2603.02137},
+  year={2026},
+  doi={10.48550/arXiv.2603.02137}
+}</pre>
+        </div>
+    </section>
+    <footer class="project-footer">
+        <section class="project-disclaimer" aria-labelledby="disclaimer-title">
+            <div class="disclaimer-heading">
+                <span>Disclaimer</span>
+                <h2 id="disclaimer-title">Academic &amp; Legal Disclosure Statement</h2>
+            </div>
+            <div class="disclaimer-body">
+                <p><strong>Copyright &amp; Trademarks:</strong> The specific brands, logos, and product models shown are utilized solely as research examples to evaluate the model's creative alignment. All trademarks and copyrights belong to their respective owners. We explicitly do not claim any commercial affiliation, sponsorship, or endorsement.</p>
+                <p><strong>Portrait Rights &amp; Privacy:</strong> The integration showcases contain videos of real individuals. These are used exclusively to demonstrate the technical capabilities of our pipeline. We deeply respect personal privacy and portrait rights.</p>
+                <div class="takedown-policy">
+                    <strong>Take-Down Policy:</strong>
+                    <p>If you are a rights holder (copyright, trademark, or portrait rights) and have concerns about specific cases displayed on this demonstration website, please contact us at <a href="mailto:ruoxuanxiaaa@gmail.com">ruoxuanxiaaa@gmail.com</a>. We will promptly remove the respective content.</p>
+                </div>
+            </div>
+        </section>
+        <div class="project-footer-note">NextAds · Academic research demonstration</div>
+    </footer>
+</body>
+</html>

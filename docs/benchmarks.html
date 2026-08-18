@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NextAds — Benchmarks</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;900&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/project-page.css">
+    <style>
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 74px; }
+        body { margin: 0; background: #fff; color: #1e293b; font: 500 12px/1.6 Montserrat, sans-serif; }
+        .paper-authors { color: #2563eb; font-size: .92rem; font-weight: 700; line-height: 1.9; }
+        .paper-authors a { color: inherit; text-decoration: none; }
+        .paper-authors a:hover { text-decoration: underline; }
+        .paper-authors sup { color: #8b5cf6; font-size: .68em; }
+        .paper-affiliations { color: #64748b; font-size: .76rem; line-height: 1.75; }
+        .paper-affiliations span { display: block; }
+        .site-nav { position: sticky; top: 0; z-index: 40; display: flex; justify-content: center; gap: .25rem; padding: .65rem 1rem; overflow-x: auto; background: rgba(255,255,255,.94); border-bottom: 1px solid #e2e8f0; backdrop-filter: blur(14px); }
+        .site-nav a { flex: none; padding: .55rem .85rem; border-radius: 999px; color: #64748b; font-size: .76rem; font-weight: 800; text-decoration: none; }
+        .site-nav a:hover, .site-nav a[aria-current="page"] { background: #eff6ff; color: #2563eb; }
+        main { width: min(1060px, calc(100% - 40px)); margin: 3.75rem auto 6rem; }
+        .paper-section { margin: 0 0 5rem; }
+        .section-heading { margin-bottom: 1.5rem; text-align: center; }
+        .section-heading h2 { margin: 0; color: #1e3a8a; font-size: 1.6rem; font-weight: 900; letter-spacing: -.025em; }
+        .source-copy { color: #475569; font-size: .78rem; line-height: 1.9; }
+        .source-copy p { margin: 0; }
+        .source-copy p + p { margin-top: .85rem; }
+        .paper-surface { padding: 1.75rem; border: 1px solid #e2e8f0; border-radius: 1.35rem; background: #fff; box-shadow: 0 10px 28px rgba(15,23,42,.045); }
+        .task-figure { max-width: 860px; margin: 1.5rem auto; }
+        .task-figure img { display: block; width: 100%; height: auto; border: 1px solid #e2e8f0; border-radius: 1rem; background: #fff; }
+        .task-figure figcaption { margin-top: .75rem; color: #64748b; font-size: .76rem; line-height: 1.7; text-align: center; }
+        .task-figure figcaption strong { color: #334155; font-weight: 900; }
+        .task-grid, .benchmark-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1rem; }
+        .source-card { padding: 1.25rem; border: 1px solid #e2e8f0; border-radius: 1rem; background: #f8fafc; }
+        .source-card h3 { margin: 0 0 .65rem; color: #0f172a; font-size: .9rem; font-weight: 900; }
+        .source-card ul { margin: .8rem 0 0; padding-left: 1.1rem; }
+        .source-card li + li { margin-top: .45rem; }
+        .metric-list { display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); gap: .65rem; margin-top: 1.25rem; }
+        .metric-list div { padding: .85rem; border: 1px solid #e2e8f0; border-radius: .9rem; background: #f8fafc; }
+        .metric-list strong { display: block; color: #334155; font-size: .72rem; font-weight: 900; }
+        .metric-list span { display: block; margin-top: .35rem; color: #64748b; font-size: .68rem; line-height: 1.55; }
+        .prompt-list { display: grid; gap: .75rem; }
+        .prompt-list details { overflow: hidden; border: 1px solid #dbeafe; border-radius: 1rem; background: #fff; }
+        .prompt-list summary { padding: 1rem 1.1rem; background: #f8fafc; color: #1e3a8a; font-size: .95rem; font-weight: 900; cursor: pointer; }
+        .prompt { padding: 1.2rem; color: #475569; font-size: .82rem; line-height: 1.8; }
+        .prompt p { margin: 0; }
+        .prompt p + p { margin-top: .8rem; }
+        .prompt h4 { margin: 1rem 0 .4rem; color: #334155; font-size: .74rem; font-weight: 900; }
+        .prompt ul { margin: .35rem 0 0; padding-left: 1.15rem; }
+        .prompt li + li { margin-top: .35rem; }
+        .prompt pre { margin: .8rem 0 0; padding: .8rem; overflow-x: auto; border-radius: .7rem; background: #f1f5f9; color: #334155; font: 500 .74rem/1.55 ui-monospace, SFMono-Regular, Menlo, monospace; }
+        @media (max-width: 800px) { .task-grid, .benchmark-grid { grid-template-columns: 1fr; } .metric-list { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+        @media (max-width: 767px) { .site-nav { justify-content: flex-start; } main { width: min(100% - 24px,1060px); margin-top: 3rem; } .paper-surface { padding: 1.2rem; } .metric-list { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <header class="paper-header">
+        <div class="project-brand">NextAds</div>
+        <h1 class="paper-name">Envision Next-Generation Personalized Video Advertising</h1>
+        <div class="paper-authors">
+            <a href="mailto:yiyanxu24@gmail.com">Yiyan Xu</a><sup>1</sup>,
+            <a href="mailto:ruoxuanxiaaa@gmail.com">Ruoxuan Xia</a><sup>1</sup>,
+            <a href="mailto:qqqqqzheng@gmail.com">Wuqiang Zheng</a><sup>1</sup>,
+            <a href="mailto:zhfengbin@gmail.com">Fengbin Zhu</a><sup>2</sup>,
+            <a href="mailto:wenjiewang96@gmail.com">Wenjie Wang</a><sup>1</sup>,
+            <a href="mailto:fulifeng93@gmail.com">Fuli Feng</a><sup>1</sup>
+        </div>
+        <div class="paper-affiliations">
+            <span><sup>1</sup> University of Science and Technology of China, Hefei, China</span>
+            <span><sup>2</sup> National University of Singapore, Singapore</span>
+        </div>
+        <div class="subpage-name">Benchmarks</div>
+    </header>
+
+    <nav class="site-nav" aria-label="Project pages">
+        <a href="index.html">Home</a>
+        <a href="benchmarks.html" aria-current="page">Benchmarks</a>
+        <a href="experiments.html">Experimental Details</a>
+        <a href="pcg.html">Personalized Creative Generation</a>
+        <a href="integration.html">Personalized Creative Integration</a>
+        <a href="closed-loop.html">Closed-loop Creative Refinement</a>
+        <a href="progressive-storytelling.html">Creative Evolution Across Impressions</a>
+    </nav>
+    <nav class="page-index" aria-label="Benchmark sections">
+        <span class="page-index-label">On this page</span>
+        <a href="#tasks">Task Formulation</a>
+        <a href="#construction">Benchmark Construction</a>
+        <a href="#evaluation">Evaluation Suites</a>
+        <a href="#prompts">Evaluation Prompts</a>
+    </nav>
+
+    <main>
+        <section class="paper-section" id="tasks">
+            <div class="section-heading"><h2>Task Formulation</h2></div>
+            <div class="paper-surface source-copy">
+                <p>To move beyond a system-level conceptual paradigm and make different designs and algorithms comparable under a shared setting, we instantiate NextAds as concrete, reproducible tasks with fixed input-output interfaces and objectives.</p>
+                <p>As shown in Figure 2, we propose two representative tasks based on whether the ad creative is generated as standalone content or integrated into existing content.</p>
+                <figure class="task-figure">
+                    <img src="assets/figures/intro.png" alt="Paradigm shift from retrieval-based advertising to the two generation-based NextAds tasks">
+                    <figcaption><strong>Figure 2:</strong> Paradigm shift: from retrieval to generation. NextAds transforms personalized video advertising from static retrieval over a discrete creative inventory to dynamic generation-based optimization in a continuous space.</figcaption>
+                </figure>
+                <div class="task-grid" style="margin-top:1.25rem">
+                    <article class="source-card">
+                        <h3>Personalized Creative Generation (PCG)</h3>
+                        <p>This task aims to produce a standalone personalized video ads that are consumed independently as content, as commonly seen in short-form in-feed platforms like TikTok.</p>
+                        <ul>
+                            <li><strong>Inputs:</strong> 1) User-specific data, such as demographics and behavioral history; 2) target product, including key selling points, and eligible assets like product images and logo; and 3) serving context, such as aspect ratio and platform policies.</li>
+                            <li><strong>Outputs:</strong> 1) Detailed creative plan as an intermediate artifact; and 2) personalized video creative.</li>
+                            <li><strong>Objectives and constraints:</strong> PCG aims to maximize advertising utility along three dimensions: video quality, personalization, and product alignment. In addition, the creative must pass the compliance verification and required “AI Created” disclosure.</li>
+                        </ul>
+                    </article>
+                    <article class="source-card">
+                        <h3>Personalized Creative Integration (PCI)</h3>
+                        <p>On video platforms such as YouTube, advertising is frequently delivered as pre-roll or mid-roll units that are largely generic and temporally interrupt the viewing experience. Such interruption can be perceived as disruptive or intrusive, potentially leading to negative user sentiment and avoidance behaviors. Motivated by this, PCI aims to seamlessly integrate advertising messages into an existing host video (e.g., the video currently being viewed) in a personalized manner without degrading the viewing experiences.</p>
+                        <ul>
+                            <li><strong>Inputs:</strong> Same as the PCG task (user-specific data, target product, and serving context), plus a host video to be integrated with.</li>
+                            <li><strong>Outputs:</strong> 1) Detailed creative plan as an intermediate artifact; and 2) personalized video creative with the integration point.</li>
+                            <li><strong>Objectives and constraints:</strong> PCI optimizes advertising utility while preserving the host content experience. In addition to video quality, personalization, and product alignment, PCI emphasizes integration quality, requiring low intrusiveness to the host video. Similarly, the creative must pass the compliance verification and required “AI Created” disclosure.</li>
+                        </ul>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="paper-section" id="construction">
+            <div class="section-heading"><h2>Benchmark Construction</h2></div>
+            <div class="paper-surface source-copy">
+                <p>To catalyze research progress under the NextAds paradigm and enable fair comparisons across different algorithms, we construct two benchmarks for the PCG and PCI tasks. Each benchmark includes 50 users; for each user, we select five target products, yielding 250 user-product pairs per benchmark.</p>
+                <p><strong>Product library.</strong> We first build a product library consisting of 18 products spanning electronics (e.g., smartphones), retail goods (e.g., shoes, skincare, and food), and platform services (e.g., streaming and ride-hailing). For each product, we collect a bundle of eligible creative assets, including product images, brand logos, slogans, and detailed descriptions. This product library serves as a unified source of candidate assets for benchmark construction and evaluation.</p>
+                <div class="benchmark-grid" style="margin-top:1.25rem">
+                    <article class="source-card">
+                        <h3>PCG-Bench</h3>
+                        <p>Built on the Qilin recommendation dataset, where each user is associated with a historical interaction sequence of multimodal notes with metadata (title, image, and text), we select 50 representative users with distinctive and consistent preferences, ensuring their histories provide sufficient signals for user modeling. For each selected user, we pair the five most compatible products from the product library to form user-product pairs.</p>
+                    </article>
+                    <article class="source-card">
+                        <h3>PCI-Bench</h3>
+                        <p>Built on the MicroLens dataset, a large-scale micro-video recommendation dataset that provides user interaction histories and multimodal video information (titles, cover images, and full-length videos), we similarly select 50 representative users with clear preferences and pair each with five best-matched products from the product library. For each user sequence, we designate the last interacted micro-video as the host video for creative integration, and use the remaining videos as user-specific data for user modeling. This setup reflects a realistic advertising scenario in which the system leverages prior behaviors to personalize creative integration into the current video.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="paper-section" id="evaluation">
+            <div class="section-heading"><h2>Evaluation Suites</h2></div>
+            <div class="paper-surface source-copy">
+                <p>To comprehensively evaluate the generated creatives, we design a multi-aspect evaluation suite covering video quality, personalization, product alignment, integration quality, and diversity. For video quality, we adopt Motion Smoothness (MS), Dynamic Degree (DD), Aesthetics Quality (AQ), and Imaging Quality (IQ), as suggested in VBench to assess basic video fidelity. The remaining aspects require multimodal understanding and reasoning, which are hard to capture with conventional quantitative metrics, while human evaluation is costly and difficult to reproduce. Therefore, we leverage the state-of-the-art VLM Gemini 2.5-Flash as an automatic judge: it scores each criterion on a 0-10 scale based on predefined rules and simultaneously provides detailed rationales to support its judgments.</p>
+                <p>Specifically, for personalization, we present the user’s historically interacted content alongside the generated creative to assess alignment in presentation (e.g., tone, artistic style) and content (e.g., topics, scenes, appeal). For product alignment, we provide product information with the creative to evaluate product identity, brand elements, selling points, and factual consistency. For diversity, we assess similarity among all creatives generated for the same user in visual style, narrative structure, topics, and scenes. For integration quality in the PCI task, we insert the generated creative into the corresponding host video and evaluate contextual flow, thematic consistency, and user experience disruption.</p>
+                <div class="metric-list">
+                    <div><strong>Video Quality</strong><span>MS · DD · AQ · IQ</span></div>
+                    <div><strong>Personalization</strong><span>Presentation · Content</span></div>
+                    <div><strong>Product Alignment</strong><span>Identity · Brand · Selling points · Facts</span></div>
+                    <div><strong>Integration Quality</strong><span>Contextual flow · Theme · Disruption</span></div>
+                    <div><strong>Diversity</strong><span>Style · Narrative · Topics · Scenes</span></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="paper-section" id="prompts">
+            <div class="section-heading"><h2>Evaluation Prompts</h2></div>
+            <div class="paper-surface">
+                <p class="source-copy" style="margin:0 0 1.25rem">To assess the generated creatives, we adopt an LLM-as-a-judge setup and design five dedicated judge prompts, as follows.</p>
+                <div class="prompt-list">
+                    <details>
+                        <summary>Personalization – Presentation</summary>
+                        <div class="prompt">
+                            <p>You are an expert in evaluating the presentation of creative content. Given a product and the covers of the user’s interacted videos, evaluate how well the advertisement aligns with the user’s aesthetic preferences regarding visual style. Consider the following factors:</p>
+                            <ul><li><strong>Tone:</strong> Does the tone match the user’s preference (warm, cold, neutral)?</li><li><strong>Lighting:</strong> Is the lighting appropriate for the user’s preference (soft, harsh, natural)?</li><li><strong>Texture:</strong> Does the texture (smooth, rough, etc.) fit with the user’s aesthetic?</li><li><strong>Artistic style:</strong> Does the artistic style (minimalistic, modern, vintage, etc.) align with the user’s taste?</li></ul>
+                            <h4>Criteria</h4>
+                            <ul><li><strong>Perfect match (10):</strong> The content presentation matches perfectly with the user’s preferences.</li><li><strong>Good match (7-9):</strong> The content presentation aligns well but has some minor differences.</li><li><strong>Moderate match (4-6):</strong> The content presentation partially matches the user’s preferences.</li><li><strong>Poor match (1-3):</strong> The content presentation does not align well with the user’s preferences.</li><li><strong>No match (0):</strong> The content presentation completely fails to align with the user’s preferences.</li></ul>
+                            <pre>{
+  "score": number,
+  "reason": "brief analysis"
+}</pre>
+                        </div>
+                    </details>
+                    <details>
+                        <summary>Personalization – Content</summary>
+                        <div class="prompt">
+                            <p>You are an expert in evaluating how well the advertisement matches the user’s interest. Given a product and the covers of the user’s interacted videos, Evaluate how well the advertisement aligns with the user’s aesthetic preferences regarding visual style. Consider the following factors:</p>
+                            <ul><li><strong>Subject matter:</strong> Does the subject matter of the advertisement align with the user’s preferences?</li><li><strong>Scene semantics:</strong> Does the scene selection (location, setting) align with what the user would enjoy?</li><li><strong>Information angle:</strong> Does the advertisement focus on the aspects the user cares about (performance, aesthetics, value for money)?</li><li><strong>Appeal:</strong> Does the ad focus on motivations that resonate with the user (saving money, efficiency, quality, aesthetics, health, eco-friendliness)?</li></ul>
+                            <h4>Criteria</h4>
+                            <ul><li><strong>Perfect match (10):</strong> The content is perfectly aligned with the user’s preferences.</li><li><strong>Good match (7-9):</strong> The content aligns well but with some differences.</li><li><strong>Moderate match (4-6):</strong> The content partially aligns with the user’s preferences.</li><li><strong>Poor match (1-3):</strong> The content does not align well with the user’s preferences.</li><li><strong>No match (0):</strong> The content is completely irrelevant to the user.</li></ul>
+                            <pre>{
+  "score": number,
+  "reason": "brief analysis"
+}</pre>
+                        </div>
+                    </details>
+                    <details>
+                        <summary>Product Alignment</summary>
+                        <div class="prompt">
+                            <p>You are an expert at evaluating the consistency of products in the advertisement. Given a product and the video, Evaluate how well the advertisement matches the product based on the following factors:</p>
+                            <ul><li><strong>Product identity accuracy:</strong> Does the ad represent the product’s appearance, color, model/version, packaging, and accessories correctly?</li><li><strong>Brand and recognition elements:</strong> Does the ad correctly display the product’s logo, branding, and design language?</li><li><strong>Selling points and fact consistency:</strong> Does the ad’s selling point match the product’s real features and details?</li></ul>
+                            <h4>Criteria</h4>
+                            <ul><li><strong>Perfect match (10):</strong> The product in the video matches the actual product in every way.</li><li><strong>Good match (7-9):</strong> The product is mostly consistent with minor details changed.</li><li><strong>Moderate match (4-6):</strong> The product is partially consistent, but with some significant differences.</li><li><strong>Poor match (1-3):</strong> The product in the video is mostly inconsistent with the actual product.</li><li><strong>No match (0):</strong> The product identity is completely inconsistent with the actual product.</li></ul>
+                            <pre>{
+  "score": number,
+  "reason": "brief analysis"
+}</pre>
+                        </div>
+                    </details>
+                    <details>
+                        <summary>Integration Quality</summary>
+                        <div class="prompt">
+                            <p>You are an expert in evaluating the seamlessness and intrusiveness of advertisement within video content. Given a video containing an advertisement, evaluate how naturally the ad is integrated or how disruptive (intrusive) it feels to the viewer’s experience. Consider the following factors:</p>
+                            <ul><li><strong>Contextual flow:</strong> Does the transition between the organic content and the advertisement feel smooth, or is it a sudden, jarring break?</li><li><strong>Thematic consistency:</strong> Does the ad share a similar tone, visual style, or topic with the surrounding video content?</li><li><strong>User experience disruption:</strong> Does the ad interrupt a high-stakes moment (e.g., a climax or a key explanation), or is it placed at a logical breaking point?</li><li><strong>Narrative integration:</strong> Is the ad woven into the story/dialogue (native advertising), or is it an external overlay/hard cut that pulls the viewer out of the experience?</li></ul>
+                            <h4>Criteria</h4>
+                            <ul><li><strong>Seamless (10):</strong> The ad is perfectly integrated; the viewer might not even perceive it as a disruption.</li><li><strong>Natural (7-9):</strong> The ad is well-placed and shares thematic elements with the video, causing minimal friction.</li><li><strong>Noticeable but Acceptable (4-6):</strong> The ad is clearly a break from content, but occurs at a logical pause or maintains a similar aesthetic.</li><li><strong>Intrusive (1-3):</strong> The ad feels forced, breaks the immersion significantly, or uses a jarringly different tone/volume.</li><li><strong>Highly Disruptive (0):</strong> The ad completely ruins the viewing experience through poor timing, extreme contrast, or aggressive interruption.</li></ul>
+                            <pre>{
+  "score": number,
+  "reason": "brief analysis"
+}</pre>
+                        </div>
+                    </details>
+                    <details>
+                        <summary>Diversity</summary>
+                        <div class="prompt">
+                            <p>You are an expert at evaluating the diversity of content. Evaluate the diversity between advertisements for the same user on different products, considering the following aspects:</p>
+                            <ul><li><strong>Visual style:</strong> Is there excessive similarity in tone, lighting, texture, and artistic style across different product ads?</li><li><strong>Narrative form:</strong> Is the narrative structure (tutorial, vlog, plot twist, etc.) and tone (professional, humorous, etc.) overly similar across products?</li><li><strong>Subject matter and scene semantics:</strong> Is the subject matter or scene selection overly similar across ads targeting the same user?</li></ul>
+                            <h4>Criteria</h4>
+                            <ul><li><strong>10:</strong> Ads are completely distinct with no noticeable overlap.</li><li><strong>7-9:</strong> Ads are mostly distinct with only minor similarities.</li><li><strong>4-6:</strong> Ads are somewhat similar but still distinct in key areas.</li><li><strong>1-3:</strong> Ads are largely similar with only slight variations.</li><li><strong>0:</strong> Ads are identical in all aspects.</li></ul>
+                            <pre>{
+  "score": number,
+  "reason": "brief analysis"
+}</pre>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <section class="shared-citation" aria-labelledby="citation-title">
+        <h2 id="citation-title">Citation</h2>
+        <div class="shared-citation-card">
+            <div class="shared-citation-meta"><span>arXiv:2603.02137 · DOI: 10.48550/arXiv.2603.02137</span><a href="https://arxiv.org/abs/2603.02137" target="_blank" rel="noopener noreferrer">Paper ↗</a></div>
+            <pre>@article{xu2026nextads,
+  title={Envision Next-Generation Personalized Video Advertising},
+  author={Xu, Yiyan and Xia, Ruoxuan and Zheng, Wuqiang and Zhu, Fengbin and Wang, Wenjie and Feng, Fuli},
+  journal={arXiv preprint arXiv:2603.02137},
+  year={2026},
+  doi={10.48550/arXiv.2603.02137}
+}</pre>
+        </div>
+    </section>
+
+    <footer class="project-footer">
+        <section class="project-disclaimer" aria-labelledby="disclaimer-title">
+            <div class="disclaimer-heading">
+                <span>Disclaimer</span>
+                <h2 id="disclaimer-title">Academic &amp; Legal Disclosure Statement</h2>
+            </div>
+            <div class="disclaimer-body">
+                <p><strong>Copyright &amp; Trademarks:</strong> The specific brands, logos, and product models shown are utilized solely as research examples to evaluate the model's creative alignment. All trademarks and copyrights belong to their respective owners. We explicitly do not claim any commercial affiliation, sponsorship, or endorsement.</p>
+                <p><strong>Portrait Rights &amp; Privacy:</strong> The integration showcases contain videos of real individuals. These are used exclusively to demonstrate the technical capabilities of our pipeline. We deeply respect personal privacy and portrait rights.</p>
+                <div class="takedown-policy">
+                    <strong>Take-Down Policy:</strong>
+                    <p>If you are a rights holder (copyright, trademark, or portrait rights) and have concerns about specific cases displayed on this demonstration website, please contact us at <a href="mailto:ruoxuanxiaaa@gmail.com">ruoxuanxiaaa@gmail.com</a>. We will promptly remove the respective content.</p>
+                </div>
+            </div>
+        </section>
+        <div class="project-footer-note">NextAds · Academic research demonstration</div>
+    </footer>
+</body>
+</html>

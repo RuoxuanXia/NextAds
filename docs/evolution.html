@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NextAds — Optimization &amp; Evolution</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;900&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/project-page.css">
+    <style>
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { margin: 0; background: #fff; color: #1e293b; font: 500 12px/1.6 Montserrat, sans-serif; }
+        header { padding: 3.5rem 1.25rem 2rem; text-align: center; border-bottom: 1px solid #f1f5f9; }
+        .project-title { margin: 0; background: linear-gradient(90deg,#2563eb,#8b5cf6); color: transparent; -webkit-background-clip: text; background-clip: text; font-size: clamp(3.2rem,8vw,4.8rem); font-weight: 900; letter-spacing: -.04em; line-height: 1.1; }
+        .page-title { margin: .7rem 0 1.25rem; color: #1e293b; font-size: 1.15rem; font-weight: 900; letter-spacing: .08em; }
+        .paper-authors { color: #2563eb; font-size: .92rem; font-weight: 700; line-height: 1.9; }
+        .paper-authors a { color: inherit; text-decoration: none; }
+        .paper-authors sup { color: #8b5cf6; font-size: .68em; }
+        .paper-affiliations { color: #64748b; font-size: .76rem; line-height: 1.75; }
+        .paper-affiliations span { display: block; }
+        .site-nav { position: sticky; top: 0; z-index: 40; display: flex; justify-content: center; gap: .25rem; padding: .65rem 1rem; overflow-x: auto; background: rgba(255,255,255,.94); border-bottom: 1px solid #e2e8f0; backdrop-filter: blur(14px); }
+        .site-nav a { flex: none; padding: .55rem .85rem; border-radius: 999px; color: #64748b; font-size: .76rem; font-weight: 800; text-decoration: none; }
+        .site-nav a:hover, .site-nav a[aria-current="page"] { background: #eff6ff; color: #2563eb; }
+        main { width: min(1040px, calc(100% - 40px)); margin: 4.5rem auto 6rem; }
+        .hierarchy { max-width: 900px; margin: 0 auto; }
+        .loop-root { padding: 1.8rem; border: 1px solid #bfdbfe; border-radius: 1.4rem; background: linear-gradient(135deg,#eff6ff,#fff); box-shadow: 0 12px 32px rgba(37,99,235,.06); }
+        .eyebrow { display: block; color: #2563eb; font-size: .62rem; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; }
+        .loop-root h2, .evolution-branch h2 { margin: .55rem 0 .55rem; color: #0f172a; font-size: 1.35rem; font-weight: 900; }
+        .loop-root p, .evolution-branch > p, .mode p { margin: 0; color: #64748b; font-size: .76rem; line-height: 1.75; }
+        .feedback-sources { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: .75rem; margin: 1.2rem 0; }
+        .feedback-sources div { padding: .85rem 1rem; border: 1px solid #dbeafe; border-radius: .9rem; background: rgba(255,255,255,.8); }
+        .feedback-sources strong { display: block; color: #1e3a8a; font-size: .72rem; font-weight: 900; }
+        .feedback-sources span { display: block; margin-top: .25rem; color: #64748b; font-size: .67rem; line-height: 1.55; }
+        .page-link { display: inline-flex; padding: .62rem .9rem; border: 1px solid #bfdbfe; border-radius: 999px; color: #2563eb; font-size: .69rem; font-weight: 900; text-decoration: none; }
+        .page-link:hover { border-color: #2563eb; background: #fff; }
+        .hierarchy-connector { width: 1px; height: 2rem; margin: 0 auto; background: #bfdbfe; }
+        .evolution-branch { padding: 1.8rem; border: 1px solid #e2e8f0; border-radius: 1.4rem; background: #fff; box-shadow: 0 12px 32px rgba(15,23,42,.045); }
+        .modes { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: .9rem; margin-top: 1.25rem; }
+        .mode { display: flex; min-height: 205px; flex-direction: column; padding: 1.2rem; border: 1px solid #e2e8f0; border-radius: 1rem; background: #f8fafc; }
+        .mode h3 { margin: .45rem 0 .45rem; color: #1e293b; font-size: .95rem; font-weight: 900; }
+        .mode .page-link { align-self: flex-start; margin-top: auto; }
+        footer { padding: 2.5rem 1rem; border-top: 1px solid #e2e8f0; background: #f8fafc; color: #64748b; font-size: .7rem; text-align: center; }
+        @media (max-width: 767px) { .site-nav { justify-content: flex-start; } main { width: min(100% - 24px,1040px); margin-top: 3rem; } .feedback-sources, .modes { grid-template-columns: 1fr; } .mode { min-height: 0; } }
+    </style>
+</head>
+<body>
+    <header class="paper-header">
+        <div class="project-brand">NextAds</div>
+        <h1 class="paper-name">Envision Next-Generation Personalized Video Advertising</h1>
+        <div class="paper-authors">
+            <a href="mailto:yiyanxu24@gmail.com">Yiyan Xu</a><sup>1</sup>,
+            <a href="mailto:ruoxuanxiaaa@gmail.com">Ruoxuan Xia</a><sup>1</sup>,
+            <a href="mailto:qqqqqzheng@gmail.com">Wuqiang Zheng</a><sup>1</sup>,
+            <a href="mailto:zhfengbin@gmail.com">Fengbin Zhu</a><sup>2</sup>,
+            <a href="mailto:wenjiewang96@gmail.com">Wenjie Wang</a><sup>1</sup>,
+            <a href="mailto:fulifeng93@gmail.com">Fuli Feng</a><sup>1</sup>
+        </div>
+        <div class="paper-affiliations">
+            <span><sup>1</sup> University of Science and Technology of China, Hefei, China</span>
+            <span><sup>2</sup> National University of Singapore, Singapore</span>
+        </div>
+        <div class="subpage-name">Optimization &amp; Evolution</div>
+    </header>
+
+    <nav class="site-nav" aria-label="Project pages">
+        <a href="index.html">Home</a>
+        <a href="benchmarks.html">Benchmarks</a>
+        <a href="experiments.html">Experimental Details</a>
+        <a href="pcg.html">Personalized Creative Generation</a>
+        <a href="integration.html">Personalized Creative Integration</a>
+        <a href="closed-loop.html">Closed-loop Creative Refinement</a>
+        <a href="progressive-storytelling.html">Creative Evolution Across Impressions</a>
+    </nav>
+    <main>
+        <div class="hierarchy">
+            <section class="loop-root" aria-labelledby="closed-loop-title">
+                <span class="eyebrow">NextAds paradigm</span>
+                <h2 id="closed-loop-title">Closed-loop Creative Refinement</h2>
+                <p>NextAds is a generative, closed-loop paradigm for video creative optimization. Reflector converts pre-deployment assessments and post-deployment interaction signals into actionable update directives.</p>
+                <div class="feedback-sources">
+                    <div><strong>Pre-deployment verification</strong><span>Verifier provides explicit diagnostic evidence for targeted refinement before deployment.</span></div>
+                    <div><strong>Post-deployment user feedback</strong><span>Online signals provide implicit preference and performance evidence for subsequent creatives.</span></div>
+                </div>
+                <a class="page-link" href="closed-loop.html">View refinement cases →</a>
+            </section>
+
+            <div class="hierarchy-connector" aria-hidden="true"></div>
+
+            <section class="evolution-branch" aria-labelledby="evolution-title">
+                <span class="eyebrow">Post-deployment evolution</span>
+                <h2 id="evolution-title">Creative Evolution Across Impressions</h2>
+                <p>NextAds enables serving-time, closed-loop creative evolution at two levels: refining individual creatives based on online user feedback, and coordinating them over longer horizons through progressive storytelling.</p>
+                <div class="modes">
+                    <article class="mode">
+                        <span class="eyebrow">Creative level</span>
+                        <h3>Iterative Refinement Across Impressions</h3>
+                        <p>Across repeated impressions, NextAds can adapt subsequent creatives to newly observed user feedback, evolving serving contexts, and repeated-exposure effects.</p>
+                    </article>
+                    <article class="mode">
+                        <span class="eyebrow">Trajectory level</span>
+                        <h3>Progressive Storytelling</h3>
+                        <p>Later impressions build on earlier ones, with each impression serving a distinct role in progressively developing the user–product narrative.</p>
+                        <a class="page-link" href="progressive-storytelling.html">View storytelling cases →</a>
+                    </article>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <section class="shared-citation" aria-labelledby="citation-title">
+        <h2 id="citation-title">Citation</h2>
+        <div class="shared-citation-card">
+            <div class="shared-citation-meta"><span>arXiv:2603.02137 · DOI: 10.48550/arXiv.2603.02137</span><a href="https://arxiv.org/abs/2603.02137" target="_blank" rel="noopener noreferrer">Paper ↗</a></div>
+            <pre>@article{xu2026nextads,
+  title={Envision Next-Generation Personalized Video Advertising},
+  author={Xu, Yiyan and Xia, Ruoxuan and Zheng, Wuqiang and Zhu, Fengbin and Wang, Wenjie and Feng, Fuli},
+  journal={arXiv preprint arXiv:2603.02137},
+  year={2026},
+  doi={10.48550/arXiv.2603.02137}
+}</pre>
+        </div>
+    </section>
+    <footer class="project-footer">
+        <section class="project-disclaimer" aria-labelledby="disclaimer-title">
+            <div class="disclaimer-heading">
+                <span>Disclaimer</span>
+                <h2 id="disclaimer-title">Academic &amp; Legal Disclosure Statement</h2>
+            </div>
+            <div class="disclaimer-body">
+                <p><strong>Copyright &amp; Trademarks:</strong> The specific brands, logos, and product models shown are utilized solely as research examples to evaluate the model's creative alignment. All trademarks and copyrights belong to their respective owners. We explicitly do not claim any commercial affiliation, sponsorship, or endorsement.</p>
+                <p><strong>Portrait Rights &amp; Privacy:</strong> The integration showcases contain videos of real individuals. These are used exclusively to demonstrate the technical capabilities of our pipeline. We deeply respect personal privacy and portrait rights.</p>
+                <div class="takedown-policy">
+                    <strong>Take-Down Policy:</strong>
+                    <p>If you are a rights holder (copyright, trademark, or portrait rights) and have concerns about specific cases displayed on this demonstration website, please contact us at <a href="mailto:ruoxuanxiaaa@gmail.com">ruoxuanxiaaa@gmail.com</a>. We will promptly remove the respective content.</p>
+                </div>
+            </div>
+        </section>
+        <div class="project-footer-note">NextAds · Academic research demonstration</div>
+    </footer>
+</body>
+</html>

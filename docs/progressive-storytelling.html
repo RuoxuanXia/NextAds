@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NextAds — Creative Evolution Across Impressions</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;900&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/project-page.css">
+    <style>
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 120px; }
+        body { margin: 0; background: #fff; color: #1e293b; font: 500 12px/1.6 Montserrat, sans-serif; }
+        header { padding: 3.5rem 1.25rem 2rem; text-align: center; border-bottom: 1px solid #f1f5f9; }
+        .project-title { margin: 0; background: linear-gradient(90deg,#2563eb,#8b5cf6); color: transparent; -webkit-background-clip: text; background-clip: text; font-size: clamp(3.2rem,8vw,4.8rem); font-weight: 900; letter-spacing: -.04em; line-height: 1.1; }
+        .page-title { margin: .7rem 0 1.25rem; color: #1e293b; font-size: 1.15rem; font-weight: 900; letter-spacing: .08em; }
+        .paper-authors { color: #2563eb; font-size: .92rem; font-weight: 700; line-height: 1.9; }
+        .paper-authors a { color: inherit; text-decoration: none; }
+        .paper-authors sup { color: #8b5cf6; font-size: .68em; }
+        .paper-affiliations { color: #64748b; font-size: .76rem; line-height: 1.75; }
+        .paper-affiliations span { display: block; }
+        .site-nav { position: sticky; top: 0; z-index: 40; display: flex; justify-content: center; gap: .25rem; padding: .65rem 1rem; overflow-x: auto; background: rgba(255,255,255,.94); border-bottom: 1px solid #e2e8f0; backdrop-filter: blur(14px); }
+        .site-nav a { flex: none; padding: .55rem .85rem; border-radius: 999px; color: #64748b; font-size: .76rem; font-weight: 800; text-decoration: none; }
+        .site-nav a:hover, .site-nav a[aria-current="page"] { background: #eff6ff; color: #2563eb; }
+        main { width: min(1180px, calc(100% - 40px)); margin: 4.5rem auto 6rem; }
+        .intro { max-width: 780px; margin: 0 auto 3rem; text-align: center; }
+        .intro h2 { margin: 0 0 .65rem; color: #1e3a8a; font-size: 1.65rem; font-weight: 900; }
+        .intro p { margin: 0; color: #64748b; font-size: .82rem; line-height: 1.8; }
+        .mode-heading { margin-bottom: 1.1rem; }
+        .mode-heading h2 { margin: 0; color: #0f172a; font-size: 1.25rem; font-weight: 900; }
+        .story-cases { display: grid; gap: 2.5rem; }
+        .story-case { display: flex; flex-direction: column; padding: 1.6rem; border: 1px solid #e2e8f0; border-radius: 1.5rem; background: #fff; box-shadow: 0 12px 32px rgba(15,23,42,.055); }
+        .case-summary { display: grid; grid-template-columns: 1fr 180px; align-items: center; gap: 1.5rem; }
+        .case-tag { display: inline-flex; padding: .35rem .6rem; border-radius: 999px; background: #faf5ff; color: #7e22ce; font-size: .64rem; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
+        .case-summary h2 { margin: .75rem 0 .35rem; color: #0f172a; font-size: 1.35rem; font-weight: 900; }
+        .case-summary p { max-width: 760px; margin: 0; color: #64748b; font-size: .76rem; line-height: 1.75; }
+        .case-facts { display: flex; flex-wrap: wrap; gap: .45rem; margin-top: .85rem; }
+        .case-facts span { padding: .35rem .55rem; border-radius: .65rem; background: #f8fafc; color: #475569; font-size: .65rem; font-weight: 800; }
+        .routine-track { margin-top: 1.15rem; padding: .9rem 1rem; border: 1px solid #e9d5ff; border-radius: 1rem; background: #faf5ff; }
+        .routine-label { display: block; color: #7e22ce; font-size: .68rem; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
+        .routine-steps { display: flex; align-items: center; gap: .45rem; margin-top: .6rem; overflow-x: auto; padding-bottom: .1rem; }
+        .routine-steps span { flex: none; padding: .45rem .58rem; border: 1px solid #ede9fe; border-radius: .7rem; background: #fff; color: #475569; font-size: .65rem; font-weight: 800; white-space: nowrap; }
+        .routine-steps b { flex: none; color: #a78bfa; font-size: .72rem; font-weight: 900; }
+        .product-image { display: flex; height: 150px; align-items: center; justify-content: center; padding: .6rem; border: 1px solid #e2e8f0; border-radius: 1rem; background: #fff; }
+        .product-image img { max-width: 100%; max-height: 100%; object-fit: contain; }
+        .chapters { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: .8rem; margin-top: 1.4rem; }
+        .chapter { position: relative; margin: 0; overflow: hidden; border: 1px solid #e2e8f0; border-radius: 1rem; background: #f8fafc; }
+        .chapter + .chapter::before { content: "→"; position: absolute; z-index: 3; top: .72rem; left: -.82rem; color: #8b5cf6; font-size: .9rem; font-weight: 900; }
+        .chapter-head { min-height: 112px; padding: .75rem .8rem; border-bottom: 1px solid #e2e8f0; background: #fff; }
+        .chapter-head small { display: block; margin-bottom: .3rem; color: #8b5cf6; font-size: .57rem; font-weight: 900; letter-spacing: .04em; text-transform: uppercase; }
+        .chapter-head strong { display: block; color: #334155; font-size: .72rem; font-weight: 900; }
+        .chapter-head span { display: block; margin-top: .3rem; color: #64748b; font-size: .64rem; line-height: 1.5; }
+        .chapter video { display: block; width: 100%; height: 410px; background: #f8fafc; object-fit: contain; }
+        footer { padding: 2.5rem 1rem; border-top: 1px solid #e2e8f0; background: #f8fafc; color: #64748b; font-size: .7rem; text-align: center; }
+        @media (max-width: 900px) { .chapters { grid-template-columns: repeat(2,minmax(0,1fr)); } .chapter + .chapter::before { display: none; } }
+        @media (max-width: 767px) { .site-nav { justify-content: flex-start; } main { width: min(100% - 24px,1180px); margin-top: 3rem; } .story-case { padding: 1.1rem; } .case-summary { grid-template-columns: 1fr; } .product-image { width: 150px; } .chapters { display: flex; gap: .75rem; overflow-x: auto; scroll-snap-type: x mandatory; } .chapter { min-width: 255px; scroll-snap-align: start; } .chapter video { height: 440px; } }
+    </style>
+</head>
+<body>
+    <header class="paper-header">
+        <div class="project-brand">NextAds</div>
+        <h1 class="paper-name">Envision Next-Generation Personalized Video Advertising</h1>
+        <div class="paper-authors">
+            <a href="mailto:yiyanxu24@gmail.com">Yiyan Xu</a><sup>1</sup>,
+            <a href="mailto:ruoxuanxiaaa@gmail.com">Ruoxuan Xia</a><sup>1</sup>,
+            <a href="mailto:qqqqqzheng@gmail.com">Wuqiang Zheng</a><sup>1</sup>,
+            <a href="mailto:zhfengbin@gmail.com">Fengbin Zhu</a><sup>2</sup>,
+            <a href="mailto:wenjiewang96@gmail.com">Wenjie Wang</a><sup>1</sup>,
+            <a href="mailto:fulifeng93@gmail.com">Fuli Feng</a><sup>1</sup>
+        </div>
+        <div class="paper-affiliations">
+            <span><sup>1</sup> University of Science and Technology of China, Hefei, China</span>
+            <span><sup>2</sup> National University of Singapore, Singapore</span>
+        </div>
+        <div class="subpage-name">Creative Evolution Across Impressions</div>
+    </header>
+
+    <nav class="site-nav" aria-label="Project pages">
+        <a href="index.html">Home</a>
+        <a href="benchmarks.html">Benchmarks</a>
+        <a href="experiments.html">Experimental Details</a>
+        <a href="pcg.html">Personalized Creative Generation</a>
+        <a href="integration.html">Personalized Creative Integration</a>
+        <a href="closed-loop.html">Closed-loop Creative Refinement</a>
+        <a href="progressive-storytelling.html" aria-current="page">Creative Evolution Across Impressions</a>
+    </nav>
+    <main>
+        <section class="mode-section" id="progressive-storytelling" aria-labelledby="storytelling-title">
+            <div class="mode-heading"><h2 id="storytelling-title">Progressive Storytelling</h2></div>
+            <div class="story-cases">
+            <article class="story-case" id="breville">
+                <div class="case-summary">
+                    <div>
+                        <span class="case-tag">Morning ritual → hosting</span>
+                        <h2>Nora × Breville Barista Express Impress</h2>
+                        <p>A rushed weekday coffee problem evolves into a reclaimed home routine, then a weekend-hosting identity, before the final chapter recaps the trajectory and introduces verified product details.</p>
+                        <div class="case-facts"><span>Nora Alvarez · 32</span><span>New York museum-program planner</span><span>Morning reset</span><span>Cozy home</span><span>Brunch &amp; latte art</span></div>
+                    </div>
+                    <div class="product-image"><img src="assets/progressive-storytelling/breville-product.png" alt="Breville Barista Express Impress product image"></div>
+                </div>
+                <div class="routine-track" aria-label="Nora Alvarez daily routine">
+                    <span class="routine-label">Daily routine</span>
+                    <div class="routine-steps"><span>7:10 · Wake up</span><b aria-hidden="true">→</b><span>Rush out</span><b aria-hidden="true">→</b><span>Queue for coffee</span><b aria-hidden="true">→</b><span>Museum work</span><b aria-hidden="true">→</b><span>Cozy-home content</span><b aria-hidden="true">→</b><span>Weekend brunch</span></div>
+                </div>
+                <div class="chapters" aria-label="Breville progressive story chapters">
+                    <figure class="chapter"><figcaption class="chapter-head"><small>Monday · 7:35 · Morning-reset feed</small><strong>Problem / Foreshadow</strong><span>Rushing out forces a choice between being on time and having coffee worth slowing down for; the product remains unseen.</span></figcaption><video controls preload="metadata" playsinline poster="assets/posters/progressive-storytelling/breville-problem.jpg" src="assets/progressive-storytelling/breville-problem.mp4"></video></figure>
+                    <figure class="chapter"><figcaption class="chapter-head"><small>Tuesday night feed → Wednesday morning</small><strong>New Routine / First Payoff</strong><span>The same unresolved problem continues into a quiet at-home coffee ritual, with the official product introduced after the payoff.</span></figcaption><video controls preload="metadata" playsinline poster="assets/posters/progressive-storytelling/breville-new-routine.jpg" src="assets/progressive-storytelling/breville-new-routine.mp4"></video></figure>
+                    <figure class="chapter"><figcaption class="chapter-head"><small>Saturday morning · Brunch feed</small><strong>Lifestyle Expansion</strong><span>The private weekday ritual expands into a Saturday brunch shared with three friends.</span></figcaption><video controls preload="metadata" playsinline poster="assets/posters/progressive-storytelling/breville-lifestyle.jpg" src="assets/progressive-storytelling/breville-lifestyle.mp4"></video></figure>
+                    <figure class="chapter"><figcaption class="chapter-head"><small>Re-engagement after prior interactions</small><strong>Recap / Conversion</strong><span>The queue, reclaimed morning, and four-person brunch are recovered before verified features, price, and CTA close the story.</span></figcaption><video controls preload="metadata" playsinline poster="assets/posters/progressive-storytelling/breville-conversion.jpg" src="assets/progressive-storytelling/breville-conversion.mp4"></video></figure>
+                </div>
+            </article>
+
+            <article class="story-case" id="samsung">
+                <div class="case-summary">
+                    <div>
+                        <span class="case-tag">Small screen → shared cinema</span>
+                        <h2>Andre × Samsung The Freestyle 2nd Gen</h2>
+                        <p>A film-focused motion designer moves from watching movies on his work laptop to a private wall-sized cinema and finally an outdoor movie night, making the purchase conclusion a continuation of the same story.</p>
+                        <div class="case-facts"><span>Andre Lewis · 35</span><span>London motion designer</span><span>Film essays</span><span>Small-space tech</span><span>Rooftop cinema</span></div>
+                    </div>
+                    <div class="product-image"><img src="assets/progressive-storytelling/samsung-product.png" alt="Samsung The Freestyle projector product image"></div>
+                </div>
+                <div class="routine-track" aria-label="Andre Lewis daily routine">
+                    <span class="routine-label">Daily routine</span>
+                    <div class="routine-steps"><span>9:30 · Edit at home / studio</span><b aria-hidden="true">→</b><span>18:45 · Close work laptop</span><b aria-hidden="true">→</b><span>Browse film content</span><b aria-hidden="true">→</b><span>Watch on a 13-inch laptop</span><b aria-hidden="true">→</b><span>Weekend rooftop gathering</span></div>
+                </div>
+                <div class="chapters" aria-label="Samsung progressive story chapters">
+                    <figure class="chapter"><figcaption class="chapter-head"><small>Tuesday night · Film-essay feed</small><strong>Problem / Foreshadow</strong><span>A love of cinematic composition is constrained to the same 13-inch laptop used for work; no product or specifications appear.</span></figcaption><video controls preload="metadata" playsinline poster="assets/posters/progressive-storytelling/samsung-problem.jpg" src="assets/progressive-storytelling/samsung-problem.mp4"></video></figure>
+                    <figure class="chapter"><figcaption class="chapter-head"><small>Weeknight · Small-space / projector feed</small><strong>New Routine / First Payoff</strong><span>The same empty wall becomes a private cinema as the official product first enters the established room.</span></figcaption><video controls preload="metadata" playsinline poster="assets/posters/progressive-storytelling/samsung-new-routine.jpg" src="assets/progressive-storytelling/samsung-new-routine.mp4"></video></figure>
+                    <figure class="chapter"><figcaption class="chapter-head"><small>Saturday afternoon · Rooftop feed</small><strong>Lifestyle Expansion</strong><span>The private viewing setup expands into a rooftop film night shared with three friends.</span></figcaption><video controls preload="metadata" playsinline poster="assets/posters/progressive-storytelling/samsung-lifestyle.jpg" src="assets/progressive-storytelling/samsung-lifestyle.mp4"></video></figure>
+                    <figure class="chapter"><figcaption class="chapter-head"><small>Re-engagement · Projector-comparison feed</small><strong>Recap / Conversion</strong><span>Small screen, wall-sized cinema, and rooftop screening lead into the official model, verified features, and CTA.</span></figcaption><video controls preload="metadata" playsinline poster="assets/posters/progressive-storytelling/samsung-conversion.jpg" src="assets/progressive-storytelling/samsung-conversion.mp4"></video></figure>
+                </div>
+            </article>
+            </div>
+        </section>
+    </main>
+
+    <section class="shared-citation" aria-labelledby="citation-title">
+        <h2 id="citation-title">Citation</h2>
+        <div class="shared-citation-card">
+            <div class="shared-citation-meta"><span>arXiv:2603.02137 · DOI: 10.48550/arXiv.2603.02137</span><a href="https://arxiv.org/abs/2603.02137" target="_blank" rel="noopener noreferrer">Paper ↗</a></div>
+            <pre>@article{xu2026nextads,
+  title={Envision Next-Generation Personalized Video Advertising},
+  author={Xu, Yiyan and Xia, Ruoxuan and Zheng, Wuqiang and Zhu, Fengbin and Wang, Wenjie and Feng, Fuli},
+  journal={arXiv preprint arXiv:2603.02137},
+  year={2026},
+  doi={10.48550/arXiv.2603.02137}
+}</pre>
+        </div>
+    </section>
+    <footer class="project-footer">
+        <section class="project-disclaimer" aria-labelledby="disclaimer-title">
+            <div class="disclaimer-heading">
+                <span>Disclaimer</span>
+                <h2 id="disclaimer-title">Academic &amp; Legal Disclosure Statement</h2>
+            </div>
+            <div class="disclaimer-body">
+                <p><strong>Copyright &amp; Trademarks:</strong> The specific brands, logos, and product models shown are utilized solely as research examples to evaluate the model's creative alignment. All trademarks and copyrights belong to their respective owners. We explicitly do not claim any commercial affiliation, sponsorship, or endorsement.</p>
+                <p><strong>Portrait Rights &amp; Privacy:</strong> The integration showcases contain videos of real individuals. These are used exclusively to demonstrate the technical capabilities of our pipeline. We deeply respect personal privacy and portrait rights.</p>
+                <div class="takedown-policy">
+                    <strong>Take-Down Policy:</strong>
+                    <p>If you are a rights holder (copyright, trademark, or portrait rights) and have concerns about specific cases displayed on this demonstration website, please contact us at <a href="mailto:ruoxuanxiaaa@gmail.com">ruoxuanxiaaa@gmail.com</a>. We will promptly remove the respective content.</p>
+                </div>
+            </div>
+        </section>
+        <div class="project-footer-note">NextAds · Academic research demonstration</div>
+    </footer>
+</body>
+</html>
