@@ -2,10 +2,10 @@
 
 <div align="center">
   <h3>
-    👉 <a href="https://nextadsdemo.netlify.app" target="_blank">Click Here to Visit Our Project Page</a> 👈
+    👉 <a href="https://ruoxuanxia.github.io/NextAds/" target="_blank">Click Here to Visit Our Project Page</a> 👈
   </h3>
   
-  <a href="https://nextadsdemo.netlify.app" target="_blank">
+  <a href="https://ruoxuanxia.github.io/NextAds/" target="_blank">
     <img src="https://img.shields.io/badge/🌐_Project_Page-Live_Demo-blue?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Project Page">
   </a>
 </div>
