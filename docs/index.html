@@ -200,15 +200,17 @@
         .home-figure-one figcaption strong { color: #334155; font-weight: 800; }
         .home-figure-one + .paper-links { margin-top: 1.25rem; margin-bottom: 0.25rem; }
         .abstract-layout {
-            display: grid;
-            grid-template-columns: minmax(330px, 0.85fr) minmax(560px, 1.25fr);
-            align-items: center;
-            gap: 1.6rem;
+            display: flow-root;
         }
         .abstract-copy { min-width: 0; }
-        .abstract-paradigm { min-width: 0; margin: 0; }
+        .abstract-paradigm {
+            float: right;
+            width: min(48%, 600px);
+            min-width: 0;
+            margin: 0.15rem 0 1rem 2rem;
+        }
         .abstract-paradigm .paper-figure { border-radius: 0.85rem; }
-        .abstract-paradigm .paper-caption { margin-right: auto; margin-left: auto; max-width: 680px; }
+        .abstract-paradigm .paper-caption { margin-right: auto; margin-left: auto; max-width: 600px; }
         .paper-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; margin: 1.7rem 0 2.5rem; }
         .paper-link {
             display: inline-flex !important; align-items: center; justify-content: center; gap: 0.55rem;
@@ -248,7 +250,7 @@
             box-shadow: 0 12px 32px rgba(15,23,42,0.055) !important; padding: 2rem !important;
         }
         .figure-only { padding: 1.25rem !important; }
-        #overview .paper-surface { padding: 2.2rem 2.5rem !important; }
+        #overview .paper-surface { padding: 2.2rem 2.5rem !important; border-left: 4px solid #2563eb !important; }
         #overview p { font-size: 0.92rem !important; line-height: 1.95 !important; color: #475569 !important; }
         #pcgShowcase:not(.is-expanded) > div:nth-child(n+4) { display: none; }
         .showcase-toggle {
@@ -328,11 +330,10 @@
             .loop-map-root::after, .loop-map-branches::before, .loop-map-branch::before { display: none; }
             .loop-map-branches { grid-template-columns: 1fr; margin-top: .75rem; padding-top: 0; }
             .loop-map-items { grid-template-columns: 1fr; }
-            .abstract-layout { grid-template-columns: 1fr; }
+            .abstract-paradigm { float: none; width: 100%; margin: 0 auto 1.4rem; }
         }
         @media (min-width: 768px) and (max-width: 1050px) {
-            .abstract-layout { grid-template-columns: 1fr; }
-            .abstract-paradigm { width: min(720px, 100%); margin: 0 auto; }
+            .abstract-paradigm { float: none; width: min(720px, 100%); margin: 0 auto 1.6rem; }
         }
     </style>
 </head>
@@ -405,6 +406,10 @@
         
         <div class="paper-surface">
             <div class="abstract-layout">
+            <figure class="abstract-paradigm">
+                <div class="paper-figure"><img src="assets/figures/intro.png" alt="Paradigm shift from retrieval to generation"></div>
+                <figcaption class="paper-caption"><strong class="text-slate-800">Figure 2: Paradigm shift: from retrieval to generation.</strong> NextAds transforms personalized video advertising from retrieval over a discrete creative inventory to generative optimization in a continuous space.</figcaption>
+            </figure>
             <div class="abstract-copy">
                 <p class="text-sm md:text-[14px] text-slate-600 leading-loose text-justify font-sans mb-5">
                     With the rapid growth of online video consumption, video advertising has become increasingly dominant in the digital advertising landscape. Yet diverse users and viewing contexts makes one-size-fits-all ad creatives insufficient for consistent effectiveness, underlining the importance of personalization. In practice, most personalized video advertising systems follow a retrieval-based paradigm, selecting the optimal one from a small set of professionally pre-produced creatives for each user. Such static and finite inventories limits both the granularity and the timeliness of personalization, and prevents the creatives from being continuously refined based on online user feedback. Recent advances in generative AI make it possible to move beyond retrieval toward optimizing video creatives in a continuous space at serving time.
@@ -413,10 +418,6 @@
                     In this light, we propose NextAds, a generation-based paradigm for next-generation personalized video advertising. We articulate its key principles and conceptualize an agentic workflow for closed-loop creative optimization, spanning planning, generation, verification, and reflection. We further explore how personalized creatives can evolve across impressions through feedback-driven refinement and progressive storytelling. Through preliminary case study, we demonstrate representative instantiations of the NextAds paradigm, showcasing its significant application potential. Moreover, we discuss the key challenges and opportunities, aiming to provide actionable insights for both researchers and practitioners and to catalyze progress in personalized video advertising.
                 </p>
             </div>
-            <figure class="abstract-paradigm">
-                <div class="paper-figure"><img src="assets/figures/intro.png" alt="Paradigm shift from retrieval to generation"></div>
-                <figcaption class="paper-caption"><strong class="text-slate-800">Figure 2: Paradigm shift: from retrieval to generation.</strong> NextAds transforms personalized video advertising from retrieval over a discrete creative inventory to generative optimization in a continuous space.</figcaption>
-            </figure>
             </div>
         </div>
     </section>
