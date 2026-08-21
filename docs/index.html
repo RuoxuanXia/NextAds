@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Montserrat:wght@500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/project-page.css">
+    <link rel="stylesheet" href="assets/project-page.css?v=20260821-2">
     
     <script>
         tailwind.config = {
@@ -178,6 +178,37 @@
         .paper-authors a:hover { text-decoration: underline; }
         .paper-authors sup { color: #8b5cf6; font-size: .68em; margin-left: .08em; }
         .paper-affiliations span { display: block; }
+        .home-figure-one {
+            width: min(560px, calc(100% - 32px));
+            margin: 1.35rem auto 0;
+        }
+        .home-figure-one-media {
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.9rem;
+            background: #ffffff;
+            box-shadow: 0 6px 18px rgba(15,23,42,0.06);
+        }
+        .home-figure-one img { display: block; width: 100%; height: auto; }
+        .home-figure-one figcaption {
+            margin-top: 0.55rem;
+            color: #64748b;
+            font-size: 0.74rem;
+            line-height: 1.6;
+            text-align: center;
+        }
+        .home-figure-one figcaption strong { color: #334155; font-weight: 800; }
+        .home-figure-one + .paper-links { margin-top: 1.25rem; margin-bottom: 0.25rem; }
+        .abstract-layout {
+            display: grid;
+            grid-template-columns: minmax(330px, 0.85fr) minmax(560px, 1.25fr);
+            align-items: center;
+            gap: 1.6rem;
+        }
+        .abstract-copy { min-width: 0; }
+        .abstract-paradigm { min-width: 0; margin: 0; }
+        .abstract-paradigm .paper-figure { border-radius: 0.85rem; }
+        .abstract-paradigm .paper-caption { margin-right: auto; margin-left: auto; max-width: 680px; }
         .paper-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; margin: 1.7rem 0 2.5rem; }
         .paper-link {
             display: inline-flex !important; align-items: center; justify-content: center; gap: 0.55rem;
@@ -297,6 +328,11 @@
             .loop-map-root::after, .loop-map-branches::before, .loop-map-branch::before { display: none; }
             .loop-map-branches { grid-template-columns: 1fr; margin-top: .75rem; padding-top: 0; }
             .loop-map-items { grid-template-columns: 1fr; }
+            .abstract-layout { grid-template-columns: 1fr; }
+        }
+        @media (min-width: 768px) and (max-width: 1050px) {
+            .abstract-layout { grid-template-columns: 1fr; }
+            .abstract-paradigm { width: min(720px, 100%); margin: 0 auto; }
         }
     </style>
 </head>
@@ -320,6 +356,15 @@
                 <span><sup>2</sup> National University of Singapore, Singapore</span>
             </div>
 
+            <figure class="home-figure-one">
+                <div class="home-figure-one-media">
+                    <img src="assets/figures/evolution.png" alt="Evolution of video advertising along personalization and nativeness">
+                </div>
+                <figcaption>
+                    <strong>Figure 1:</strong> Evolution of video advertising along personalization and nativeness.
+                </figcaption>
+            </figure>
+
             <div class="paper-links">
                 <a class="paper-link" href="https://arxiv.org/abs/2603.02137" target="_blank" rel="noopener noreferrer">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2h9l5 5v15H6z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg>
@@ -333,14 +378,24 @@
         </div>
     </header>
 
-    <nav class="section-nav" aria-label="Project pages">
-        <a href="index.html" aria-current="page">Home</a>
-        <a href="benchmarks.html">Benchmarks</a>
-        <a href="experiments.html">Experimental Details</a>
-        <a href="pcg.html">Personalized Creative Generation</a>
-        <a href="integration.html">Personalized Creative Integration</a>
-        <a href="closed-loop.html">Closed-loop Creative Refinement</a>
-        <a href="progressive-storytelling.html">Creative Evolution Across Impressions</a>
+    <nav class="section-nav site-nav nav-groups" aria-label="Project pages">
+        <a class="nav-home" href="index.html" aria-current="page">Overview</a>
+        <details class="nav-group" name="project-navigation">
+            <summary class="nav-group-trigger">NextAds in Action <span class="nav-group-caret">⌄</span></summary>
+            <div class="nav-group-menu">
+                <a href="pcg.html"><small>A</small><span><strong>Personalized Creative Generation</strong><em>Standalone video creatives</em></span></a>
+                <a href="integration.html"><small>B</small><span><strong>Personalized Creative Integration</strong><em>Context-aware creative integration</em></span></a>
+                <a href="closed-loop.html"><small>C</small><span><strong>Closed-loop Creative Refinement</strong><em>Verification and feedback-driven refinement</em></span></a>
+                <a href="progressive-storytelling.html"><small>D</small><span><strong>Creative Evolution Across Impressions</strong><em>Progressive storytelling over time</em></span></a>
+            </div>
+        </details>
+        <details class="nav-group" name="project-navigation">
+            <summary class="nav-group-trigger">Benchmarks &amp; Experiments <span class="nav-group-caret">⌄</span></summary>
+            <div class="nav-group-menu">
+                <a class="nav-item-plain" href="benchmarks.html"><span><strong>Benchmarks</strong><em>Tasks, construction, and evaluation suites</em></span></a>
+                <a class="nav-item-plain" href="experiments.html"><span><strong>Experimental Details</strong><em>Implementation, results, and analysis</em></span></a>
+            </div>
+        </details>
     </nav>
 
 <section class="paper-section" id="overview">
@@ -349,44 +404,26 @@
         </div>
         
         <div class="paper-surface">
-            
-            <div class="w-full">
+            <div class="abstract-layout">
+            <div class="abstract-copy">
                 <p class="text-sm md:text-[14px] text-slate-600 leading-loose text-justify font-sans mb-5">
                     With the rapid growth of online video consumption, video advertising has become increasingly dominant in the digital advertising landscape. Yet diverse users and viewing contexts makes one-size-fits-all ad creatives insufficient for consistent effectiveness, underlining the importance of personalization. In practice, most personalized video advertising systems follow a retrieval-based paradigm, selecting the optimal one from a small set of professionally pre-produced creatives for each user. Such static and finite inventories limits both the granularity and the timeliness of personalization, and prevents the creatives from being continuously refined based on online user feedback. Recent advances in generative AI make it possible to move beyond retrieval toward optimizing video creatives in a continuous space at serving time.
                 </p>
                 <p class="text-sm md:text-[14px] text-slate-600 leading-loose text-justify font-sans">
-                    In this light, we propose NextAds, a generation-based paradigm for next-generation personalized video advertising, and conceptualize NextAds with four core components. To enable comparable research progress, we formulate two representative tasks: personalized creative generation and personalized creative integration, and introduce corresponding lightweight benchmarks. To assess feasibility, we instantiate end-to-end pipelines for both tasks and conduct initial exploratory experiments, demonstrating that GenAI can generate and integrate personalized creatives with encouraging performance. Moreover, we discuss the key challenges and opportunities under this paradigm, aiming to provide actionable insights for both researchers and practitioners and to catalyze progress in personalized video advertising.
+                    In this light, we propose NextAds, a generation-based paradigm for next-generation personalized video advertising. We articulate its key principles and conceptualize an agentic workflow for closed-loop creative optimization, spanning planning, generation, verification, and reflection. We further explore how personalized creatives can evolve across impressions through feedback-driven refinement and progressive storytelling. Through preliminary case study, we demonstrate representative instantiations of the NextAds paradigm, showcasing its significant application potential. Moreover, we discuss the key challenges and opportunities, aiming to provide actionable insights for both researchers and practitioners and to catalyze progress in personalized video advertising.
                 </p>
             </div>
-
-        </div>
-    </section>
-
-    <section class="paper-section" id="motivation" style="max-width: 760px;">
-        <figure class="flex flex-col items-center group">
-            <div class="overflow-hidden rounded-2xl shadow-md border border-gray-200 bg-white mb-4 w-full">
-                <img src="assets/figures/evolution.png" alt="Evolution of video advertising" class="w-full h-auto object-cover group-hover:scale-[1.01] transition-transform duration-500">
+            <figure class="abstract-paradigm">
+                <div class="paper-figure"><img src="assets/figures/intro.png" alt="Paradigm shift from retrieval to generation"></div>
+                <figcaption class="paper-caption"><strong class="text-slate-800">Figure 2: Paradigm shift: from retrieval to generation.</strong> NextAds transforms personalized video advertising from retrieval over a discrete creative inventory to generative optimization in a continuous space.</figcaption>
+            </figure>
             </div>
-            <figcaption class="text-[13px] text-slate-500 leading-relaxed text-center px-4">
-                <strong class="text-slate-800 font-bold tracking-wide">Figure 1:</strong>
-                Evolution of video advertising along personalization and nativeness.
-            </figcaption>
-        </figure>
-    </section>
-
-    <section class="paper-section" id="paradigm">
-        <div class="section-heading">
-            <h2>Paradigm Shift</h2>
         </div>
-        <figure class="paper-surface figure-only">
-            <div class="paper-figure"><img src="assets/figures/intro.png" alt="Paradigm shift from retrieval to generation"></div>
-            <figcaption class="paper-caption"><strong class="text-slate-800">Figure 2: Paradigm shift: from retrieval to generation.</strong> Creatives can be generated for the current user and context, then refined through feedback.</figcaption>
-        </figure>
     </section>
 
     <section class="paper-section paper-section-wide" id="framework">
         <div class="section-heading">
-            <h2>NextAds Framework</h2>
+            <h2>Agentic Workflow</h2>
         </div>
         <div class="paper-surface figure-only">
             <figure>
@@ -402,7 +439,7 @@
 
     <section class="paper-section paper-section-wide" id="cases">
         <div class="section-heading">
-            <h2>Representative Workflows</h2>
+            <h2>NextAds in Action</h2>
         </div>
         <div class="paper-surface figure-only">
             <figure>

@@ -102,7 +102,7 @@ body {
     padding-right: 0.8rem;
     border-right: 1px solid #cbd5e1;
     color: #64748b;
-    font-size: 0.72rem;
+    font-size: 0.78rem;
     font-weight: 900;
     letter-spacing: 0.11em;
     text-transform: uppercase;
@@ -110,7 +110,7 @@ body {
 
 .page-index.page-index a {
     color: #475569;
-    font-size: 0.78rem;
+    font-size: 0.88rem;
     font-weight: 800;
     text-decoration: none;
 }
@@ -359,6 +359,153 @@ main li,
     font-size: 0.94rem !important;
 }
 
+/* Group the project-level navigation by reading path. */
+.section-nav.nav-groups,
+.site-nav.nav-groups {
+    overflow: visible !important;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    padding: 0.62rem 1rem;
+}
+
+.nav-groups > .nav-home,
+.nav-groups .nav-group-trigger {
+    display: inline-flex;
+    min-height: 2.35rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    padding: 0.62rem 1rem !important;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    background: transparent;
+    color: #64748b;
+    font-family: Montserrat, sans-serif;
+    font-size: 0.84rem !important;
+    font-weight: 800;
+    line-height: 1;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.nav-groups > .nav-home:hover,
+.nav-groups > .nav-home[aria-current="page"],
+.nav-groups .nav-group-trigger:hover,
+.nav-groups .nav-group.current > .nav-group-trigger,
+.nav-groups .nav-group[open] > .nav-group-trigger {
+    border-color: #dbeafe;
+    background: #eff6ff;
+    color: #2563eb;
+}
+
+.nav-group {
+    position: relative;
+    flex: none;
+}
+
+.nav-group > summary {
+    list-style: none;
+}
+
+.nav-group > summary::-webkit-details-marker {
+    display: none;
+}
+
+.nav-group-caret {
+    display: inline-block;
+    color: #94a3b8;
+    font-size: 0.78rem;
+    transition: transform 0.2s ease;
+}
+
+.nav-group[open] .nav-group-caret {
+    transform: rotate(180deg);
+}
+
+.nav-group-menu {
+    position: absolute;
+    top: calc(100% + 0.55rem);
+    left: 50%;
+    z-index: 80;
+    display: grid;
+    width: min(430px, calc(100vw - 24px));
+    gap: 0.35rem;
+    padding: 0.55rem;
+    border: 1px solid #dbeafe;
+    border-radius: 1rem;
+    background: rgba(255,255,255,0.98);
+    box-shadow: 0 18px 46px rgba(15,23,42,0.16);
+    transform: translateX(-50%);
+    backdrop-filter: blur(16px);
+}
+
+.nav-group-menu a {
+    display: grid;
+    grid-template-columns: 2rem minmax(0,1fr);
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.72rem 0.78rem !important;
+    border-radius: 0.75rem !important;
+    color: #334155 !important;
+    text-align: left;
+    text-decoration: none;
+}
+
+.nav-group-menu a.nav-item-plain {
+    grid-template-columns: minmax(0,1fr);
+}
+
+.nav-group-menu a:hover,
+.nav-group-menu a[aria-current="page"] {
+    background: #eff6ff !important;
+    color: #1d4ed8 !important;
+}
+
+.nav-group-menu small {
+    display: inline-flex;
+    width: 2rem;
+    height: 2rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.65rem;
+    background: #f1f5f9;
+    color: #64748b;
+    font-size: 0.66rem;
+    font-weight: 900;
+}
+
+.nav-group-menu a:hover small,
+.nav-group-menu a[aria-current="page"] small {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+.nav-group-menu strong,
+.nav-group-menu em {
+    display: block;
+}
+
+.nav-group-menu strong {
+    color: inherit;
+    font-size: 0.82rem;
+    font-style: normal;
+    font-weight: 900;
+    line-height: 1.35;
+}
+
+.nav-group-menu em {
+    margin-top: 0.15rem;
+    color: #94a3b8;
+    font-size: 0.68rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 1.35;
+}
+
 main .text-xs,
 .paper-section .text-xs {
     font-size: 0.78rem !important;
@@ -410,4 +557,9 @@ main [class*="text-[13px]"],
     .group-head > h2,
     .mode-heading > h2,
     .pipeline-title.pipeline-title { font-size: 1.35rem !important; }
+    .section-nav.nav-groups,
+    .site-nav.nav-groups { justify-content: center !important; padding-right: 0.5rem; padding-left: 0.5rem; }
+    .nav-groups > .nav-home,
+    .nav-groups .nav-group-trigger { min-height: 2.2rem; padding: 0.58rem 0.78rem !important; font-size: 0.76rem !important; }
+    .nav-group-menu { position: fixed; top: 4.2rem; right: 12px; left: 12px; width: auto; max-height: calc(100vh - 5rem); overflow-y: auto; transform: none; }
 }

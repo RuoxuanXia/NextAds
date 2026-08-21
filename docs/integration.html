@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Montserrat:wght@400;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/project-page.css">
+    <link rel="stylesheet" href="assets/project-page.css?v=20260821-2">
     
     <script>
         tailwind.config = {
@@ -168,14 +168,24 @@
         <div class="subpage-name">Personalized Creative Integration</div>
     </div>
     </header>
-    <nav class="site-nav" aria-label="Project pages">
-        <a href="index.html">Home</a>
-        <a href="benchmarks.html">Benchmarks</a>
-        <a href="experiments.html">Experimental Details</a>
-        <a href="pcg.html">Personalized Creative Generation</a>
-        <a href="integration.html" aria-current="page">Personalized Creative Integration</a>
-        <a href="closed-loop.html">Closed-loop Creative Refinement</a>
-        <a href="progressive-storytelling.html">Creative Evolution Across Impressions</a>
+    <nav class="site-nav nav-groups" aria-label="Project pages">
+        <a class="nav-home" href="index.html">Overview</a>
+        <details class="nav-group current" name="project-navigation">
+            <summary class="nav-group-trigger" aria-current="page">NextAds in Action <span class="nav-group-caret">⌄</span></summary>
+            <div class="nav-group-menu">
+                <a href="pcg.html"><small>A</small><span><strong>Personalized Creative Generation</strong><em>Standalone video creatives</em></span></a>
+                <a href="integration.html" aria-current="page"><small>B</small><span><strong>Personalized Creative Integration</strong><em>Context-aware creative integration</em></span></a>
+                <a href="closed-loop.html"><small>C</small><span><strong>Closed-loop Creative Refinement</strong><em>Verification and feedback-driven refinement</em></span></a>
+                <a href="progressive-storytelling.html"><small>D</small><span><strong>Creative Evolution Across Impressions</strong><em>Progressive storytelling over time</em></span></a>
+            </div>
+        </details>
+        <details class="nav-group" name="project-navigation">
+            <summary class="nav-group-trigger">Benchmarks &amp; Experiments <span class="nav-group-caret">⌄</span></summary>
+            <div class="nav-group-menu">
+                <a class="nav-item-plain" href="benchmarks.html"><span><strong>Benchmarks</strong><em>Tasks, construction, and evaluation suites</em></span></a>
+                <a class="nav-item-plain" href="experiments.html"><span><strong>Experimental Details</strong><em>Implementation, results, and analysis</em></span></a>
+            </div>
+        </details>
     </nav>
     <main class="w-full max-w-[95%] mx-auto px-4 mt-12 flex flex-col gap-12">
         

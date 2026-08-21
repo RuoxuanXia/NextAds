@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;900&amp;display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/project-page.css">
+    <link rel="stylesheet" href="assets/project-page.css?v=20260821-2">
     <style>
         * { box-sizing: border-box; }
         html { scroll-behavior: smooth; scroll-padding-top: 74px; }
@@ -29,7 +29,7 @@
         .source-copy p { margin: 0; }
         .source-copy p + p { margin-top: .85rem; }
         .paper-surface { padding: 1.75rem; border: 1px solid #e2e8f0; border-radius: 1.35rem; background: #fff; box-shadow: 0 10px 28px rgba(15,23,42,.045); }
-        .task-figure { max-width: 860px; margin: 1.5rem auto; }
+        .task-figure { max-width: 660px; margin: 1.5rem auto; }
         .task-figure img { display: block; width: 100%; height: auto; border: 1px solid #e2e8f0; border-radius: 1rem; background: #fff; }
         .task-figure figcaption { margin-top: .75rem; color: #64748b; font-size: .76rem; line-height: 1.7; text-align: center; }
         .task-figure figcaption strong { color: #334155; font-weight: 900; }
@@ -75,14 +75,24 @@
         <div class="subpage-name">Benchmarks</div>
     </header>
 
-    <nav class="site-nav" aria-label="Project pages">
-        <a href="index.html">Home</a>
-        <a href="benchmarks.html" aria-current="page">Benchmarks</a>
-        <a href="experiments.html">Experimental Details</a>
-        <a href="pcg.html">Personalized Creative Generation</a>
-        <a href="integration.html">Personalized Creative Integration</a>
-        <a href="closed-loop.html">Closed-loop Creative Refinement</a>
-        <a href="progressive-storytelling.html">Creative Evolution Across Impressions</a>
+    <nav class="site-nav nav-groups" aria-label="Project pages">
+        <a class="nav-home" href="index.html">Overview</a>
+        <details class="nav-group" name="project-navigation">
+            <summary class="nav-group-trigger">NextAds in Action <span class="nav-group-caret">⌄</span></summary>
+            <div class="nav-group-menu">
+                <a href="pcg.html"><small>A</small><span><strong>Personalized Creative Generation</strong><em>Standalone video creatives</em></span></a>
+                <a href="integration.html"><small>B</small><span><strong>Personalized Creative Integration</strong><em>Context-aware creative integration</em></span></a>
+                <a href="closed-loop.html"><small>C</small><span><strong>Closed-loop Creative Refinement</strong><em>Verification and feedback-driven refinement</em></span></a>
+                <a href="progressive-storytelling.html"><small>D</small><span><strong>Creative Evolution Across Impressions</strong><em>Progressive storytelling over time</em></span></a>
+            </div>
+        </details>
+        <details class="nav-group current" name="project-navigation">
+            <summary class="nav-group-trigger" aria-current="page">Benchmarks &amp; Experiments <span class="nav-group-caret">⌄</span></summary>
+            <div class="nav-group-menu">
+                <a class="nav-item-plain" href="benchmarks.html" aria-current="page"><span><strong>Benchmarks</strong><em>Tasks, construction, and evaluation suites</em></span></a>
+                <a class="nav-item-plain" href="experiments.html"><span><strong>Experimental Details</strong><em>Implementation, results, and analysis</em></span></a>
+            </div>
+        </details>
     </nav>
     <nav class="page-index" aria-label="Benchmark sections">
         <span class="page-index-label">On this page</span>
