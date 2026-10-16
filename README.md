@@ -1,5 +1,4 @@
-# NextAds: Towards Next-generation Personalized Video Advertising
-
+# NextAds: Envision Next-Generation Personalized Video Advertising
 <div align="center">
   <h3>
     👉 <a href="https://ruoxuanxia.github.io/NextAds/" target="_blank">Click Here to Visit Our Project Page</a> 👈
